@@ -1,120 +1,101 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Box, Select } from '@chakra-ui/react';
 import { Categories, Companies, Localities, Modalities, Perks, Seniorities, Technologies } from '../models';
-import { getCategories, getCompanies, getLocalities, getModalities, getPerks, getSeniorities, getTechnologies } from '../services';
+import {
+	getCategories,
+	getCompanies,
+	getLocalities,
+	getModalities,
+	getPerks,
+	getSeniorities,
+	getTechnologies,
+} from '../services';
 import { FilterCategories } from './FilterCategories';
 import { FilterCompanies } from './FilterCompanies';
 import { FilterSeniorities } from './FilterSeniorities';
 
-
-
-
-
 export const Results = () => {
+	const [categories, setCategories] = useState({} as Categories);
+	const [companies, setCompanies] = useState({} as Companies);
+	const [localities, setLocalities] = useState({} as Localities);
+	const [modalities, setModalities] = useState({} as Modalities);
+	const [perks, setPerks] = useState({} as Perks);
+	const [seniorities, setSenorities] = useState({} as Seniorities);
+	const [technologies, setTechnologies] = useState({} as Technologies);
 
-    const [categories, setCategories] = useState({} as Categories)
-    const [companies, setCompanies] = useState({} as Companies)
-    const [localities, setLocalities] = useState({} as Localities)
-    const [modalities, setModalities] = useState({} as Modalities)
-    const [perks, setPerks] = useState({} as Perks)
-    const [seniorities, setSenorities] = useState({} as Seniorities)
-    const [technologies, setTechnologies] = useState({} as Technologies)
-
-
-
-    useEffect(() => {
-
-        const data = Promise.allSettled([getCategories(10,1), getCompanies(10,1), getLocalities(10,1), getModalities(10, 1)])
-	        
-        data.then(res => {
-            console.log(res);
-            
-        })
-        
+	useEffect(() => {
+		// const data = Promise.allSettled([
+		// 	getCategories(10, 1),
+		// 	getCompanies(10, 1),
+		// 	getLocalities(10, 1),
+		// 	getModalities(10, 1),
+		// ]);
+		// data.then((res) => {
+		// 	console.log(res);
+		// });
 		// getCategories().then(res => {
 		// 	setCategories(res)
-			
 		// })
-
 		// getCompanies().then(res => {
 		// 	setCompanies(res)
-			
 		// })
-
 		// getLocalities().then(res => {
 		// 	setLocalities(res)
-			
 		// })
-
 		// getModalities().then(res => {
 		// 	setModalities(res)
-			
 		// })
-
 		// getPerks().then(res => {
 		// 	setPerks(res)
-			
 		// })
-
 		// getSeniorities().then(res => {
 		// 	setSenorities(res)
-			
 		// })
-
 		// getTechnologies().then(res => {
 		// 	setTechnologies(res)
-			
 		// })
-		
-        // console.log(data);
-	}, [])
+		// console.log(data);
+	}, []);
 
-   
-    
-   
-  return (
-    <Box width={"100%"}>
+	return (
+		<Box width={'100%'}>
+			<FilterCategories />
 
-        {/* <FilterCategories/>
-        <FilterCompanies/>
-        <FilterSeniorities/> */}
-       
-        {/* <FilterCategories/>
-        <FilterCategories/>
-        <FilterCategories/>
-        <FilterCategories/> */}
-        {/* <Select
-          variant="outline"
-          placeholder="Categorías"
-          bg={"white"}
-          borderColor={"brand.700"}
-          focusBorderColor="brand.900"
-          color={"brand.700"}
-          fontWeight={"bold"}
-          _hover={{
-            cursor: "pointer",
-          }}
-          onChange={e => {
-                    console.log(e.target.value)
-          }}
-        >
-          { 
-          Array.isArray(categories?.data) ? 
-           
-            categories?.data.map(category => {
+			{/* 
+			<FilterCompanies />
+			<FilterSeniorities />
 
-                return <option key={category.id} value={category.id}>
-                    {category.attributes.name}
-                </option> 
-            })
-          
-            :
-           null
-        
-          }
-        </Select> */}
+			<FilterCategories />
+			<FilterCategories />
+			<FilterCategories />
+			<FilterCategories />
+			<Select
+				variant="outline"
+				placeholder="Categorías"
+				bg={'white'}
+				borderColor={'brand.700'}
+				focusBorderColor="brand.900"
+				color={'brand.700'}
+				fontWeight={'bold'}
+				_hover={{
+					cursor: 'pointer',
+				}}
+				onChange={(e) => {
+					console.log(e.target.value);
+				}}
+			>
+				{Array.isArray(categories?.data)
+					? categories?.data.map((category) => {
+							return (
+								<option key={category.id} value={category.id}>
+									{category.attributes.name}
+								</option>
+							);
+					  })
+					: null}
+			</Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Compañías"
           bg={"white"}
@@ -142,7 +123,7 @@ export const Results = () => {
           }
         </Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Localidades"
           bg={"white"}
@@ -170,7 +151,7 @@ export const Results = () => {
           }
         </Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Modalidades"
           bg={"white"}
@@ -198,7 +179,7 @@ export const Results = () => {
           }
         </Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Beneficios"
           bg={"white"}
@@ -226,7 +207,7 @@ export const Results = () => {
           }
         </Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Seniority"
           bg={"white"}
@@ -254,7 +235,7 @@ export const Results = () => {
           }
         </Select> */}
 
-        {/* <Select
+			{/* <Select
           variant="outline"
           placeholder="Tecnologías"
           bg={"white"}
@@ -281,7 +262,6 @@ export const Results = () => {
         
           }
         </Select> */}
-
-    </Box>
-  )
-}
+		</Box>
+	);
+};

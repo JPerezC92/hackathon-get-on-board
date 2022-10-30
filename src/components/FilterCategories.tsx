@@ -1,59 +1,53 @@
-import { Select } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import { Categories } from '../models'
-import { getCategories } from '../services'
-    
+import { Select } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { Categories } from '../models';
+import { getCategories, searchCategory } from '../services';
 
 export const FilterCategories = () => {
-    // const { data, isSuccess } = useQuery(['categories'], () => getCategories)
+	const [category, setCategory] = React.useState('');
 
-    const [categories, setCategories] = useState({} as Categories)
+	const { data: categoriesList } = useQuery(['categories'], async ({ signal }) => await getCategories(signal));
+	const { data: categoriesResult } = useQuery(
+		['SEARCH_CATEGORIES', category],
+		async ({ signal }) => await searchCategory(category, signal),
+		{ enabled: !!category },
+	);
 
-    useEffect(() => {
+	// const [categories, setCategories] = useState({} as Categories);
 
-        getCategories().then(res => {
-            setCategories(res);    
-        })
-        
-    }, [])
-  
+	// useEffect(() => {
+	// 	getCategories().then((res) => {
+	// 		setCategories(res);
+	// 	});
+	// }, []);
 
-  return (
-    <div>
+	if (!categoriesList || !categoriesList) {
+		return null;
+	}
 
-        <Select
-          variant="outline"
-          placeholder="Categorías"
-          bg={"white"}
-          borderColor={"brand.700"}
-          focusBorderColor="brand.900"
-          color={"brand.700"}
-          fontWeight={"bold"}
-          _hover={{
-            cursor: "pointer",
-          }}
-          onChange={e => {
-                    console.log(e.target.value)
-          }}
-        >
-          { 
-          Array.isArray(categories?.data) ? 
-           
-            categories?.data.map(category => {
+	return (
+		<div>
+			<div>currentCategory {category}</div>
+			<Select
+				variant="outline"
+				placeholder="Categorías"
+				bg={'white'}
+				borderColor={'brand.700'}
+				focusBorderColor="brand.900"
+				color={'brand.700'}
+				fontWeight={'bold'}
+				_hover={{
+					cursor: 'pointer',
+				}}
+				onChange={(e) => setCategory(e.target.value)}
+			>
+				{categoriesList.data.map((v) => (
+					<option key={v.id}>{v.attributes.name}</option>
+				))}
+			</Select>
 
-                return <option key={category.id} value={category.id}>
-                    {category.attributes.name}
-                </option> 
-            })
-          
-            :
-           null
-        
-          }
-        </Select>
-
-
-    </div>
-  )
-}
+			<div>{categoriesResult && categoriesResult?.map((v) => <li key={v.id}>{v.id}</li>)}</div>
+		</div>
+	);
+};
