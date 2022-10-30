@@ -1,13 +1,13 @@
 {
 	"name": "hackathon-get-on-board",
-	"private": true,
+	"private": false,
 	"version": "0.0.0",
-	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"lint": "eslint . --ext .ts,.tsx"
+		"lint": "eslint . --ext .ts,.tsx",
+		"gen:theme-typings": "chakra-cli tokens ./src/theme/index.ts"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "2.3.6",
@@ -31,6 +31,9 @@
 	},
 	"devDependencies": {
 		"@babel/core": "7.19.6",
+		"@chakra-ui/cli": "2.1.8",
+		"@chakra-ui/styled-system": "2.3.4",
+		"@types/node": "18.11.7",
 		"@types/react": "18.0.22",
 		"@types/react-dom": "18.0.7",
 		"@vitejs/plugin-react": "2.2.0",
@@ -38,3 +41,4 @@
 		"vite": "3.2.0"
 	}
 }
+

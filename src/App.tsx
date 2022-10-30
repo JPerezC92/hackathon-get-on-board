@@ -1,15 +1,23 @@
 
-import Layout from './layout';
-import { Results } from './components/Results';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Nabvar } from './components/Navbar';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
 
 
 function App() {
-	
+
 	return (
-		<Layout>
-			<Results/>
-		</Layout>
+		<>
+			<Router>
+				<Nabvar />
+
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/login" element={<LoginPage />} />
+				</Routes>
+			</Router>
+		</>
 	);
 }
 
