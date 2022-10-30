@@ -29,7 +29,7 @@ const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) 
 			fontWeight="medium"
 			py="1"
 			px="2"
-			color="blue.400"
+			color="primary-ligth.400"
 			textAlign="center"
 			display="inline-flex"
 			alignItems="center"
@@ -48,7 +48,7 @@ export const Nabvar = () => {
 		<Flex
 			as="header"
 			borderBlockEnd="1px"
-			borderBottomColor="blue.300"
+			borderBottomColor="primary-ligth.400"
 			py="4"
 			px={['2', null, null, '4']}
 			alignItems="center"
@@ -102,7 +102,7 @@ export const Nabvar = () => {
 							display={['inline-flex', null, null, 'none']}
 							onClick={onToggle}
 							variant="ghost"
-							color="blue.400"
+							color="primary-ligth.400"
 							aria-label="nav-menu"
 						/>
 					)}
