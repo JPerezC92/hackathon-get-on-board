@@ -1,12 +1,17 @@
-import { Button } from '@chakra-ui/react';
+
 import Layout from './layout';
+import { Results } from './components/Results';
+
+
 
 function App() {
+	
 	return (
 		<Layout>
-			<Button>HackaJob</Button>
+			<Results/>
 		</Layout>
 	);
 }
 
 export default App;
+
