@@ -1,0 +1,7 @@
+import React from 'react';
+#STYLE#
+type #NAME#Props = {};
+
+export const #NAME#: React.FC<#NAME#Props> = ({}) => {
+    return <div>#NAME#</div>;
+};

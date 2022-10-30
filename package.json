@@ -13,6 +13,7 @@
 		"@chakra-ui/react": "2.3.6",
 		"@emotion/react": "11",
 		"@emotion/styled": "11",
+		"@tanstack/react-query": "^4.13.4",
 		"@typescript-eslint/eslint-plugin": "5.41.0",
 		"@typescript-eslint/parser": "5.41.0",
 		"axios": "1.1.3",
@@ -36,8 +37,8 @@
 		"@types/react": "18.0.22",
 		"@types/react-dom": "18.0.7",
 		"@vitejs/plugin-react": "2.2.0",
+		"reactcci": "^1.11.1",
 		"typescript": "4.6.4",
 		"vite": "3.2.0"
 	}
 }
-
