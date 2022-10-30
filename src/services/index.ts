@@ -5,3 +5,5 @@ export * from "./getSeniorities"
 export * from "./getPerks" 
 export * from "./getLocalities" 
 export * from "./getTechnologies" 
+export * from "./getSearch" 
+

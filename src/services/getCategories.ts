@@ -15,6 +15,18 @@ export const getCategories = async (abortSignal?: AbortSignal) => {
 	return categories;
 };
 
+export const getJobsCategories = async (query: string) => {
+	const response = await axios(
+		// `${import.meta.env.VITE_API_GETONBOARD_CATEGORIES}${params}`
+		`https://www.getonbrd.com/api/v0/categories/${query
+			.toLowerCase()
+			.trim()}/jobs?per_page=10&page=1&expand=["company"]`,
+	);
+
+	const data = await response.data;
+	return data;
+};
+
 export const searchCategory = async (category: string, abortSignal?: AbortSignal): Promise<JobEndpoint[]> => {
 	const response = await axios(
 		`https://www.getonbrd.com/api/v0/categories/${category
