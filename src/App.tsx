@@ -1,11 +1,20 @@
-import { Button } from '@chakra-ui/react';
-import Layout from './layout';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Nabvar } from './components/Navbar';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
 
 function App() {
 	return (
-		<Layout>
-			<Button>HackaJob</Button>
-		</Layout>
+		<>
+			<Router>
+				<Nabvar />
+
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/login" element={<LoginPage />} />
+				</Routes>
+			</Router>
+		</>
 	);
 }
 
