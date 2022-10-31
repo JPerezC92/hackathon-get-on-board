@@ -11,9 +11,10 @@ import {
 	ModalOverlay,
 	VStack,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 import { useEffect, useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import { Link as RouterLink } from 'react-router-dom';
+import { webRoutes } from '../utilities/web.routes';
 
 export function ModalSignIn() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ export function ModalSignIn() {
 		setIsOpen(false);
 	};
 
-	const onSubmit = (e: any) => {
+	const onSubmit = (e: React.FormEvent<HTMLDivElement>) => {
 		e.preventDefault();
 	};
 
@@ -41,7 +42,7 @@ export function ModalSignIn() {
 			<ModalContent maxWidth={450}>
 				<ModalHeader textAlign={'center'}>Disfruta toda la experiencia</ModalHeader>
 				<ModalBody>
-					<VStack as={'form'} onSubmit={onSubmit}>
+					<VStack as="form" onSubmit={onSubmit}>
 						<FormControl isRequired>
 							<FormLabel>Email</FormLabel>
 							<Input type="email" placeholder="example@example.com" />
@@ -58,7 +59,7 @@ export function ModalSignIn() {
 								Google
 							</Button>
 						</VStack>
-						<Link as={RouterLink} to="/register">
+						<Link as={RouterLink} to={webRoutes.register}>
 							Si no tienes cuenta, regístrate
 						</Link>
 					</VStack>
@@ -67,4 +68,3 @@ export function ModalSignIn() {
 		</Modal>
 	);
 }
-
