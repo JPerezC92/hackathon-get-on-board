@@ -4,6 +4,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { IoMdWifi } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { Job } from '../../models/Job';
+import { LSKeys } from '../../utilities/localStorageKeys';
 import { perksIcons } from './perksIcons';
 interface JobCardProps {
 	job: Job;
@@ -12,19 +13,22 @@ interface JobCardProps {
 export const JobCard: React.FC<JobCardProps> = ({ job }) => {
 	const navigate = useNavigate();
 
+	const handleOnClick = () => {
+		window.localStorage.setItem(LSKeys.jobDetail, JSON.stringify(job));
+		navigate('/jobs/' + job.id);
+	};
+
 	return (
 		<Box
 			as="button"
-			onClick={() => {
-				window.localStorage.setItem('job', JSON.stringify(job));
-				navigate('/jobs');
-			}}
+			onClick={handleOnClick}
 			border="1px"
-			borderColor="gray.300"
+			borderColor="primary-ligth.200"
 			borderRadius="xl"
 			display="flex"
 			flexDirection="column"
 			backgroundColor="primary-ligth.400"
+			boxShadow="sm"
 		>
 			<Text
 				as="span"
@@ -89,12 +93,12 @@ export const JobCard: React.FC<JobCardProps> = ({ job }) => {
 						borderRadius="md"
 					/>
 
-					<Text fontWeight="medium" fontSize="lg">
+					<Text fontWeight="medium" fontSize="lg" color="primary-ligth.700">
 						{job.company.name}
 					</Text>
 				</Box>
 
-				<Heading size="md" textAlign="left">
+				<Heading size="md" textAlign="left" color="primary.600">
 					{job.title}{' '}
 					<Text as="small" fontWeight="medium" color="gray" whiteSpace="nowrap">
 						{job.modality}

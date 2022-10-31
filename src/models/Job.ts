@@ -1,4 +1,4 @@
-import { Company } from '../adapters/Company';
+import { Company } from './company.model';
 
 interface JobProps {
 	id: string;
@@ -27,6 +27,7 @@ interface JobProps {
 	response_time_in_days_max: number | null;
 	company: Company;
 	modality: string;
+	applications_count: number;
 }
 
 export class Job {
@@ -56,6 +57,7 @@ export class Job {
 	readonly response_time_in_days_max: number | null;
 	readonly company: Company;
 	readonly modality: string;
+	readonly applications_count: number;
 
 	constructor(props: JobProps) {
 		this.id = props.id;
@@ -84,6 +86,7 @@ export class Job {
 		this.response_time_in_days_max = props.response_time_in_days_max;
 		this.company = props.company;
 		this.modality = props.modality;
+		this.applications_count = props.applications_count;
 	}
 
 	static create(jobProps: JobProps): Job {

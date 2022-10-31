@@ -1,6 +1,6 @@
 import { Job } from '../models/Job';
 import { JobEndpoint } from '../schemas/jobEndpoint.schema';
-import { CompanyEndpointToModel } from './CompanyEndpointToModel.adapter';
+import { CompanyEndpointToModel } from './companyEndpointToModel.adapter';
 
 export const JobEndpointToModel = (jobEndpoint: JobEndpoint): Job => {
 	return Job.create({
