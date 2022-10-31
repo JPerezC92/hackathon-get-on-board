@@ -1,18 +1,21 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import './index.css';
-import { theme } from './theme';
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
-		<ChakraProvider theme={theme}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</ChakraProvider>
-	</React.StrictMode>,
+import App from "./App";
+import "./index.css";
+import { theme } from "./theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChakraProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
