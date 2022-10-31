@@ -1,4 +1,6 @@
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
+import { HomePage } from '../pages/HomePage';
+import { LoginPage } from '../pages/LoginPage';
 import { ProtectedRoute } from './components';
 
 export function Routes() {
@@ -7,11 +9,11 @@ export function Routes() {
 			{
 				// Public routes
 			}
-			<Route index path="" element={<p>Home page</p>} />;
-			<Route path="/login" element={<p>Login page</p>} />;
+			<Route index path="" element={<HomePage />} />;
+			<Route path="/login" element={<LoginPage />} />;
 			<Route path="/register" element={<p>Register page</p>} />;
-			<Route path="/jobs" element={<p>All Jobs page</p>}></Route>;
-			<Route path="/companies" element={<p>Companies page</p>}></Route>
+			<Route path="/jobs" element={<p>All Jobs page</p>} />;
+			<Route path="/companies" element={<p>Companies page</p>} />;
 			{
 				// Protected routes
 			}
