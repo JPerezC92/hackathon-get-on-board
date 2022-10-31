@@ -22,12 +22,14 @@ specifiers:
   framer-motion: '6'
   prettier: 2.7.1
   react: 18.2.0
+  react-country-flag: ^3.0.2
   react-dom: 18.2.0
   react-icons: 4.6.0
   react-query: ^3.39.2
   react-router-dom: 6.4.2
   typescript: 4.6.4
   vite: 3.2.0
+  zod: ^3.19.1
 
 dependencies:
   '@chakra-ui/react': 2.3.6_e75ce67aepd6uasgyqo5gpgeli
@@ -44,10 +46,12 @@ dependencies:
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   prettier: 2.7.1
   react: 18.2.0
+  react-country-flag: 3.0.2_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.4.2_biqbaboplfbrettd7655fr4n2y
+  zod: 3.19.1
 
 devDependencies:
   '@babel/core': 7.19.6
@@ -4834,6 +4838,15 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-country-flag/3.0.2_react@18.2.0:
+    resolution: {integrity: sha512-JPaz+q3QD0/nZtHBKj5x3O7r/SgSG9kxbymdaIU0RqlDAcorJIe4KV0DFhWIdKh69q5cPVkIVERcMYGZdvXgAA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -5692,4 +5705,8 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
     dev: false
