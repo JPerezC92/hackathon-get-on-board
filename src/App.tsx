@@ -1,12 +1,14 @@
-import { Button } from '@chakra-ui/react';
-import Layout from './layout';
+import { Routes } from './routes';
+import { Nabvar } from './components/Navbar';
 
 function App() {
 	return (
-		<Layout>
-			<Button>HackaJob</Button>
-		</Layout>
+		<>
+			<Nabvar />
+			<Routes />
+		</>
 	);
 }
 
 export default App;
+
