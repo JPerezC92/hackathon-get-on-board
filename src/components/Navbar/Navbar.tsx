@@ -46,6 +46,7 @@ export const Nabvar = () => {
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	return (
 		<Flex
+			zIndex="1"
 			as="header"
 			borderBlockEnd="1px"
 			borderBottomColor="primary-ligth.400"
