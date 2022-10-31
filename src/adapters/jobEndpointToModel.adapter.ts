@@ -1,4 +1,4 @@
-import { Job } from '../models/Job';
+import { Job } from '../models/job.model.ts';
 import { JobEndpoint } from '../schemas/jobEndpoint.schema';
 import { CompanyEndpointToModel } from './companyEndpointToModel.adapter';
 

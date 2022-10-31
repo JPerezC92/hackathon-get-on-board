@@ -1,7 +1,6 @@
 import React from 'react';
 
-type RegisterPageProps = {};
 
-export const RegisterPage: React.FC<RegisterPageProps> = ({}) => {
-    return <div>RegisterPage</div>;
+export const RegisterPage: React.FC = () => {
+	return <div>RegisterPage</div>;
 };

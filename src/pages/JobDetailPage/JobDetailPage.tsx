@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { BiMoney } from 'react-icons/bi';
-import { Job } from '../../models/Job';
+import { Job } from '../../models/job.model.ts';
 import { LSKeys } from '../../utilities/localStorageKeys';
 
 export const JobDetailPage: React.FC = () => {

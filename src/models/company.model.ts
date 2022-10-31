@@ -4,15 +4,15 @@ interface CompanyProps {
 	name: string;
 	description: string;
 	long_description: string;
-	projects: string;
-	benefits: string;
+	projects: string | null;
+	benefits: string | null;
 	web: string;
 	twitter: string;
 	github: string;
 	facebook: string;
-	angellist: string;
+	angellist: string | null;
 	country: string;
-	logo: string;
+	logo: string | null;
 }
 
 export class Company {
@@ -21,15 +21,15 @@ export class Company {
 	readonly name: string;
 	readonly description: string;
 	readonly long_description: string;
-	readonly projects: string;
-	readonly benefits: string;
+	readonly projects: string | null;
+	readonly benefits: string | null;
 	readonly web: string;
 	readonly twitter: string;
 	readonly github: string;
 	readonly facebook: string;
-	readonly angellist: string;
+	readonly angellist: string | null;
 	readonly country: string;
-	readonly logo: string;
+	readonly logo: string | null;
 
 	constructor(companyProps: CompanyProps) {
 		this.id = companyProps.id;
