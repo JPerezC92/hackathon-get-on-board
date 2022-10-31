@@ -7,6 +7,7 @@ specifiers:
   '@chakra-ui/styled-system': 2.3.4
   '@emotion/react': '11'
   '@emotion/styled': '11'
+  '@tanstack/react-query': ^4.13.5
   '@types/node': 18.11.7
   '@types/react': 18.0.22
   '@types/react-dom': 18.0.7
@@ -33,6 +34,7 @@ dependencies:
   '@chakra-ui/react': 2.3.6_e75ce67aepd6uasgyqo5gpgeli
   '@emotion/react': 11.10.5_j3ctw6qhjdd5hv3baffe7ftdum
   '@emotion/styled': 11.10.5_yj5qzm3bonp2u3fes57tcpm4qm
+  '@tanstack/react-query': 4.13.5_biqbaboplfbrettd7655fr4n2y
   '@typescript-eslint/eslint-plugin': 5.41.0_ffukdn5orh6tcfytlcazewwqli
   '@typescript-eslint/parser': 5.41.0_t64u7vh5pvkzkn6jnkohfgcmb4
   axios: 1.1.3
@@ -2396,6 +2398,28 @@ packages:
     dependencies:
       defer-to-connect: 1.1.3
     dev: true
+
+  /@tanstack/query-core/4.13.4:
+    resolution: {integrity: sha512-DMIy6tgGehYoRUFyoR186+pQspOicyZNSGvBWxPc2CinHjWOQ7DPnGr9zmn/kE9xK4Zd3GXd25Nj3X20+TF6Lw==}
+    dev: false
+
+  /@tanstack/react-query/4.13.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-p2HcWGuqfvG7Pz04un4phWZeXzlITD7Ue0gMXjD56g8y3rP1r5qEYC/BckffrZLf4dZtQeVPCWOa8RYAqx036g==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.13.4
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
 
   /@tsconfig/node10/1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -5515,6 +5539,14 @@ packages:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.4.0
+    dev: false
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /util-deprecate/1.0.2:
