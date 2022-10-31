@@ -1,4 +1,4 @@
-import { Job } from '../models/job.model.ts';
+import { Job } from '../models/job.model';
 
 export const webRoutes = {
 	root: '/',

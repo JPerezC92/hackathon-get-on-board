@@ -3,7 +3,7 @@ import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { IoMdWifi } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { Job } from '../../models/job.model.ts';
+import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
 import { perksIcons } from './perksIcons';
 interface JobCardProps {
