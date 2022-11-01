@@ -6,10 +6,10 @@ export interface CompaniesJobs {
 }
 
 interface Datum {
-	id?: string;
-	type?: string;
-	attributes?: Attributes2;
-	links?: Links;
+	id: string;
+	type: string;
+	attributes: Attributes2;
+	links: Links;
 }
 
 interface Links {

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Flex, Spinner, Stack, Text } from '@chakra-ui/react';
+import { Flex, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react';
 import { CategoriesJobs, CompaniesJobs } from '../models';
 import { Pagination } from './Pagination';
 import { getSeniorities } from '../services';
+import { JobCard } from './JobCard';
 
 interface Props {
 	inputSearch: string;
@@ -15,7 +16,7 @@ interface Props {
 	perPage: number;
 }
 
-export const Results = ({
+export const Search = ({
 	inputSearch,
 	resultsCategories,
 	resultsCompanies,
@@ -46,7 +47,7 @@ export const Results = ({
 				setPerPage={setPerPage}
 			/>
 
-			<Stack width={'100%'}>
+			<SimpleGrid minChildWidth="400px" spacing="40px">
 				{resultsCategories.data
 					? resultsCategories.data
 							.filter((d) => {
@@ -66,7 +67,7 @@ export const Results = ({
 								);
 							})
 							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
+								return <JobCard key={d.id} job={d} />;
 							})
 					: null}
 
@@ -83,10 +84,11 @@ export const Results = ({
 								);
 							})
 							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
+								return <JobCard key={d.id} job={d} />;
 							})
 					: null}
-			</Stack>
+			</SimpleGrid>
+
 			<Pagination
 				state={{ ...resultsCategories, ...resultsCompanies }}
 				setPage={setPage}

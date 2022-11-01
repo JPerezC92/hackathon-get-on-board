@@ -64,6 +64,7 @@ export const SearchInput = ({
 			if (endpoint === 'categories')
 				categoryResults(search).then((res) => {
 					setResultsCompanies({} as CompaniesJobs);
+
 					setResultsCategories(res);
 				});
 		}

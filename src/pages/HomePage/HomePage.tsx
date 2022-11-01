@@ -17,17 +17,17 @@
 // 		return await getCategories(signal);
 // 	});
 
-// 	// const { data: jobResultByCategory } = useQuery(
-// 	// 	['CATEGORIES_SEARCH_JOB', filterValue],
-// 	// 	async ({ signal }) => {
-// 	// 		return await getJobsCategories(filterValue, signal);
-// 	// 	},
-// 	// 	{ enabled: !!categoryList && !!filterValue },
-// 	// );
+// 	const { data: jobResultByCategory } = useQuery(
+// 		['CATEGORIES_SEARCH_JOB', filterValue],
+// 		async ({ signal }) => {
+// 			return await getJobsCategories(filterValue, signal);
+// 		},
+// 		{ enabled: !!categoryList && !!filterValue },
+// 	);
 
-// 	// if (!categoryList || !jobResultByCategory) {
-// 	// 	return <>loading</>;
-// 	// }
+// 	if (!categoryList || !jobResultByCategory) {
+// 		return <>loading</>;
+// 	}
 
 // 	return (
 // 		<div>
@@ -82,8 +82,12 @@
 // 	);
 // };
 
-import React from 'react';
-
-export default function HomePage() {
-	return <div>HomePage</div>;
-}
+import { Filters } from '../../components';
+import Layout from '../../layout';
+export const HomePage = () => {
+	return (
+		<Layout>
+			<Filters />
+		</Layout>
+	);
+};

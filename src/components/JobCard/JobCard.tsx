@@ -3,14 +3,16 @@ import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { IoMdWifi } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { CategoriesJobs, CompaniesJobs, Datum } from '../../models';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
 import { perksIcons } from './perksIcons';
 interface JobCardProps {
-	job: Job;
+	// job: Job;
+	job: Datum;
 }
 
-export const JobCard: React.FC<JobCardProps> = ({ job }) => {
+export const JobCard = ({ job }: JobCardProps) => {
 	const navigate = useNavigate();
 
 	const handleOnClick = () => {
@@ -41,17 +43,22 @@ export const JobCard: React.FC<JobCardProps> = ({ job }) => {
 				alignItems="center"
 				my="2"
 			>
-				{job.remote ? (
+				{job.attributes.remote ? (
 					<>
 						<Box as="i" display="contents">
 							<Icon as={IoMdWifi} />
 						</Box>
-						({job.company.country})
+						({job.attributes.company.data.attributes.country})
 					</>
 				) : (
 					<>
-						<Box as={ReactCountryFlag} countryCode={job.company.country} svg fontSize="2xl" />
-						<Box as="span">{job.country}</Box>
+						<Box
+							as={ReactCountryFlag}
+							countryCode={job.attributes.company.data.attributes.country}
+							svg
+							fontSize="2xl"
+						/>
+						<Box as="span">{job.attributes.country}</Box>
 					</>
 				)}
 			</Text>
@@ -84,8 +91,8 @@ export const JobCard: React.FC<JobCardProps> = ({ job }) => {
 						transform="translateY(-2rem)"
 						as="img"
 						p="1"
-						src={job.company.logo}
-						alt={`${job.company.name} logo`}
+						src={job.attributes.company.data.attributes.logo}
+						alt={`${job.attributes.company.data.attributes.name} logo`}
 						maxWidth="16"
 						border="1px"
 						borderColor="primary-ligth.100"
@@ -94,19 +101,19 @@ export const JobCard: React.FC<JobCardProps> = ({ job }) => {
 					/>
 
 					<Text fontWeight="medium" fontSize="lg" color="primary-ligth.700">
-						{job.company.name}
+						{job.attributes.company.data.attributes.name}
 					</Text>
 				</Box>
 
 				<Heading size="md" textAlign="left" color="primary.600">
-					{job.title}{' '}
+					{job.attributes.title}{' '}
 					<Text as="small" fontWeight="medium" color="gray" whiteSpace="nowrap">
-						{job.modality}
+						{job.attributes.modality.data.type}
 					</Text>
 				</Heading>
 
 				<Box mt="auto" display={['none', null, null, 'flex']} gap="2" flexWrap="wrap">
-					{job.perks.slice(0, 6).map((perk) => (
+					{job.attributes.perks.slice(0, 6).map((perk) => (
 						// <Tooltip key={p} label={p.name}>
 						<Box as="i" key={perk}>
 							<Icon as={perksIcons[perk]} width="6" height="6" color="gray.400" />

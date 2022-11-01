@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Box, Flex, Heading, Radio, RadioGroup, Select, Stack } from '@chakra-ui/react';
-import { Categories, CategoriesJobs, Companies, CompaniesJobs } from '../models';
+import { CategoriesJobs, Companies, CompaniesJobs } from '../models';
 
 import { SearchInput } from './SearchInput';
-import { Results } from './Results';
+import { Search } from './Search';
 import { getCategories, getCompanies } from '../services';
+import { Category } from '../models/category.model';
 
 export const Filters = () => {
-	const [categories, setCategories] = useState({} as Categories);
+	const [categories, setCategories] = useState([] as Category[]);
 	const [companies, setCompanies] = useState({} as Companies);
 
 	const [search, setSearch] = useState<string>('programming');
@@ -23,7 +24,6 @@ export const Filters = () => {
 	const filterCatergories = async () => {
 		try {
 			setFilter('categories');
-
 			setPerPage(10);
 			setPage(1);
 			const result = await getCategories();
@@ -48,11 +48,10 @@ export const Filters = () => {
 
 	useEffect(() => {
 		filterCatergories();
-		// filterCompanies();
 	}, []);
 
 	return (
-		<Box width={{ xs: '100%', md: '50%' }} my={10} mx={'auto'}>
+		<Box my={10} mx={'auto'}>
 			<Heading as={'h1'} my={10} textAlign={'center'} color={'secondary.300'}>
 				Buscar Oportunidades de Empleo
 			</Heading>
@@ -122,11 +121,11 @@ export const Filters = () => {
 					disabled={filter === 'categories' ? false : true}
 				>
 					<>
-						{categories.data
-							? categories.data.map((category) => {
+						{categories
+							? categories.map((category) => {
 									return (
 										<option key={category.id} value={category.id}>
-											{category.attributes.name}
+											{category.name}
 										</option>
 									);
 							  })
@@ -135,7 +134,7 @@ export const Filters = () => {
 				</Select>
 			</Flex>
 
-			<Results
+			<Search
 				resultsCompanies={resultsCompanies}
 				resultsCategories={resultsCategories}
 				inputSearch={inputSearch}

@@ -27,8 +27,9 @@ export const getJobsCategories = async (query: string, perPage: number, page: nu
 	);
 
 	const result = await response.data;
-	const validatedResult = JobListEndpointSchema.parse(result);
-	return validatedResult.data.map(JobEndpointToModel);
+	return result;
+	// const validatedResult = JobListEndpointSchema.parse(result);
+	// return validatedResult.data.map(JobEndpointToModel);
 };
 
 // export const searchCategory = async (category: string, abortSignal?: AbortSignal): Promise<JobEndpoint[]> => {
