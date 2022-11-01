@@ -1,109 +1,100 @@
 import { useEffect, useState } from 'react';
-import { Box, Flex, Radio, RadioGroup, Select, Stack } from '@chakra-ui/react';
-import { Categories, Companies } from '../models';
-import { getCategories, getCompanies } from '../services';
-import { SearchInput } from './SearchInput';
+import { Flex, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react';
+import { CategoriesJobs, CompaniesJobs } from '../models';
+import { Pagination } from './Pagination';
+import { getSeniorities } from '../services';
+import { JobCard } from './JobCard';
 
-export const Search = () => {
-	const [categories, setCategories] = useState({} as Categories);
-	const [companies, setCompanies] = useState({} as Companies);
+interface Props {
+	inputSearch: string;
+	resultsCategories: CategoriesJobs;
+	resultsCompanies: CompaniesJobs;
 
-	const [search, setSearch] = useState<string>('programming');
-	const [filter, setFilter] = useState('categories');
+	setPage: React.Dispatch<React.SetStateAction<number>>;
+	setPerPage: React.Dispatch<React.SetStateAction<number>>;
+	page: number;
+	perPage: number;
+}
 
-	const filterCatergories = async () => {
-		try {
-			setSearch('');
-			setFilter('categories');
-			const result = await getCategories();
-			setCategories(result);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+export const Search = ({
+	inputSearch,
+	resultsCategories,
+	resultsCompanies,
+	page,
+	perPage,
+	setPage,
+	setPerPage,
+}: Props) => {
+	let query = inputSearch.toLocaleLowerCase();
+	const [seniorityState, setSeniorityState] = useState<{ id: string; seniority: string }[]>();
 
-	const filterCompanies = async () => {
-		try {
-			setSearch('');
-			setFilter('companies');
-			const result = await getCompanies();
-			setCompanies(result);
-		} catch (error) {
-			console.log(error);
-		}
+	let seniorityCode = async () => {
+		await getSeniorities().then((res) => {
+			setSeniorityState(res.data.map((el) => ({ id: el.id, seniority: el.attributes.name })));
+		});
 	};
 
 	useEffect(() => {
-		filterCatergories();
+		seniorityCode();
 	}, []);
 
 	return (
-		<Box width={'100%'}>
-			<RadioGroup defaultValue={filter}>
-				<Stack spacing={5} direction="row">
-					<Radio value="categories" onChange={() => filterCatergories()}>
-						Categorías
-					</Radio>
-					<Radio value="companies" onChange={() => filterCompanies()}>
-						Compañías
-					</Radio>
-				</Stack>
-			</RadioGroup>
+		<>
+			<Pagination
+				state={{ ...resultsCategories, ...resultsCompanies }}
+				setPage={setPage}
+				page={page}
+				setPerPage={setPerPage}
+			/>
 
-			<Flex>
-				<SearchInput setSearch={setSearch} search={search} endpoint={filter} />
+			<SimpleGrid minChildWidth="400px" spacing="40px">
+				{resultsCategories.data
+					? resultsCategories.data
+							.filter((d) => {
+								let perks = d.attributes.perks;
+								let seniorityId = d.attributes.seniority.data.id;
+								let perksList = perks.find((el) => el.includes(query));
+								let sr = seniorityState?.find((el) => el.id === seniorityId.toString())?.seniority;
 
-				<Select
-					variant="outline"
-					placeholder="Compañías"
-					bg={'white'}
-					borderColor={'brand.700'}
-					focusBorderColor="brand.900"
-					color={'brand.700'}
-					fontWeight={'bold'}
-					_hover={{
-						cursor: 'pointer',
-					}}
-					onChange={(e) => setSearch(e.target.value)}
-					disabled={filter === 'companies' ? false : true}
-				>
-					{companies.data
-						? companies.data.map((company) => {
 								return (
-									<option key={company.id} value={company.id}>
-										{company.attributes.name}
-									</option>
+									d.attributes?.title.toLowerCase().includes(query) ||
+									d.attributes?.category_name.toLowerCase().includes(query) ||
+									d.attributes?.country.toLowerCase().includes(query) ||
+									d.attributes?.max_salary?.toString().toLowerCase().includes(query) ||
+									d.attributes?.min_salary?.toString().toLowerCase().includes(query) ||
+									sr?.toLowerCase() === query ||
+									perksList
 								);
-						  })
-						: null}
-				</Select>
-				<Select
-					variant="outline"
-					placeholder="Categorías"
-					bg={'white'}
-					borderColor={'brand.700'}
-					focusBorderColor="brand.900"
-					color={'brand.700'}
-					fontWeight={'bold'}
-					_hover={{
-						cursor: 'pointer',
-					}}
-					onChange={(e) => setSearch(e.target.value)}
-					disabled={filter === 'categories' ? false : true}
-				>
-					<>
-						{categories.data
-							? categories.data.map((category) => {
-									return (
-										<option key={category.id} value={category.id}>
-											{category.attributes.name}
-										</option>
-									);
-							  })
-							: null}
-					</>
-				</Select>
-			</Flex>
-		</Box>
+							})
+							.map((d) => {
+								return <JobCard key={d.id} job={d} />;
+							})
+					: null}
+
+				{resultsCompanies.data
+					? resultsCompanies.data
+
+							.filter((d) => {
+								return (
+									d.attributes?.title.toLowerCase().includes(query) ||
+									d.attributes?.category_name.toLowerCase().includes(query) ||
+									d.attributes?.country.toLowerCase().includes(query) ||
+									d.attributes?.max_salary?.toString().toLowerCase().includes(query) ||
+									d.attributes?.min_salary?.toString().toLowerCase().includes(query)
+								);
+							})
+							.map((d) => {
+								return <JobCard key={d.id} job={d} />;
+							})
+					: null}
+			</SimpleGrid>
+
+			<Pagination
+				state={{ ...resultsCategories, ...resultsCompanies }}
+				setPage={setPage}
+				page={page}
+				setPerPage={setPerPage}
+			/>
+		</>
 	);
 };
