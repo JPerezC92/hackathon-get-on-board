@@ -8,5 +8,6 @@ export const webRoutes = {
 	disconect: '/disconect',
 	profile: '/profile',
 	companies: '/companies',
+	recover: '/recover',
 	jobsId: (jobId: Job['id']) => `'/jobs'/${jobId}`,
 };

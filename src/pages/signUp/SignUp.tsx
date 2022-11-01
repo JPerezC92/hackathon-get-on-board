@@ -54,7 +54,6 @@ const SignUp = () => {
 		try {
 			await signUp(formValues.email, formValues.password);
 		} catch (error) {
-			console.log(error);
 			setFormErrors({ ...formErrors, email: 'El correo electronico ya ha sido usado' });
 		}
 	};

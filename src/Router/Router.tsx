@@ -1,5 +1,5 @@
-import { Flex, Spinner } from '@chakra-ui/react';
 import React, { lazy, Suspense } from 'react';
+import { Flex, Spinner } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom';
 import { Nabvar } from '../components/Navbar';
 import { JobDetailPage } from '../pages/JobDetailPage';
@@ -34,7 +34,9 @@ export function Router() {
 								</Flex>
 							}
 						>
-							<SignIn />
+							<OnlyGuestRoute>
+								<SignIn />
+							</OnlyGuestRoute>
 						</Suspense>
 					}
 				/>
@@ -48,11 +50,14 @@ export function Router() {
 								</Flex>
 							}
 						>
-							<SignUp />
+							<OnlyGuestRoute>
+								<SignUp />
+							</OnlyGuestRoute>
 						</Suspense>
 					}
 				/>
 				<Route path={webRoutes.companies} element={<p>Companies page</p>} />
+
 				<Route
 					index
 					path={webRoutes.root}
@@ -68,6 +73,25 @@ export function Router() {
 						</Suspense>
 					}
 				/>
+
+				<Route
+					index
+					path={webRoutes.recover}
+					element={
+						<Suspense
+							fallback={
+								<Flex alignItems={'center'} justifyContent={'center'} py={10}>
+									<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
+								</Flex>
+							}
+						>
+							<OnlyGuestRoute>
+								<Recover />
+							</OnlyGuestRoute>
+						</Suspense>
+					}
+				/>
+
 				<Route path={webRoutes.jobs + '/:id'} element={<JobDetailPage />} />
 				{
 					// Protected routes

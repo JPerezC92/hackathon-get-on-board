@@ -12,7 +12,6 @@ export function ProtectedRoute(props: ProtectedRouteProps) {
 	// From useAuth()
 	// { user } => undefined, null, object
 	const { user } = useAuth();
-	console.log(user)
 
 	if (user === null) return <Navigate to={redirectPath} replace />;
 	return props.children;
@@ -21,7 +20,6 @@ export function ProtectedRoute(props: ProtectedRouteProps) {
 export function OnlyGuestRoute(props: ProtectedRouteProps) {
 	const { redirectPath = '/' } = props;
 	const { user } = useAuth();
-	console.log(user)
 
 	if (user !== null) return <Navigate to={redirectPath} replace />;
 	return props.children;
