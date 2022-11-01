@@ -10,7 +10,10 @@ import {
 	signInWithPopup as loginWithPopup,
 	signOut as logOut,
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 import { ICreateUser, IUser } from '../models';
+import { getUser, createUser } from '../services';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,29 +30,30 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
 
 // Auth methods
 export const singInWithEmailAndPassword = async (email: string, password: string) => {
 	const res = await loginWithEmailAndPassword(auth, email, password);
-	// TODO get user by uid with UsersService
-	return res.user;
+	const user = getUser(res.user.uid);
+	return user;
 };
 
 export const singInWithGoogle = async (): Promise<IUser> => {
 	const res = await loginWithPopup(auth, googleProvider);
-	// TODO save user with UsersService
-	return res.user;
+	const user = getUser(res.user.uid);
+	return user;
 };
 
 export const registerWithEmailAndPassword = async (data: ICreateUser): Promise<IUser> => {
 	const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
-	// TODO save user with UsersService
-	return res.user;
+	const user = await createUser({ ...data, uid: res.user.uid });
+	return user;
 };
 
 export const singOut = async () => {

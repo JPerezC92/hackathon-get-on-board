@@ -3,8 +3,8 @@ import { Button, ButtonGroup, Box, Text, Stack, Select } from '@chakra-ui/react'
 interface Props {
 	state: any;
 	page: number;
-	setPage: (number: number) => void;
-	setPerPage: (number: number) => void;
+	setPage: React.Dispatch<React.SetStateAction<number>>;
+	setPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const Pagination = ({ state, setPage, page, setPerPage }: Props) => {
@@ -21,11 +21,11 @@ export const Pagination = ({ state, setPage, page, setPerPage }: Props) => {
 	};
 
 	const selectPages = (event: any) => {
-		setPerPage(event.target.value);
+		setPerPage(Number(event.target.value));
 	};
 
 	return (
-		<Box display="flex" alignItems="center" justifyContent="center" width="100%" py={12} mb={2}>
+		<Box display="flex" alignItems="center" justifyContent="center" width="100%" py={5} mb={2}>
 			<ButtonGroup gap="4">
 				<Text as="b" fontSize="md">
 					Page: {page} / {state?.meta?.total_pages}
@@ -37,10 +37,24 @@ export const Pagination = ({ state, setPage, page, setPerPage }: Props) => {
 						<option value={15}>15</option>
 					</Select>
 				</Stack>
-				<Button colorScheme="gray" variant="outline" onClick={onGoBack}>
+				<Button
+					colorScheme="gray"
+					variant="outline"
+					borderColor={'secondary.300'}
+					color={'secondary.400'}
+					fontWeight={'bold'}
+					onClick={onGoBack}
+				>
 					{'<'}
 				</Button>
-				<Button colorScheme="gray" variant="outline" onClick={onGoAhead}>
+				<Button
+					colorScheme="gray"
+					variant="outline"
+					borderColor={'secondary.300'}
+					color={'secondary.400'}
+					fontWeight={'bold'}
+					onClick={onGoAhead}
+				>
 					{'>'}
 				</Button>
 			</ButtonGroup>

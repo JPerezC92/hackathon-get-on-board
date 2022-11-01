@@ -69,7 +69,6 @@ const colors = {
 		800: '#381516',
 		900: '#180505',
 	},
-
 	['neutral-light']: {
 		50: '#dafcff',
 		100: '#aff0ff',

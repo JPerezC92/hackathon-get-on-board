@@ -5,7 +5,7 @@ export interface CategoriesJobs {
 	meta: Meta;
 }
 
-interface Datum {
+export interface Datum {
 	id: string;
 	type: string;
 	attributes: Attributes2;

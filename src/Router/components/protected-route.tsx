@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthProvider';
 
 interface ProtectedRouteProps {
 	redirectPath?: string;
@@ -10,9 +11,16 @@ export function ProtectedRoute(props: ProtectedRouteProps) {
 	const { redirectPath = '/login' } = props;
 	// From useAuth()
 	// { user } => undefined, null, object
-	const { user } = { user: {} };
+	const { user } = useAuth();
 
 	if (user === null) return <Navigate to={redirectPath} replace />;
 	return props.children;
 }
 
+export function OnlyGuestRoute(props: ProtectedRouteProps) {
+	const { redirectPath = '/' } = props;
+	const { user } = useAuth();
+
+	if (user !== null) return <Navigate to={redirectPath} replace />;
+	return props.children;
+}

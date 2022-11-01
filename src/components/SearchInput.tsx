@@ -1,75 +1,92 @@
 import React, { useEffect, useState } from 'react';
-import { Input, InputGroup, InputLeftElement, Stack, Text } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { getJobsCategories, getJobsCompanies } from '../services';
-
 import { CategoriesJobs, CompaniesJobs } from '../models';
 
-export const SearchInput = ({
-	setSearch,
-	search,
-	endpoint,
-}: {
+interface Props {
+	inputSearch: string;
+	setInputSearch: React.Dispatch<React.SetStateAction<string>>;
 	setSearch: React.Dispatch<React.SetStateAction<string>>;
 	search: string;
 	endpoint: string;
-}) => {
-	const [resultsCategories, setResultsCategories] = useState({} as CategoriesJobs);
-	const [resultsCompanies, setResultsCompanies] = useState({} as CompaniesJobs);
-	const [error, setError] = useState<unknown>();
-	const [loading, setLoading] = useState(true);
-	const [inputSearch, setInputSearch] = useState<string>('');
+	setResultsCompanies: React.Dispatch<React.SetStateAction<CompaniesJobs>>;
+	setResultsCategories: React.Dispatch<React.SetStateAction<CategoriesJobs>>;
 
+	setPage: React.Dispatch<React.SetStateAction<number>>;
+	setPerPage: React.Dispatch<React.SetStateAction<number>>;
+	page: number;
+	perPage: number;
+
+	error: unknown | Error;
+	loading: boolean;
+	setError: React.Dispatch<React.SetStateAction<boolean>>;
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const SearchInput = ({
+	inputSearch,
+	setInputSearch,
+	search,
+	endpoint,
+	setResultsCompanies,
+	setResultsCategories,
+	perPage,
+	page,
+	setLoading,
+	setError,
+}: Props) => {
 	const companyResults = async (name: string) => {
 		try {
 			setLoading(false);
-			const res = await getJobsCompanies(name, 10, 1);
+			setError(false);
+			const res = await getJobsCompanies(name, perPage, page);
 			return res;
 		} catch (error) {
-			setError(error);
+			setError(true);
 		}
 	};
 
 	const categoryResults = async (name: string) => {
 		try {
 			setLoading(false);
+			setError(false);
 
-			const res = await getJobsCategories(name);
+			const res = await getJobsCategories(name, perPage, page);
 			return res;
 		} catch (error) {
-			setError(error);
+			setError(true);
 		}
 	};
 
 	useEffect(() => {
 		if (search) {
-			setLoading(true);
-
 			if (endpoint === 'companies')
 				companyResults(search).then((res) => {
 					setResultsCategories({} as CategoriesJobs);
 					setResultsCompanies(res);
 				});
+
 			if (endpoint === 'categories')
 				categoryResults(search).then((res) => {
 					setResultsCompanies({} as CompaniesJobs);
+
 					setResultsCategories(res);
 				});
 		}
-	}, [endpoint, search]);
+	}, [endpoint, search, page, perPage]);
 
 	return (
 		<>
 			<InputGroup>
-				<InputLeftElement pointerEvents="none" children={<BiSearchAlt2 color="gray.300" />} />
+				<InputLeftElement pointerEvents="none" color={'secondary.500'} children={<BiSearchAlt2 />} />
 				<Input
 					type="search"
-					placeholder={'Buscar: Programacion...'}
+					placeholder={'Filtrar resultados...'}
 					bg={'white'}
-					borderColor={'brand.700'}
-					focusBorderColor="brand.900"
+					borderColor={'primary.700'}
 					_hover={{
-						borderColor: 'brand.700',
+						borderColor: 'primary.700',
 					}}
 					value={inputSearch}
 					onChange={(e) => {
@@ -77,27 +94,6 @@ export const SearchInput = ({
 					}}
 				/>
 			</InputGroup>
-			<Stack width={'100%'}>
-				{resultsCategories.data
-					? resultsCategories.data
-							.filter((d) => {
-								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
-							})
-							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
-							})
-					: null}
-
-				{resultsCompanies.data
-					? resultsCompanies.data
-							.filter((d) => {
-								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
-							})
-							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
-							})
-					: null}
-			</Stack>
 		</>
 	);
 };
