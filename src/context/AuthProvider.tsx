@@ -31,9 +31,9 @@ export interface AuthContextModel {
 	signUp: (email: string, password: string) => Promise<UserCredential>;
 	sendPasswordResetEmail?: (email: string) => Promise<void>;
 	resetPassword: (password: string) => Promise<void>;
-	changeEmail: (email: string) => Promise<void>|boolean;
-	changePassword: (password: string) => Promise<void>|boolean;
-	changeName: (name: string) => Promise<void>|boolean;
+	changeEmail: (email: string) => Promise<void> | boolean;
+	changePassword: (password: string) => Promise<void> | boolean;
+	changeName: (name: string) => Promise<void> | boolean;
 }
 
 export const AuthContext = createContext<AuthContextModel>({} as AuthContextModel);
@@ -43,50 +43,48 @@ export function useAuth(): AuthContextModel {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
-    const [user, setUser] = useState<User | null>(null);
+	const [user, setUser] = useState<User | null>(null);
 
-function signUp(email: string, password: string): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(auth, email, password);
-}
+	function signUp(email: string, password: string): Promise<UserCredential> {
+		return createUserWithEmailAndPassword(auth, email, password);
+	}
 
-function signIn(email: string, password: string): Promise<UserCredential> {
-    return signInWithEmailAndPassword(auth, email, password);
-}
-function resetPassword(email: string): Promise<void> {
-    return sendPasswordResetEmail(auth, email);
-}
-function changeEmail(email: string): Promise<void> | boolean {
-	if(user) return updateEmail(user, email);
-	return false;
-}
-function changePassword(password: string): Promise<void>| boolean{
-	if(user) return updatePassword(user, password);
-	return false;
-}
-function changeName(name: string): Promise<void>| boolean{
-	if(user) return updateProfile(user, {displayName: name});
-	return false;
-}
-useEffect(() => {
-    const userStatus = auth.onAuthStateChanged((user) => {
-        setUser(user);
-    });
-    return userStatus;
-}, []);
+	function signIn(email: string, password: string): Promise<UserCredential> {
+		return signInWithEmailAndPassword(auth, email, password);
+	}
+	function resetPassword(email: string): Promise<void> {
+		return sendPasswordResetEmail(auth, email);
+	}
+	function changeEmail(email: string): Promise<void> | boolean {
+		if (user) return updateEmail(user, email);
+		return false;
+	}
+	function changePassword(password: string): Promise<void> | boolean {
+		if (user) return updatePassword(user, password);
+		return false;
+	}
+	function changeName(name: string): Promise<void> | boolean {
+		if (user) return updateProfile(user, { displayName: name });
+		return false;
+	}
+	useEffect(() => {
+		const userStatus = auth.onAuthStateChanged((user) => {
+			setUser(user);
+		});
+		return userStatus;
+	}, []);
 
-console.log(user)
-
-const values = {
-    signUp,
-    user,
-    signIn,
-    resetPassword,
-    auth,
-	changeEmail,
-	changePassword,
-	changeName
-};
-return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
+	const values = {
+		signUp,
+		user,
+		signIn,
+		resetPassword,
+		auth,
+		changeEmail,
+		changePassword,
+		changeName,
+	};
+	return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 export const useUserContext = (): UserContextState => {

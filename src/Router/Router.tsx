@@ -1,11 +1,15 @@
+import { Flex, Spinner } from '@chakra-ui/react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom';
 import { Nabvar } from '../components/Navbar';
-import { HomePage } from '../pages/HomePage';
 import { JobDetailPage } from '../pages/JobDetailPage';
-import { LoginPage } from '../pages/LoginPage';
-import { RegisterPage } from '../pages/RegisterPage';
+
 import { webRoutes } from '../utilities/web.routes';
 import { ProtectedRoute } from './components';
+
+const SignIn = lazy(() => import('../pages/signIn/SignIn'));
+const SignUp = lazy(() => import('../pages/signUp/SignUp'));
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 
 export function Router() {
 	return (
@@ -16,11 +20,51 @@ export function Router() {
 				{
 					// Public routes
 				}
-				<Route index path={webRoutes.root} element={<HomePage />} />
-				<Route path={webRoutes.login} element={<LoginPage />} />
-				<Route path={webRoutes.register} element={<RegisterPage />} />
+				<Route
+					path={webRoutes.login}
+					element={
+						<Suspense
+							fallback={
+								<Flex alignItems={'center'} justifyContent={'center'} py={10}>
+									<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
+								</Flex>
+							}
+						>
+							<SignIn />
+						</Suspense>
+					}
+				/>
+				<Route
+					path={webRoutes.register}
+					element={
+						<Suspense
+							fallback={
+								<Flex alignItems={'center'} justifyContent={'center'} py={10}>
+									<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
+								</Flex>
+							}
+						>
+							<SignUp />
+						</Suspense>
+					}
+				/>
+				<Route path={webRoutes.companies} element={<p>Companies page</p>} />
+				<Route
+					index
+					path={webRoutes.root}
+					element={
+						<Suspense
+							fallback={
+								<Flex alignItems={'center'} justifyContent={'center'} py={10}>
+									<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
+								</Flex>
+							}
+						>
+							<HomePage />
+						</Suspense>
+					}
+				/>
 				<Route path={webRoutes.jobs + '/:id'} element={<JobDetailPage />} />
-				<Route path={webRoutes.companies} element={<p>Companies page</p>} />;
 				{
 					// Protected routes
 				}

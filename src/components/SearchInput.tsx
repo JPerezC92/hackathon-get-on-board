@@ -17,6 +17,11 @@ interface Props {
 	setPerPage: React.Dispatch<React.SetStateAction<number>>;
 	page: number;
 	perPage: number;
+
+	error: unknown | Error;
+	loading: boolean;
+	setError: React.Dispatch<React.SetStateAction<boolean>>;
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const SearchInput = ({
@@ -28,28 +33,29 @@ export const SearchInput = ({
 	setResultsCategories,
 	perPage,
 	page,
+	setLoading,
+	setError,
 }: Props) => {
-	const [error, setError] = useState<unknown>();
-	const [loading, setLoading] = useState(true);
-
 	const companyResults = async (name: string) => {
 		try {
 			setLoading(false);
+			setError(false);
 			const res = await getJobsCompanies(name, perPage, page);
 			return res;
 		} catch (error) {
-			setError(error);
+			setError(true);
 		}
 	};
 
 	const categoryResults = async (name: string) => {
 		try {
 			setLoading(false);
+			setError(false);
 
 			const res = await getJobsCategories(name, perPage, page);
 			return res;
 		} catch (error) {
-			setError(error);
+			setError(true);
 		}
 	};
 
@@ -91,27 +97,3 @@ export const SearchInput = ({
 		</>
 	);
 };
-
-{
-	/* <Stack width={'100%'}>
-				{resultsCategoriesJobs.data
-					? resultsCategoriesJobs.data
-							.filter((d) => {
-								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
-							})
-							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
-							})
-					: null}
-
-				{resultsCompanies.data
-					? resultsCompanies.data
-							.filter((d) => {
-								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
-							})
-							.map((d) => {
-								return <Text key={d.id}>{d.attributes?.title}</Text>;
-							})
-					: null}
-			</Stack> */
-}

@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthProvider';
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
+import { Flex } from '@chakra-ui/react';
 
 interface SignInFormValues {
 	email: string;
@@ -32,7 +33,6 @@ const SignIn = () => {
 				: setFormErrors({ email: '', password: 'Contraseña incorrecta' });
 		}
 	};
-	console.log(formErrors);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormValues({
@@ -46,37 +46,39 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="signInContainer">
-			<div className="signInHead">
-				<span>Iniciar sesion</span>
-			</div>
-			<form className="signInForm" onSubmit={handleSubmit}>
-				<label>
-					<span>Correo electronico</span>
-					<input type="email" name="email" id="email" onChange={handleInputChange} autoFocus/>
-				</label>
-				<label>
-					<span>Contrasena</span>
-					<input type="password" name="password" id="password" onChange={handleInputChange} />
-				</label>
-				<div>
-					<Link to={'/registro'}>No tengo una cuenta</Link>
-					<Link to={'/recuperacion'}>Recuperar contrasena</Link>
+		<Flex justifyContent={'center'} alignContent={'center'} pt={15}>
+			<div className="signInContainer">
+				<div className="signInHead">
+					<span>Iniciar sesion</span>
 				</div>
-				<button type="submit">Iniciar sesion</button>
-			</form>
-			<AnimatePresence>
-				{formErrors.email.length ? (
-					<ErrorDiv key="modal">{formErrors.email}</ErrorDiv>
-				) : formErrors.password ? (
-					<ErrorDiv key="modal2">{formErrors.password}</ErrorDiv>
-				) : null}
-			</AnimatePresence>
-			<img
-				src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-				alt="logo"
-			/>
-		</div>
+				<form className="signInForm" onSubmit={handleSubmit}>
+					<label>
+						<span>Correo electronico</span>
+						<input type="email" name="email" id="email" onChange={handleInputChange} autoFocus />
+					</label>
+					<label>
+						<span>Contrasena</span>
+						<input type="password" name="password" id="password" onChange={handleInputChange} />
+					</label>
+					<div>
+						<Link to={'/registro'}>No tengo una cuenta</Link>
+						<Link to={'/recuperacion'}>Recuperar contrasena</Link>
+					</div>
+					<button type="submit">Iniciar sesion</button>
+				</form>
+				<AnimatePresence>
+					{formErrors.email.length ? (
+						<ErrorDiv key="modal">{formErrors.email}</ErrorDiv>
+					) : formErrors.password ? (
+						<ErrorDiv key="modal2">{formErrors.password}</ErrorDiv>
+					) : null}
+				</AnimatePresence>
+				<img
+					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
+					alt="logo"
+				/>
+			</div>
+		</Flex>
 	);
 };
 

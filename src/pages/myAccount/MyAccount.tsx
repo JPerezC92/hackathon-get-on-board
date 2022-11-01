@@ -1,4 +1,3 @@
-
 import { useAuth } from '../../context/AuthProvider';
 import { useState, useEffect } from 'react';
 import './MyAccount.css';
@@ -24,11 +23,9 @@ const MyAccount = () => {
 
 	const { user, changeEmail, changePassword, changeName } = useAuth();
 
-	// console.log(success);
-
 	useEffect(() => {
 		let currentErrors: UpdateAccountForm = { ...initialValues };
-		if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length){
+		if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length) {
 			currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
 		}
 		if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(userData.password))
@@ -52,42 +49,41 @@ const MyAccount = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		let successMessage= '';
+		let successMessage = '';
 		let currentErrors: UpdateAccountForm = { ...initialValues };
 
 		if (Object.values(errors).some((error) => error !== '') || !user) return false;
 		const handleEmailChange = async () => {
-				try {
-					await changeEmail(userData.email);
-					successMessage += 'Email actualizado';
-				} catch (error) {
-					currentErrors.email += 'Email invalido';
-				}
+			try {
+				await changeEmail(userData.email);
+				successMessage += 'Email actualizado';
+			} catch (error) {
+				currentErrors.email += 'Email invalido';
+			}
 		};
 
 		const handlePasswordChange = async () => {
-				try {
-					await changePassword(userData.password);
-					successMessage += 'Contraseña actualizada';
-				} catch (error) {
-					currentErrors.password += 'Contraseña invalida';
-				}
+			try {
+				await changePassword(userData.password);
+				successMessage += 'Contraseña actualizada';
+			} catch (error) {
+				currentErrors.password += 'Contraseña invalida';
+			}
 		};
 
 		const handleNameChange = async () => {
-				try {
-					await changeName(userData.name);
-					successMessage += 'Nombre actualizado';
-				} catch (error) {
-					currentErrors.name += 'Nombre invalido';
-				}
+			try {
+				await changeName(userData.name);
+				successMessage += 'Nombre actualizado';
+			} catch (error) {
+				currentErrors.name += 'Nombre invalido';
+			}
 		};
 
 		if (userData.email && userData.password && userData.name) {
-			Promise.all([handleEmailChange(), handlePasswordChange(), handleNameChange()])
-			.then(() => {
+			Promise.all([handleEmailChange(), handlePasswordChange(), handleNameChange()]).then(() => {
 				setSuccess(successMessage);
-			})
+			});
 		} else if (userData.email) {
 			handleEmailChange().then(() => {
 				setErrors(currentErrors);
@@ -106,14 +102,14 @@ const MyAccount = () => {
 		}
 	};
 
-	const labelsProps={
+	const labelsProps = {
 		userData,
 		errors,
 		handleInputChange,
 		handleInputReset,
 		handleSubmit,
-		user
-	}
+		user,
+	};
 	if (!success)
 		return (
 			<div className="myAccountContainer">
@@ -121,9 +117,9 @@ const MyAccount = () => {
 					<span>Editar perfil</span>
 				</div>
 				<form className="myAccountForm" onSubmit={handleSubmit}>
-					<MyAccountLabels {...labelsProps} labelType={'email'}/>
-					<MyAccountLabels {...labelsProps} labelType={'name'}/>
-					<MyAccountLabels {...labelsProps} labelType={'password'}/>
+					<MyAccountLabels {...labelsProps} labelType={'email'} />
+					<MyAccountLabels {...labelsProps} labelType={'name'} />
+					<MyAccountLabels {...labelsProps} labelType={'password'} />
 					<div>
 						<button type="button" onClick={() => setUserData(initialValues)}>
 							Descartar

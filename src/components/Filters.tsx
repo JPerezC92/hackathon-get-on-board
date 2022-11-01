@@ -21,16 +21,18 @@ export const Filters = () => {
 	const [page, setPage] = useState<number>(1);
 	const [perPage, setPerPage] = useState<number>(10);
 
+	const [error, setError] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(true);
+
 	const filterCatergories = async () => {
 		try {
 			setFilter('categories');
+			setSearch('programming');
 			setPerPage(10);
 			setPage(1);
 			const result = await getCategories();
 			setCategories(result);
-		} catch (error) {
-			console.log(error);
-		}
+		} catch (error) {}
 	};
 
 	const filterCompanies = async () => {
@@ -41,9 +43,7 @@ export const Filters = () => {
 			setPage(1);
 			const result = await getCompanies();
 			setCompanies(result);
-		} catch (error) {
-			console.log(error);
-		}
+		} catch (error) {}
 	};
 
 	useEffect(() => {
@@ -79,6 +79,10 @@ export const Filters = () => {
 				setPage={setPage}
 				perPage={perPage}
 				setPerPage={setPerPage}
+				loading={loading}
+				error={error}
+				setError={setError}
+				setLoading={setLoading}
 			/>
 
 			<Flex my={5} gap={5} direction={{ xs: 'column', md: 'row' }}>
@@ -142,6 +146,8 @@ export const Filters = () => {
 				setPerPage={setPerPage}
 				page={page}
 				perPage={perPage}
+				loading={loading}
+				error={error}
 			/>
 		</Box>
 	);

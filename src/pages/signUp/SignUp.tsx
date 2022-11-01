@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthProvider';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
+import { Flex } from '@chakra-ui/react';
 
 interface SignUpFormValues {
 	email: string;
@@ -30,7 +31,7 @@ const SignUp = () => {
 			password: '',
 			repeatPassword: '',
 		};
-		if (!(formValues.password.length > 6 && formValues.password.length < 10) && formValues.password.length){
+		if (!(formValues.password.length > 6 && formValues.password.length < 10) && formValues.password.length) {
 			errors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
 		}
 		if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(formValues.password))
@@ -53,63 +54,62 @@ const SignUp = () => {
 		try {
 			await signUp(formValues.email, formValues.password);
 		} catch (error) {
-			console.log(error);
 			setFormErrors({ ...formErrors, email: 'El correo electronico ya ha sido usado' });
 		}
 	};
-	console.log(formErrors);
+
 	return (
-		<div className="signUpContainer">
-			<div className="signUpHead">
-				<span>Registrarse</span>
-			</div>
-			<form className="signUpForm" onSubmit={handleSubmit}>
-				<label>
-					<span>Correo electronico</span>
-					<input
-						className={formErrors.email ? 'error' : ''}
-						type="email"
-						name="email"
-						id="email"
-						autoFocus
-						onChange={handleInputChange}
-					/>
-				</label>
-				<label>
-					<span>Contrasena</span>
-					<input
-						className={formErrors.password ? 'error' : ''}
-						type="password"
-						name="password"
-						id="password"
-						onChange={handleInputChange}
-					/>
-				</label>
-				<label>
-					<span>Confirmar contrasena</span>
-					<input
-						className={formErrors.repeatPassword ? 'error' : ''}
-						type="password"
-						name="repeatPassword"
-						id="repeatPassword"
-						onChange={handleInputChange}
-					/>
-				</label>
-				<div>
-					<Link to={'/inicio'}>Tengo una cuenta</Link>
+		<Flex justifyContent={'center'} alignItems={'center'}>
+			<div className="signUpContainer">
+				<div className="signUpHead">
+					<span>Registrarse</span>
 				</div>
-				<button type="submit">Registrarse</button>
-			</form>
-			<AnimatePresence>
-				{formErrors.email.length && (
-					<ErrorDiv key="modal3">{formErrors.email}</ErrorDiv>
-				)}
-			</AnimatePresence>
-			<img
-				src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-				alt="logo"
-			/>
-		</div>
+				<form className="signUpForm" onSubmit={handleSubmit}>
+					<label>
+						<span>Correo electronico</span>
+						<input
+							className={formErrors.email ? 'error' : ''}
+							type="email"
+							name="email"
+							id="email"
+							autoFocus
+							onChange={handleInputChange}
+						/>
+					</label>
+					<label>
+						<span>Contrasena</span>
+						<input
+							className={formErrors.password ? 'error' : ''}
+							type="password"
+							name="password"
+							id="password"
+							onChange={handleInputChange}
+						/>
+					</label>
+					<label>
+						<span>Confirmar contrasena</span>
+						<input
+							className={formErrors.repeatPassword ? 'error' : ''}
+							type="password"
+							name="repeatPassword"
+							id="repeatPassword"
+							onChange={handleInputChange}
+						/>
+					</label>
+					<div>
+						<Link to={'/inicio'}>Tengo una cuenta</Link>
+					</div>
+					<button type="submit">Registrarse</button>
+				</form>
+				<AnimatePresence>
+					{formErrors.email.length && <ErrorDiv key="modal3">{formErrors.email}</ErrorDiv>}
+				</AnimatePresence>
+				<img
+					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
+					alt="logo"
+				/>
+			</div>
+		</Flex>
 	);
 };
 
