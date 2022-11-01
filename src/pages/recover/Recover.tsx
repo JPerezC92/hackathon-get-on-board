@@ -47,7 +47,7 @@ const Recover = () => {
 						</button>
 					</div>
 					<div>
-						<Link to={'/inicio'}>Volver a Iniciar sesion</Link>
+						<Link to={'/login'}>Volver a Iniciar sesion</Link>
 					</div>
 				</form>
 				<AnimatePresence>{error && <ErrorDiv key="modal">{error}</ErrorDiv>}</AnimatePresence>

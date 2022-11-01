@@ -25,11 +25,13 @@ const MyAccount = () => {
 
 	useEffect(() => {
 		let currentErrors: UpdateAccountForm = { ...initialValues };
-		if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length) {
-			currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
+		if (userData.password.length) {
+			if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length) {
+				currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
+			}
+			if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(userData.password))
+				currentErrors.password = 'La contraseña debe tener al menos una mayuscula, una minuscula y un numero';
 		}
-		if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(userData.password))
-			currentErrors.password = 'La contraseña debe tener al menos una mayuscula, una minuscula y un numero';
 		if (userData.name && !/^[a-z ,.'-]{3,}$/i.test(userData.name)) currentErrors.name = 'Nombre invalido';
 		setErrors(currentErrors);
 	}, [userData.email, userData.password, userData.name]);

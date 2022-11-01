@@ -4,8 +4,12 @@ import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom';
 import { Nabvar } from '../components/Navbar';
 import { JobDetailPage } from '../pages/JobDetailPage';
 
+import { LoginPage } from '../pages/LoginPage';
+import MyAccount from '../pages/myAccount/MyAccount';
+import Recover from '../pages/recover/Recover';
+import { RegisterPage } from '../pages/RegisterPage';
 import { webRoutes } from '../utilities/web.routes';
-import { ProtectedRoute } from './components';
+import { OnlyGuestRoute, ProtectedRoute } from './components';
 
 const SignIn = lazy(() => import('../pages/signIn/SignIn'));
 const SignUp = lazy(() => import('../pages/signUp/SignUp'));
@@ -72,7 +76,7 @@ export function Router() {
 					path="/profile"
 					element={
 						<ProtectedRoute>
-							<p>My protected profile</p>
+							<MyAccount />
 						</ProtectedRoute>
 					}
 				/>
