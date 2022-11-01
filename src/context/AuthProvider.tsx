@@ -70,7 +70,6 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 	}
 	useEffect(() => {
 		const userStatus = auth.onAuthStateChanged((user) => {
-			console.log({ user });
 			setUser(user);
 		});
 		return userStatus;
