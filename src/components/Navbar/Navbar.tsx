@@ -4,14 +4,19 @@ import { FaHamburger } from 'react-icons/fa';
 import { GiSettingsKnobs } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 import { Link as RouterLink, NavLinkProps } from 'react-router-dom';
+import { useAuth } from '../../context/AuthProvider';
+import SignOut from '../../pages/signOut/SignOut';
 import { webRoutes } from '../../utilities/web.routes';
 import { GetonboardIcon } from './GetonboardIcon';
 
-const getLinkList = (authenticated: boolean) => {
+const getLinkList = () => {
 	interface Link {
 		link: string;
 		name: string;
 	}
+	const {user } = useAuth();
+
+	const authenticated= user;
 
 	const linkList = [
 		!authenticated && { link: webRoutes.login, name: 'Login' },
@@ -42,7 +47,7 @@ const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) 
 
 export const Nabvar = () => {
 	const auth = false;
-
+	const {user } = useAuth();
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	return (
 		<Flex
@@ -63,6 +68,8 @@ export const Nabvar = () => {
 
 			<Box as="nav" ml="auto" display="flex" gap="2">
 				<NavBarLink to={webRoutes.root}>Inicio</NavBarLink>
+				{user && <SignOut>Desconectar</SignOut>}
+				{user && <NavBarLink to={webRoutes.profile}>Perfil</NavBarLink>}
 
 				<Flex
 					as="ul"

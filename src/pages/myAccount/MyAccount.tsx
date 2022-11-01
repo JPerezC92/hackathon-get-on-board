@@ -24,7 +24,7 @@ const MyAccount = () => {
 
 	const { user, changeEmail, changePassword, changeName } = useAuth();
 
-	// console.log(success);
+	console.log(userData);
 
 	useEffect(() => {
 		let currentErrors: UpdateAccountForm = { ...initialValues };

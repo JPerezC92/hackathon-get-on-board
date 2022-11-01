@@ -32,7 +32,6 @@ const SignIn = () => {
 				: setFormErrors({ email: '', password: 'Contraseña incorrecta' });
 		}
 	};
-	console.log(formErrors);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormValues({
@@ -60,8 +59,8 @@ const SignIn = () => {
 					<input type="password" name="password" id="password" onChange={handleInputChange} />
 				</label>
 				<div>
-					<Link to={'/registro'}>No tengo una cuenta</Link>
-					<Link to={'/recuperacion'}>Recuperar contrasena</Link>
+					<Link to={'/register'}>No tengo una cuenta</Link>
+					<Link to={'/recover'}>Recuperar contrasena</Link>
 				</div>
 				<button type="submit">Iniciar sesion</button>
 			</form>

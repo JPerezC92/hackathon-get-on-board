@@ -44,7 +44,7 @@ const Recover = () => {
           <button type="submit">{''}<Arrow style={{fontSize:"1.5rem"}}/></button>
           </div>
           <div>
-					<Link to={'/inicio'}>Volver a Iniciar sesion</Link>
+					<Link to={'/login'}>Volver a Iniciar sesion</Link>
 				</div>
         </form>
         <AnimatePresence>

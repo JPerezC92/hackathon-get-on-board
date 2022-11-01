@@ -96,7 +96,7 @@ const SignUp = () => {
 					/>
 				</label>
 				<div>
-					<Link to={'/inicio'}>Tengo una cuenta</Link>
+					<Link to={'/login'}>Tengo una cuenta</Link>
 				</div>
 				<button type="submit">Registrarse</button>
 			</form>

@@ -4,6 +4,7 @@ import { RiErrorWarningLine, RiEditCircleLine } from 'react-icons/ri';
 const MyAccountLabels = ({ errors, userData, labelType, handleInputChange, handleInputReset, user }) => {
 	const inputType =
 		labelType === 'password' ? 'password' : labelType === 'email' ? 'email' : labelType === 'phone' ? 'phone' : 'text';
+    const placeHolders =  labelType === 'email' ? 'email' : labelType === 'phone' ? 'phoneNumber' : labelType === 'name' ? 'displayName': null;
     const titles = { email: 'Correo electronico', password: 'Contraseña', name: 'Nombre', phone: 'Telefono' };
     
 	return (
@@ -15,6 +16,7 @@ const MyAccountLabels = ({ errors, userData, labelType, handleInputChange, handl
 				name={labelType}
 				value={userData[labelType]}
 				onChange={handleInputChange}
+                placeholder={user[placeHolders]}
 			/>
 			<button type="button" className="resetBtn" onClick={() => handleInputReset(labelType)}>
 				{''}

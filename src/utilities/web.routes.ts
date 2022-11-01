@@ -5,6 +5,8 @@ export const webRoutes = {
 	register: '/register',
 	login: '/login',
 	jobs: '/jobs',
+	disconect: '/disconect',
+	profile: '/profile',
 	companies: '/companies',
 	jobsId: (jobId: Job['id']) => `'/jobs'/${jobId}`,
 };

@@ -1,0 +1,6 @@
+.signOutButton{
+    color:#48c2e4;
+}
+.signOutButton:hover{
+    text-decoration:underline;
+}
