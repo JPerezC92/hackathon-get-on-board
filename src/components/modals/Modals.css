@@ -1,0 +1,39 @@
+.errorDiv{
+    /* background-color:#ff7777; */
+    border-color: black;
+    color: red;
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+    border: 1px solid red;
+    border-radius: 5px;
+    width: clamp(180px, 40%, 220px);
+    min-height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+}
+.successDivContainer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: default;
+}
+.successDiv{
+    width: clamp(180px, 40%, 220px);
+    aspect-ratio: 3/2;
+    background-color: #dffbff;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.successDiv>p{
+    text-align: center;
+    color: #ff7777;
+    font-weight: 600;
+}
