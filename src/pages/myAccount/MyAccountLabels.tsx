@@ -1,12 +1,38 @@
 import { BiReset } from 'react-icons/bi';
 import { RiErrorWarningLine, RiEditCircleLine } from 'react-icons/ri';
+import { UpdateAccountForm } from './MyAccount';
 
-const MyAccountLabels = ({ errors, userData, labelType, handleInputChange, handleInputReset, user }) => {
+import { User } from 'firebase/auth';
+
+interface MyAccountLabelsProps {
+	userData: UpdateAccountForm;
+	errors: UpdateAccountForm;
+	handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	handleInputReset: (target: string) => void;
+	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<any>;
+	user: User | null;
+	labelType: keyof UpdateAccountForm;
+}
+
+const MyAccountLabels = ({
+	errors,
+	userData,
+	labelType,
+	handleInputChange,
+	handleInputReset,
+	user,
+}: MyAccountLabelsProps) => {
 	const inputType =
 		labelType === 'password' ? 'password' : labelType === 'email' ? 'email' : labelType === 'phone' ? 'phone' : 'text';
-    const placeHolders =  labelType === 'email' ? 'email' : labelType === 'phone' ? 'phoneNumber' : labelType === 'name' ? 'displayName': null;
-    const titles = { email: 'Correo electronico', password: 'Contraseña', name: 'Nombre', phone: 'Telefono' };
-    
+	const placeHolders =
+		labelType === 'email' ? 'email' : labelType === 'phone' ? 'phoneNumber' : labelType === 'name' ? 'displayName' : '';
+	const titles: Record<string, string> = {
+		email: 'Correo electronico',
+		password: 'Contraseña',
+		name: 'Nombre',
+		phone: 'Telefono',
+	};
+
 	return (
 		<label>
 			<span>{titles[labelType]}</span>
@@ -16,8 +42,9 @@ const MyAccountLabels = ({ errors, userData, labelType, handleInputChange, handl
 				name={labelType}
 				value={userData[labelType]}
 				onChange={handleInputChange}
-                placeholder={user[placeHolders]}
+				placeholder={(user && placeHolders && user[placeHolders]) as string}
 			/>
+
 			<button type="button" className="resetBtn" onClick={() => handleInputReset(labelType)}>
 				{''}
 				{labelType === 'password' ? (
@@ -28,7 +55,7 @@ const MyAccountLabels = ({ errors, userData, labelType, handleInputChange, handl
 					)
 				) : userData[labelType] ? (
 					<BiReset style={{ cursor: 'pointer' }} />
-				) : user?.[labelType] ? (
+				) : ((user && placeHolders && user[placeHolders]) as string) ? (
 					<RiEditCircleLine style={{ fontSize: '1.65rem' }} />
 				) : (
 					<RiErrorWarningLine />

@@ -1,4 +1,3 @@
-
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
@@ -13,9 +12,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<ChakraProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
-        <AuthProvider>
-				<Router />
-        </AuthProvider>
+				<AuthProvider>
+					<Router />
+				</AuthProvider>
 			</QueryClientProvider>
 		</ChakraProvider>
 	</React.StrictMode>,

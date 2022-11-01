@@ -4,13 +4,14 @@ import './MyAccount.css';
 import SuccessDiv from '../../components/modals/SuccessDiv';
 import MyAccountLabels from './MyAccountLabels';
 
-interface UpdateAccountForm {
+export interface UpdateAccountForm {
 	email: string;
 	password: string;
 	name: string;
 	phone?: string;
 }
-const initialValues = {
+
+export const initialValues = {
 	name: '',
 	email: '',
 	password: '',
@@ -24,7 +25,7 @@ const MyAccount = () => {
 	const { user, changeEmail, changePassword, changeName } = useAuth();
 
 	useEffect(() => {
-		let currentErrors: UpdateAccountForm = { ...initialValues };
+		const currentErrors: UpdateAccountForm = { ...initialValues };
 		if (userData.password.length) {
 			if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length) {
 				currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
@@ -52,7 +53,7 @@ const MyAccount = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		let successMessage = '';
-		let currentErrors: UpdateAccountForm = { ...initialValues };
+		const currentErrors: UpdateAccountForm = { ...initialValues };
 
 		if (Object.values(errors).some((error) => error !== '') || !user) return false;
 		const handleEmailChange = async () => {

@@ -1,9 +1,9 @@
+import { Flex, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Flex, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react';
 import { CategoriesJobs, CompaniesJobs } from '../models';
-import { Pagination } from './Pagination';
 import { getSeniorities } from '../services';
 import { JobCard } from './JobCard';
+import { Pagination } from './Pagination';
 
 interface Props {
 	inputSearch: string;
@@ -30,10 +30,10 @@ export const Search = ({
 	error,
 	loading,
 }: Props) => {
-	let query = inputSearch.toLocaleLowerCase();
+	const query = inputSearch.toLocaleLowerCase();
 	const [seniorityState, setSeniorityState] = useState<{ id: string; seniority: string }[]>();
 
-	let seniorityCode = async () => {
+	const seniorityCode = async () => {
 		await getSeniorities().then((res) => {
 			setSeniorityState(res.data.map((el) => ({ id: el.id, seniority: el.attributes.name })));
 		});
@@ -74,10 +74,10 @@ export const Search = ({
 				{resultsCategories.data ? (
 					resultsCategories.data
 						.filter((d) => {
-							let perks = d.attributes.perks;
-							let seniorityId = d.attributes.seniority.data.id;
-							let perksList = perks.find((el) => el.includes(query));
-							let sr = seniorityState?.find((el) => el.id === seniorityId.toString())?.seniority;
+							const perks = d.attributes.perks;
+							const seniorityId = d.attributes.seniority.data.id;
+							const perksList = perks.find((el) => el.includes(query));
+							const sr = seniorityState?.find((el) => el.id === seniorityId.toString())?.seniority;
 
 							return (
 								d.attributes?.title.toLowerCase().includes(query) ||

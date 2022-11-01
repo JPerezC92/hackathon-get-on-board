@@ -1,4 +1,5 @@
 import { Box, Flex, Icon, IconButton, Link, LinkProps, useDisclosure } from '@chakra-ui/react';
+import { User } from 'firebase/auth';
 import React from 'react';
 import { FaHamburger } from 'react-icons/fa';
 import { GiSettingsKnobs } from 'react-icons/gi';
@@ -9,14 +10,13 @@ import SignOut from '../../pages/signOut/SignOut';
 import { webRoutes } from '../../utilities/web.routes';
 import { GetonboardIcon } from './GetonboardIcon';
 
-const getLinkList = () => {
+const getLinkList = (user: User | null) => {
 	interface Link {
 		link: string;
 		name: string;
 	}
-	const {user } = useAuth();
 
-	const authenticated= user;
+	const authenticated = user;
 
 	const linkList = [
 		!authenticated && { link: webRoutes.login, name: 'Login' },
@@ -46,8 +46,7 @@ const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) 
 };
 
 export const Nabvar = () => {
-	const auth = false;
-	const {user } = useAuth();
+	const { user } = useAuth();
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	return (
 		<Flex
@@ -85,7 +84,7 @@ export const Nabvar = () => {
 					width="full"
 					h={['100vh', null, null, 'auto']}
 				>
-					{getLinkList(auth).map((v) => (
+					{getLinkList(user).map((v) => (
 						<Box as="li" key={v.name} listStyleType="none" display="contents">
 							<NavBarLink to={v.link} onClick={onClose} width={['32', null, null, 'auto']} textAlign="center">
 								{v.name}
@@ -95,7 +94,7 @@ export const Nabvar = () => {
 				</Flex>
 
 				<Box>
-					{auth ? (
+					{user ? (
 						<IconButton
 							size="md"
 							icon={<Icon as={GiSettingsKnobs} />}

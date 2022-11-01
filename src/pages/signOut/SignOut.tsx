@@ -1,14 +1,15 @@
 import { useAuth } from '../../context/AuthProvider';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignOut.css'
+import './SignOut.css';
 
-const SignOut = ({ children }) => {
+const SignOut = ({ children }: { children: React.ReactNode }) => {
 	const redirect = useNavigate();
 	const { auth } = useAuth();
 
 	return (
-		<button className='signOutButton'
+		<button
+			className="signOutButton"
 			onClick={() =>
 				auth.signOut().then(() => {
 					redirect('/');

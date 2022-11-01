@@ -1,5 +1,5 @@
 import z from 'zod';
-import { CategoryEndpointSchema } from './CategoryEndpoint.schema';
+import { CategoryEndpointSchema } from './categoryEndpoint.schema';
 import { MetaSchema } from './meta.schema';
 
 export const CategoryListEndpointSchema = z.object({
