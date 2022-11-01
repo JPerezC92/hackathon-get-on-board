@@ -1,3 +1,4 @@
 export * from './Pagination';
 export * from './Filters';
-export * from './Results';
+export * from './Search';
+export * from './modal-sign-in';

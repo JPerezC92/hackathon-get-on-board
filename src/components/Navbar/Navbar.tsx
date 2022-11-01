@@ -4,6 +4,7 @@ import { FaHamburger } from 'react-icons/fa';
 import { GiSettingsKnobs } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 import { Link as RouterLink, NavLinkProps } from 'react-router-dom';
+import { webRoutes } from '../../utilities/web.routes';
 import { GetonboardIcon } from './GetonboardIcon';
 
 const getLinkList = (authenticated: boolean) => {
@@ -13,9 +14,8 @@ const getLinkList = (authenticated: boolean) => {
 	}
 
 	const linkList = [
-		// { link: '/', name: 'Inicio' },
-		!authenticated && { link: '/login', name: 'Login' },
-		!authenticated && { link: '/login', name: 'Register' },
+		!authenticated && { link: webRoutes.login, name: 'Login' },
+		!authenticated && { link: webRoutes.register, name: 'Register' },
 	];
 
 	return linkList.filter((v) => !!v) as Link[];
@@ -46,6 +46,7 @@ export const Nabvar = () => {
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	return (
 		<Flex
+			zIndex="1"
 			as="header"
 			borderBlockEnd="1px"
 			borderBottomColor="primary-ligth.400"
@@ -56,12 +57,12 @@ export const Nabvar = () => {
 			position="relative"
 			width="100vw"
 		>
-			<Link as={RouterLink} to="/" zIndex="1" onClick={onClose}>
+			<Link as={RouterLink} to={webRoutes.root} zIndex="1" onClick={onClose}>
 				<Icon as={GetonboardIcon} />
 			</Link>
 
 			<Box as="nav" ml="auto" display="flex" gap="2">
-				<NavBarLink to="/">Inicio</NavBarLink>
+				<NavBarLink to={webRoutes.root}>Inicio</NavBarLink>
 
 				<Flex
 					as="ul"

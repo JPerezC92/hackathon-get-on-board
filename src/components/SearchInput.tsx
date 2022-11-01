@@ -90,3 +90,27 @@ export const SearchInput = ({
 		</>
 	);
 };
+
+{
+	/* <Stack width={'100%'}>
+				{resultsCategoriesJobs.data
+					? resultsCategoriesJobs.data
+							.filter((d) => {
+								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
+							})
+							.map((d) => {
+								return <Text key={d.id}>{d.attributes?.title}</Text>;
+							})
+					: null}
+
+				{resultsCompanies.data
+					? resultsCompanies.data
+							.filter((d) => {
+								return d.attributes?.title.toLocaleLowerCase().includes(inputSearch.toLocaleLowerCase());
+							})
+							.map((d) => {
+								return <Text key={d.id}>{d.attributes?.title}</Text>;
+							})
+					: null}
+			</Stack> */
+}

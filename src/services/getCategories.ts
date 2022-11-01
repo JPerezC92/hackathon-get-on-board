@@ -1,18 +1,21 @@
 import axios from 'axios';
-import { Categories } from '../models';
-import { JobEndpoint } from '../models/jobs.model';
 
-export const getCategories = async (abortSignal?: AbortSignal) => {
+import { CategoryEndpointToModel } from '../adapters/categoryEndpointToModel.adapter';
+import { JobEndpointToModel } from '../adapters/jobEndpointToModel.adapter';
+import { Category } from '../models/category.model';
+
+import { CategoryListEndpointSchema } from '../schemas/categoryListEndpoint.schema';
+import { JobListEndpointSchema } from '../schemas/josListEndpoint.schema';
+
+export const getCategories = async (abortSignal?: AbortSignal): Promise<Category[]> => {
 	const response = await axios(
 		// `${import.meta.env.VITE_API_GETONBOARD_CATEGORIES}${params}`
 		'https://www.getonbrd.com/api/v0/categories',
 		{ signal: abortSignal },
 	);
-
-	const data = await response.data;
-
-	const categories: Categories = data;
-	return categories;
+	const result = await response.data;
+	const validatedResult = CategoryListEndpointSchema.parse(result);
+	return validatedResult.data.map(CategoryEndpointToModel);
 };
 
 export const getJobsCategories = async (query: string, perPage: number, page: number) => {
@@ -20,22 +23,23 @@ export const getJobsCategories = async (query: string, perPage: number, page: nu
 		// `${import.meta.env.VITE_API_GETONBOARD_CATEGORIES}${params}`
 		`https://www.getonbrd.com/api/v0/categories/${query
 			.toLowerCase()
-			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company"]`,
+			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality"]`,
 	);
 
-	const data = await response.data;
-	return data;
+	const result = await response.data;
+	const validatedResult = JobListEndpointSchema.parse(result);
+	return validatedResult.data.map(JobEndpointToModel);
 };
 
-export const searchCategory = async (category: string, abortSignal?: AbortSignal): Promise<JobEndpoint[]> => {
-	const response = await axios(
-		`https://www.getonbrd.com/api/v0/categories/${category
-			.trim()
-			.toLowerCase()}/jobs?per_page=10&page=1&expand=["company"]`,
-		{
-			signal: abortSignal,
-		},
-	);
+// export const searchCategory = async (category: string, abortSignal?: AbortSignal): Promise<JobEndpoint[]> => {
+// 	const response = await axios(
+// 		`https://www.getonbrd.com/api/v0/categories/${category
+// 			.trim()
+// 			.toLowerCase()}/jobs?per_page=10&page=1&expand=["company","modality"]`,
+// 		{
+// 			signal: abortSignal,
+// 		},
+// 	);
 
-	return (await response.data.data) as JobEndpoint[];
-};
+// 	return (await response.data.data) as JobEndpoint[];
+// };
