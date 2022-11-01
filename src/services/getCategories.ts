@@ -15,12 +15,12 @@ export const getCategories = async (abortSignal?: AbortSignal) => {
 	return categories;
 };
 
-export const getJobsCategories = async (query: string) => {
+export const getJobsCategories = async (query: string, perPage: number, page: number) => {
 	const response = await axios(
 		// `${import.meta.env.VITE_API_GETONBOARD_CATEGORIES}${params}`
 		`https://www.getonbrd.com/api/v0/categories/${query
 			.toLowerCase()
-			.trim()}/jobs?per_page=10&page=1&expand=["company"]`,
+			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company"]`,
 	);
 
 	const data = await response.data;
