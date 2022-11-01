@@ -30,9 +30,11 @@ const SignUp = () => {
 			password: '',
 			repeatPassword: '',
 		};
-		if (formValues.password.length > 0 && formValues.password.length < 6)
-			errors.password = 'La contraseña debe tener al menos 6 caracteres';
-		if (formValues.password.length > 10) errors.password = 'La contraseña no puede tener mas de 10 caracteres';
+		if (!(formValues.password.length > 6 && formValues.password.length < 10) && formValues.password.length){
+			errors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
+		}
+		if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(formValues.password))
+			errors.password = 'La contraseña debe tener al menos una mayuscula, una minuscula y un numero';
 		if (formValues.password !== formValues.repeatPassword) errors.repeatPassword = 'Las contraseñas no coinciden';
 		setFormErrors(errors);
 	}, [formValues.email, formValues.password, formValues.repeatPassword]);
