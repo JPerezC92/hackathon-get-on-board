@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: clamp(500px, 90%, 1000px);
+    width: clamp(300px, 80%, 850px);
     aspect-ratio: 1/1;
     min-height: 420px;
+    max-height: calc(width);
     background-color: #dffbff;
     border: 1px solid black;
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
@@ -79,7 +80,7 @@
     color: black;
     opacity: 1;
 }
-.myAccountForm>div{
+.myAccountForm>div:first-of-type{
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -123,4 +124,11 @@
     bottom: 0;
     font-size: 1.8rem;
     cursor:default;
+}
+.errorContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin:auto;
 }

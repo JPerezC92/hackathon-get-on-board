@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import './MyAccount.css';
 import SuccessDiv from '../../components/modals/SuccessDiv';
 import MyAccountLabels from './MyAccountLabels';
+import { AnimatePresence } from 'framer-motion';
+import ErrorDiv from '../../components/modals/ErrorDiv';
 
 export interface UpdateAccountForm {
 	email: string;
@@ -23,15 +25,21 @@ const MyAccount = () => {
 	const [success, setSuccess] = useState('');
 
 	const { user, changeEmail, changePassword, changeName } = useAuth();
+	console.log(userData, errors);
+
+	// useEffect(()=>{
+	// 	if(userData.email === user?.email) setUserData({...userData, email: ''})
+
+	// },[userData.email])
 
 	useEffect(() => {
 		const currentErrors: UpdateAccountForm = { ...initialValues };
 		if (userData.password.length) {
-			if (!(userData.password.length > 6 && userData.password.length < 10) && userData.password.length) {
-				currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
-			}
 			if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(userData.password))
 				currentErrors.password = 'La contraseña debe tener al menos una mayuscula, una minuscula y un numero';
+			if (!(userData.password.length > 5 && userData.password.length < 21) && userData.password.length) {
+				currentErrors.password = 'La contraseña debe tener entre 6 y 20 caracteres';
+			}
 		}
 		if (userData.name && !/^[a-z ,.'-]{3,}$/i.test(userData.name)) currentErrors.name = 'Nombre invalido';
 		setErrors(currentErrors);
@@ -59,7 +67,7 @@ const MyAccount = () => {
 		const handleEmailChange = async () => {
 			try {
 				await changeEmail(userData.email);
-				successMessage += 'Email actualizado';
+				successMessage += ' + Email actualizado';
 			} catch (error) {
 				currentErrors.email += 'Email invalido';
 			}
@@ -68,36 +76,46 @@ const MyAccount = () => {
 		const handlePasswordChange = async () => {
 			try {
 				await changePassword(userData.password);
-				successMessage += 'Contraseña actualizada';
+				successMessage += ' + Contraseña actualizada';
 			} catch (error) {
-				currentErrors.password += 'Contraseña invalida';
+				currentErrors.password += 'Debes iniciar sesion nuevamente para cambiar la contraseña';
 			}
 		};
 
 		const handleNameChange = async () => {
 			try {
 				await changeName(userData.name);
-				successMessage += 'Nombre actualizado';
+				successMessage += ' + Nombre actualizado';
 			} catch (error) {
 				currentErrors.name += 'Nombre invalido';
 			}
 		};
 
-		if (userData.email && userData.password && userData.name) {
+		if (
+			userData.email !== user.email &&
+			!!userData.email &&
+			userData.password &&
+			userData.name !== user.displayName &&
+			!!userData.name
+		) {
 			Promise.all([handleEmailChange(), handlePasswordChange(), handleNameChange()]).then(() => {
 				setSuccess(successMessage);
 			});
-		} else if (userData.email) {
+			return false;
+		}
+		if (userData.email !== user.email && !!userData.email) {
 			handleEmailChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
 			});
-		} else if (userData.password) {
+		}
+		if (userData.password) {
 			handlePasswordChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
 			});
-		} else if (userData.name) {
+		}
+		if (userData.name !== user.displayName && !!userData.name) {
 			handleNameChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
@@ -119,7 +137,7 @@ const MyAccount = () => {
 				<div className="myAccountHead">
 					<span>Editar perfil</span>
 				</div>
-				<form className="myAccountForm" onSubmit={handleSubmit}>
+				<form className="myAccountForm" onSubmit={handleSubmit} autoComplete="off">
 					<MyAccountLabels {...labelsProps} labelType={'email'} />
 					<MyAccountLabels {...labelsProps} labelType={'name'} />
 					<MyAccountLabels {...labelsProps} labelType={'password'} />
@@ -128,9 +146,22 @@ const MyAccount = () => {
 							Descartar
 						</button>
 						<button type="submit">Guardar</button>
-					</div>
+					</div>{' '}
+				
 				</form>
-
+				<div className='errorContainer'>
+	{Object.values(errors).some((error) => error !== '') && (
+						<AnimatePresence>
+							{errors.email.length ? (
+								<ErrorDiv pos={'absolute'} key="modal5">{errors.email}</ErrorDiv>
+							) : errors.password ? (
+								<ErrorDiv pos={'absolute'} key="modal6">{errors.password}</ErrorDiv>
+							) : errors.name ? (
+								<ErrorDiv pos={'absolute'} key="modal7">{errors.name}</ErrorDiv>
+							) : null}
+						</AnimatePresence>
+					)}
+					</div>
 				<img
 					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
 					alt="logo"

@@ -6,9 +6,9 @@
     /* outline: 1px solid red; */
     border: 1px solid red;
     border-radius: 5px;
-    width: clamp(180px, 40%, 220px);
-    min-height: 2.5rem;
-    justify-content: center;
+    max-width: 80%;
+    min-height: 2.2rem;
+    padding:3%;
     align-items: center;
     text-align: center;
     z-index: 3;
@@ -36,4 +36,14 @@
     text-align: center;
     color: #ff7777;
     font-weight: 600;
+}
+
+.posAbsolute{
+    position: absolute;
+}
+
+@media (max-width: 400px){
+    .errorDiv{
+        font-size: 0.8rem;
+    }
 }
