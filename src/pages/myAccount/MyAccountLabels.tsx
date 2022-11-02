@@ -10,7 +10,7 @@ interface MyAccountLabelsProps {
 	handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleInputReset: (target: string) => void;
 	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<any>;
-	user: User | null;
+	user: User | null | undefined;
 	labelType: keyof UpdateAccountForm;
 }
 

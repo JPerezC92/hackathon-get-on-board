@@ -37,8 +37,8 @@ const MyAccount = () => {
 		if (userData.password.length) {
 			if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(userData.password))
 				currentErrors.password = 'La contraseña debe tener al menos una mayuscula, una minuscula y un numero';
-			if (!(userData.password.length > 5 && userData.password.length < 10) && userData.password.length) {
-				currentErrors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
+			if (!(userData.password.length > 5 && userData.password.length < 21) && userData.password.length) {
+				currentErrors.password = 'La contraseña debe tener entre 6 y 20 caracteres';
 			}
 		}
 		if (userData.name && !/^[a-z ,.'-]{3,}$/i.test(userData.name)) currentErrors.name = 'Nombre invalido';
@@ -101,18 +101,21 @@ const MyAccount = () => {
 			Promise.all([handleEmailChange(), handlePasswordChange(), handleNameChange()]).then(() => {
 				setSuccess(successMessage);
 			});
-			return false
-		} if (userData.email !== user.email && !!userData.email) {
+			return false;
+		}
+		if (userData.email !== user.email && !!userData.email) {
 			handleEmailChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
 			});
-		} if (userData.password) {
+		}
+		if (userData.password) {
 			handlePasswordChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
 			});
-		} if (userData.name !== user.displayName && !!userData.name) {
+		}
+		if (userData.name !== user.displayName && !!userData.name) {
 			handleNameChange().then(() => {
 				setErrors(currentErrors);
 				setSuccess(successMessage);
@@ -138,25 +141,27 @@ const MyAccount = () => {
 					<MyAccountLabels {...labelsProps} labelType={'email'} />
 					<MyAccountLabels {...labelsProps} labelType={'name'} />
 					<MyAccountLabels {...labelsProps} labelType={'password'} />
-					{Object.values(errors).some((error) => error !== '') && (
-						<AnimatePresence>
-							{errors.email.length ? (
-								<ErrorDiv key="modal">{errors.email}</ErrorDiv>
-							) : errors.password.includes('nuevamente') || errors.password.includes('menos') ? (
-								<ErrorDiv key="modal2">{errors.password}</ErrorDiv>
-							) : errors.name ? (
-								<ErrorDiv key="modal3">{errors.name}</ErrorDiv>
-							) : null}
-						</AnimatePresence>
-					)}
 					<div>
 						<button type="button" onClick={() => setUserData(initialValues)}>
 							Descartar
 						</button>
 						<button type="submit">Guardar</button>
-					</div>
+					</div>{' '}
+				
 				</form>
-
+				<div className='errorContainer'>
+	{Object.values(errors).some((error) => error !== '') && (
+						<AnimatePresence>
+							{errors.email.length ? (
+								<ErrorDiv pos={'absolute'} key="modal5">{errors.email}</ErrorDiv>
+							) : errors.password ? (
+								<ErrorDiv pos={'absolute'} key="modal6">{errors.password}</ErrorDiv>
+							) : errors.name ? (
+								<ErrorDiv pos={'absolute'} key="modal7">{errors.name}</ErrorDiv>
+							) : null}
+						</AnimatePresence>
+					)}
+					</div>
 				<img
 					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
 					alt="logo"

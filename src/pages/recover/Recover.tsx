@@ -50,7 +50,7 @@ const Recover = () => {
 						<Link to={'/login'}>Volver a Iniciar sesion</Link>
 					</div>
 				</form>
-				<AnimatePresence>{error && <ErrorDiv key="modal">{error}</ErrorDiv>}</AnimatePresence>
+				<AnimatePresence>{error && <ErrorDiv key="modal4">{error}</ErrorDiv>}</AnimatePresence>
 				<img
 					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
 					alt="logo"
