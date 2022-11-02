@@ -1,7 +1,7 @@
 import { BiReset } from 'react-icons/bi';
 import { RiErrorWarningLine, RiEditCircleLine } from 'react-icons/ri';
 import { UpdateAccountForm } from './MyAccount';
-
+import {useState, useEffect } from 'react';
 import { User } from 'firebase/auth';
 
 interface MyAccountLabelsProps {
@@ -22,6 +22,7 @@ const MyAccountLabels = ({
 	handleInputReset,
 	user,
 }: MyAccountLabelsProps) => {
+	const [ready, setReady] = useState(false);
 	const inputType =
 		labelType === 'password' ? 'password' : labelType === 'email' ? 'email' : labelType === 'phone' ? 'phone' : 'text';
 	const placeHolders =
@@ -33,6 +34,13 @@ const MyAccountLabels = ({
 		phone: 'Telefono',
 	};
 
+		
+
+	useEffect(() => {
+		setTimeout(() => {
+			setReady(true);
+		}, 100);},[])
+
 	return (
 		<label>
 			<span>{titles[labelType]}</span>
@@ -43,6 +51,7 @@ const MyAccountLabels = ({
 				value={userData[labelType]}
 				onChange={handleInputChange}
 				placeholder={(user && placeHolders && user[placeHolders]) as string}
+				disabled={!ready}
 			/>
 
 			<button type="button" className="resetBtn" onClick={() => handleInputReset(labelType)}>

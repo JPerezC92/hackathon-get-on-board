@@ -31,7 +31,7 @@ const SignUp = () => {
 			password: '',
 			repeatPassword: '',
 		};
-		if (!(formValues.password.length > 6 && formValues.password.length < 10) && formValues.password.length) {
+		if (!(formValues.password.length > 5 && formValues.password.length < 10) && formValues.password.length) {
 			errors.password = 'La contraseña debe tener entre 6 y 10 caracteres';
 		}
 		if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?:[#?!@$%^&*-])?/.test(formValues.password))
