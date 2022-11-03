@@ -1,4 +1,4 @@
-import { Flex, HStack, IconButton, Select, Text } from '@chakra-ui/react';
+import { ChakraProps, Flex, HStack, IconButton, Select, Text } from '@chakra-ui/react';
 import React from 'react';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
@@ -7,24 +7,51 @@ type PaginationProps = {
 	currentPage: number;
 	onChangePage: (page: number | string) => void;
 	onChangePerPage: (page: number | string) => void;
-};
+} & ChakraProps;
 
-export const Pagination: React.FC<PaginationProps> = ({ pagesCount, currentPage, onChangePage, onChangePerPage }) => {
+export const Pagination: React.FC<PaginationProps> = ({
+	pagesCount,
+	currentPage,
+	onChangePage,
+	onChangePerPage,
+	...props
+}) => {
 	return (
-		<Flex data-testid="pagination" flexDirection={{ sm: 'column', md: 'row' }} gap="4" my="4">
-			<HStack spacing={3} mx="auto">
+		<Flex
+			{...props}
+			data-testid="pagination"
+			flexDirection={{ sm: 'column', md: 'row' }}
+			gap="4"
+			my="4"
+			justifyContent="end"
+		>
+			<HStack spacing={3} mx="auto" m={{ md: '0' }}>
 				<Text as="b" fontSize="md" whiteSpace="nowrap">
 					Page: {currentPage} / {pagesCount}
 				</Text>
 
-				<Select size="sm" placeholder="Jobs per page" onChange={(e) => onChangePerPage(e.target.value)} maxW="40">
+				<Select
+					size="sm"
+					placeholder="Jobs per page"
+					onChange={(e) => onChangePerPage(e.target.value)}
+					maxW="40"
+					variant="outline"
+					bg={'white'}
+					borderColor={'primary.500'}
+					color={'primary.700'}
+					fontWeight={'bold'}
+					_hover={{
+						borderColor: 'primary.700',
+						cursor: 'pointer',
+					}}
+				>
 					<option value={10}>10</option>
 					<option value={15}>15</option>
 					<option value={20}>20</option>
 				</Select>
 			</HStack>
 
-			<HStack spacing={3} mx="auto">
+			<HStack spacing={3} mx="auto" m={{ md: '0' }}>
 				<IconButton
 					aria-label="pagination"
 					colorScheme="gray"
@@ -38,27 +65,22 @@ export const Pagination: React.FC<PaginationProps> = ({ pagesCount, currentPage,
 					pointerEvents={!(currentPage > 1) ? 'none' : undefined}
 				/>
 
-				{/* <Select
-        value={currentPage.toString()}
-        onChange={onChangePage}
-        className="text-ct-primary-400 outline-ct-neutral-ligth-400"
-      >
-        {range(pagesCount || currentPage).map((v) => (
-          <Option
-            key={v}
-            value={v + 1}
-            className={`outline-ct-neutral-ligth-400 ${
-              currentPage === v + 1
-                ? 'bg-gradient-to-l from-ct-primary-400 to-ct-secondary-400 bg-clip-text text-transparent'
-                : 'text-ct-neutral-medium-100'
-            }`}
-          >
-            Page {v + 1}
-          </Option>
-        ))}
-      </Select> */}
-
-				<Select size="sm" placeholder="Pages" onChange={(e) => onChangePage(Number(e.target.value))} maxW="40">
+				<Select
+					size="sm"
+					placeholder="Pages"
+					onChange={(e) => onChangePage(Number(e.target.value))}
+					maxW="40"
+					minH="9"
+					variant="outline"
+					bg={'white'}
+					borderColor={'primary.500'}
+					color={'primary.700'}
+					fontWeight={'bold'}
+					_hover={{
+						borderColor: 'primary.700',
+						cursor: 'pointer',
+					}}
+				>
 					{Array(pagesCount)
 						.fill('')
 						.map((_, i) => i + 1)
@@ -74,6 +96,12 @@ export const Pagination: React.FC<PaginationProps> = ({ pagesCount, currentPage,
 					colorScheme="gray"
 					variant="outline"
 					borderColor={'secondary.300'}
+					_hover={{
+						borderColor: 'secondary.500',
+					}}
+					_active={{
+						borderColor: 'secondary.500',
+					}}
 					color={'secondary.400'}
 					fontWeight={'bold'}
 					disabled={!(!!pagesCount && currentPage < pagesCount)}

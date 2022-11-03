@@ -19,7 +19,7 @@ export const getJobsCategories = async (query: string, perPage: number, page: nu
 	const response = await axios(
 		`${constant.API_URL}categories/${query
 			.toLowerCase()
-			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality"]`,
+			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality","tags"]`,
 	);
 
 	const result = await response.data;
@@ -42,7 +42,7 @@ export const getJobsCategoriesV2 = async ({
 	const result = await axios(
 		`${constant.API_URL}categories/${query
 			.toLowerCase()
-			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality"]`,
+			.trim()}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality","tags","seniority"]`,
 		{ signal },
 	);
 

@@ -49,7 +49,7 @@ export const getJobsCompaniesV2 = async ({
 	signal?: AbortSignal;
 }) => {
 	const response = await axios(
-		`https://www.getonbrd.com/api/v0/companies/${company}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality"]`,
+		`https://www.getonbrd.com/api/v0/companies/${company}/jobs?per_page=${perPage}&page=${page}&expand=["company","modality","tags","seniority"]`,
 		{ signal },
 	);
 

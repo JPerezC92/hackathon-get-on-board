@@ -1,3 +1,5 @@
+import { Seniority } from '@/models/seniority.model';
+import { Tag } from '@/models/tag.model.';
 import { Company } from './company.model';
 
 interface JobProps {
@@ -28,6 +30,8 @@ interface JobProps {
 	company: Company;
 	modality: string;
 	applications_count: number;
+	tagList: Tag[];
+	seniority: Seniority;
 }
 
 export class Job {
@@ -58,6 +62,8 @@ export class Job {
 	readonly company: Company;
 	readonly modality: string;
 	readonly applications_count: number;
+	readonly tagList: Tag[];
+	readonly seniority: Seniority;
 
 	constructor(props: JobProps) {
 		this.id = props.id;
@@ -87,6 +93,8 @@ export class Job {
 		this.company = props.company;
 		this.modality = props.modality;
 		this.applications_count = props.applications_count;
+		this.tagList = props.tagList;
+		this.seniority = props.seniority;
 	}
 
 	static create(jobProps: JobProps): Job {

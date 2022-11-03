@@ -139,7 +139,9 @@ const breakpoints = {
 
 const Select = {
 	variants: {
-		outline: {},
+		outline: {
+			cursor: 'pointer',
+		},
 	},
 };
 

@@ -14,7 +14,7 @@ interface GetSearchProps {
 // export const getSearch = async (query: string, perPage: number, page:number) => {
 export const getSearch = async ({ query, perPage: perPage = 10, page = 1, signal }: GetSearchProps) => {
 	const response = await axios(
-		`${constant.API_URL}search/jobs?query=${query}&per_page=${perPage}&page=${page}&expand=["company","modality"]`,
+		`${constant.API_URL}search/jobs?query=${query}&per_page=${perPage}&page=${page}&expand=["company","modality","tags","seniority"]`,
 		{ signal },
 	);
 

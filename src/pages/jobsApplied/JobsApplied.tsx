@@ -20,7 +20,6 @@ const JobsApplied = () => {
 	const navigate = useNavigate();
 
 	const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		console.log(e.target);
 		const { className } = e.target as HTMLButtonElement;
 		const index = Number(className);
 		window.localStorage.setItem(LSKeys.jobDetail, JSON.stringify(jobs[index]));

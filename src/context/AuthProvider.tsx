@@ -11,7 +11,7 @@ import {
 	updatePassword,
 	updateProfile,
 } from 'firebase/auth';
-import {createUserJob} from '../services/createUserJob';
+import { createUserJob } from '../services/createUserJob';
 
 export interface AuthProviderProps {
 	children?: ReactNode;
