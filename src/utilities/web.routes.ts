@@ -9,5 +9,7 @@ export const webRoutes = {
 	profile: '/profile',
 	companies: '/companies',
 	recover: '/recover',
+	apply: '/apply',
+	jobsApplied: '/applied',
 	jobsId: (jobId: Job['id']) => `'/jobs'/${jobId}`,
 };

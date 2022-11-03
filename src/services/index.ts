@@ -6,6 +6,5 @@ export * from './getPerks';
 export * from './getLocalities';
 export * from './getTechnologies';
 export * from './getSearch';
-export * from './getUser';
-export * from './createUser';
-
+export * from './createJob';
+export * from './getJob';

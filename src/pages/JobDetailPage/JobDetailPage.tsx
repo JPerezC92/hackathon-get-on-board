@@ -4,11 +4,14 @@ import { BiMoney } from 'react-icons/bi';
 import { Datum } from '../../models';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
+import { useNavigate } from 'react-router-dom';
+import { webRoutes } from '../../utilities/web.routes';
 
 export const JobDetailPage: React.FC = () => {
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Datum;
-
+	const navigate = useNavigate();
 	const dataJob = jobStoraged.attributes;
+	const applyPage = webRoutes.apply;
 
 	return (
 		<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
@@ -42,7 +45,8 @@ export const JobDetailPage: React.FC = () => {
 					{dataJob.company.data.attributes.description}
 				</Text>
 
-				<Button bgColor="primary.500">Aplicá ahora</Button>
+				<Button bgColor="primary.500"
+				onClick={()=>navigate(applyPage)}>Aplicá ahora</Button>
 			</Box>
 
 			<Box as="section" display={!dataJob.projects ? 'none' : 'block'}>

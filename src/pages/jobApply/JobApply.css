@@ -1,0 +1,40 @@
+.jobApplyContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 2/1;
+    row-gap: 10%;
+}
+.jobApplyHead{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    word-break: break-word;
+    text-align: center;
+}
+.jobApplyHead>h1{
+    flex: 2.5;
+}
+.jobApplyHead>h2{
+    flex: 1;
+}
+.jobApplyForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.jobApplyForm input{
+    width: 50%;
+    border-radius: 5px;
+    border: 1px solid #333;
+    font-size: clamp(0.8rem, 1.8vw, 1.2rem);
+    text-align: center;
+    background-color: #f2f6f7;
+    margin-bottom: 5%;
+}
+
+.jobApplyForm input:focus{
+    outline: none;
+}
