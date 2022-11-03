@@ -1,145 +1,163 @@
+import { Footer } from '@/components';
+import { webRoutes } from '@/utilities/web.routes';
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { BiMoney } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
 
 export const JobDetailPageV2: React.FC = () => {
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
-
+	const navigate = useNavigate();
 	return (
-		<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
-			<Grid as="header" gridTemplateColumns="auto 1fr" gap="4">
-				<Box as="img" src={jobStoraged.company.logo || ''} w="24" />
+		<>
+			<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
+				<Grid as="header" gridTemplateColumns="auto 1fr auto" gap="4">
+					{jobStoraged ? <Box as="img" src={`${jobStoraged.company?.logo}`} w="24" /> : null}
 
-				<Box>
-					<Heading as="h1" color="primary.700">
-						{jobStoraged.title}
-					</Heading>
+					<Box>
+						<Heading as="h1" color="primary.700">
+							{jobStoraged.title}
+						</Heading>
 
-					<Text fontSize="sm" color="primary-ligth.600" fontWeight="medium">
-						{jobStoraged.company.name} - {jobStoraged.company.country} ({jobStoraged.country}) ·{' '}
-						<Box as="span" whiteSpace="nowrap">
-							<Box as="i" verticalAlign="middle">
-								<Icon as={BiMoney} fontSize="2xl" />
+						<Text fontSize="sm" color="primary-ligth.600" fontWeight="medium">
+							{jobStoraged.company.name} - {jobStoraged.company?.country} ({jobStoraged?.country}) ·{' '}
+							<Box as="span" whiteSpace="nowrap">
+								<Box as="i" verticalAlign="middle">
+									<Icon as={BiMoney} fontSize="2xl" />
+								</Box>
+								{jobStoraged.min_salary} - {jobStoraged.max_salary}
+							</Box>{' '}
+							·{' '}
+							<Box as="span" whiteSpace="nowrap">
+								{jobStoraged.applications_count} solicitudes
 							</Box>
-							{jobStoraged.min_salary} - {jobStoraged.max_salary}
-						</Box>{' '}
-						·{' '}
-						<Box as="span" whiteSpace="nowrap">
-							{jobStoraged.applications_count} solicitudes
-						</Box>
+						</Text>
+					</Box>
+
+					<Button
+						bgColor={'secondary.300'}
+						_hover={{
+							backgroundColor: 'secondary.400',
+						}}
+						_active={{
+							backgroundColor: 'secondary.400',
+						}}
+						onClick={() => navigate(webRoutes.apply)}
+					>
+						Aplicar Ahora
+					</Button>
+				</Grid>
+
+				<Box as="section">
+					<Text mb="4" color="special2.800" fontWeight="medium">
+						{jobStoraged.company.description}
 					</Text>
 				</Box>
-			</Grid>
 
-			<Box as="section">
-				<Text mb="4" color="special2.800" fontWeight="medium">
-					{jobStoraged.company.description}
-				</Text>
+				<Box as="section" display={!jobStoraged.projects ? 'none' : 'block'}>
+					<Heading as="h2" size="lg" color="primary.600">
+						Proyectos
+					</Heading>
 
-				<Button bgColor="primary.500">Aplicá ahora</Button>
-			</Box>
+					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
 
-			<Box as="section" display={!jobStoraged.projects ? 'none' : 'block'}>
-				<Heading as="h2" size="lg" color="primary.600">
-					Proyectos
-				</Heading>
+					<Box
+						listStyleType="disc"
+						color="special2.800"
+						css={{
+							['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
+							'& > p': { marginBlockEnd: '1rem' },
+							'& > ul, & > ol': { marginBlockEnd: '1rem' },
+						}}
+						fontWeight="medium"
+						dangerouslySetInnerHTML={{ __html: jobStoraged.projects }}
+					/>
+				</Box>
 
-				<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
+				<Box as="section" display={!jobStoraged.functions ? 'none' : 'block'}>
+					<Heading as="h2" size="lg" color="primary.600" display="flex" alignItems="center">
+						{jobStoraged.functions_headline}{' '}
+					</Heading>
 
-				<Box
-					listStyleType="disc"
-					color="special2.800"
-					css={{
-						['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
-						'& > p': { marginBlockEnd: '1rem' },
-						'& > ul, & > ol': { marginBlockEnd: '1rem' },
-					}}
-					fontWeight="medium"
-					dangerouslySetInnerHTML={{ __html: jobStoraged.projects }}
-				/>
-			</Box>
+					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
 
-			<Box as="section" display={!jobStoraged.functions ? 'none' : 'block'}>
-				<Heading as="h2" size="lg" color="primary.600" display="flex" alignItems="center">
-					{jobStoraged.functions_headline}{' '}
-				</Heading>
+					<Box
+						listStyleType="disc"
+						color="special2.800"
+						css={{
+							['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
+							'& > p': { marginBlockEnd: '1rem' },
+							'& > ul, & > ol': { marginBlockEnd: '1rem' },
+						}}
+						fontWeight="medium"
+						dangerouslySetInnerHTML={{ __html: jobStoraged.functions }}
+					/>
+				</Box>
 
-				<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
+				<Box as="section" display={!jobStoraged.desirable ? 'none' : 'block'}>
+					<Heading as="h2" size="lg" color="primary.600">
+						{jobStoraged.desirable_headline}
+					</Heading>
 
-				<Box
-					listStyleType="disc"
-					color="special2.800"
-					css={{
-						['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
-						'& > p': { marginBlockEnd: '1rem' },
-						'& > ul, & > ol': { marginBlockEnd: '1rem' },
-					}}
-					fontWeight="medium"
-					dangerouslySetInnerHTML={{ __html: jobStoraged.functions }}
-				/>
-			</Box>
+					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
 
-			<Box as="section" display={!jobStoraged.desirable ? 'none' : 'block'}>
-				<Heading as="h2" size="lg" color="primary.600">
-					{jobStoraged.desirable_headline}
-				</Heading>
+					<Box
+						listStyleType="disc"
+						color="special2.800"
+						css={{
+							['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
+							'& > p': { marginBlockEnd: '1rem' },
+							'& > ul, & > ol': { marginBlockEnd: '1rem' },
+						}}
+						fontWeight="medium"
+						dangerouslySetInnerHTML={{ __html: jobStoraged.desirable }}
+					/>
+				</Box>
 
-				<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
+				<Box as="section" display={!jobStoraged.description ? 'none' : 'block'}>
+					<Heading as="h2" size="lg" color="primary.600">
+						{jobStoraged.description_headline}
+					</Heading>
 
-				<Box
-					listStyleType="disc"
-					color="special2.800"
-					css={{
-						['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
-						'& > p': { marginBlockEnd: '1rem' },
-						'& > ul, & > ol': { marginBlockEnd: '1rem' },
-					}}
-					fontWeight="medium"
-					dangerouslySetInnerHTML={{ __html: jobStoraged.desirable }}
-				/>
-			</Box>
+					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
 
-			<Box as="section" display={!jobStoraged.description ? 'none' : 'block'}>
-				<Heading as="h2" size="lg" color="primary.600">
-					{jobStoraged.description_headline}
-				</Heading>
+					<Box
+						listStyleType="disc"
+						color="special2.800"
+						fontWeight="medium"
+						css={{
+							['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
+							'& > p': { marginBlockEnd: '1rem' },
+							'& > ul, & > ol': { marginBlockEnd: '1rem' },
+						}}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.description }}
+					/>
+				</Box>
 
-				<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
+				<Box as="section" display={!jobStoraged.benefits ? 'none' : 'block'}>
+					<Heading as="h2" size="lg" color="primary.600">
+						{jobStoraged.benefits_headline}
+					</Heading>
 
-				<Box
-					listStyleType="disc"
-					color="special2.800"
-					fontWeight="medium"
-					css={{
-						['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
-						'& > p': { marginBlockEnd: '1rem' },
-						'& > ul, & > ol': { marginBlockEnd: '1rem' },
-					}}
-					dangerouslySetInnerHTML={{ __html: jobStoraged.description }}
-				/>
-			</Box>
+					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
 
-			<Box as="section" display={!jobStoraged.benefits ? 'none' : 'block'}>
-				<Heading as="h2" size="lg" color="primary.600">
-					{jobStoraged.benefits_headline}
-				</Heading>
+					<Box
+						listStyleType="disc"
+						color="special2.800"
+						fontWeight="medium"
+						css={{
+							['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
+							'& > p': { marginBlockEnd: '1rem' },
+							'& > ul, & > ol': { marginBlockEnd: '1rem' },
+						}}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.benefits }}
+					/>
+				</Box>
+			</Flex>
 
-				<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
-
-				<Box
-					listStyleType="disc"
-					color="special2.800"
-					fontWeight="medium"
-					css={{
-						['& > ul > li, & > ol > li']: { marginLeft: '2rem' },
-						'& > p': { marginBlockEnd: '1rem' },
-						'& > ul, & > ol': { marginBlockEnd: '1rem' },
-					}}
-					dangerouslySetInnerHTML={{ __html: jobStoraged.benefits }}
-				/>
-			</Box>
-		</Flex>
+			<Footer />
+		</>
 	);
 };
