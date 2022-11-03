@@ -1,4 +1,5 @@
-import { Box, Container } from '@chakra-ui/react';
+import { Footer } from '@/components';
+import { Box, Container, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -16,7 +17,10 @@ const Layout = ({ children }: Props) => {
 			justifyContent={'center'}
 			alignItems={'center'}
 		>
-			<Box as={'main'}>{children}</Box>
+			<Grid templateRows="auto 1fr auto">
+				<Box as={'main'}>{children}</Box>
+				<Footer />
+			</Grid>
 		</Container>
 	);
 };
