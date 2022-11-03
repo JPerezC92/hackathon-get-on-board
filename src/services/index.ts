@@ -1,11 +1,10 @@
+export * from './createUser';
 export * from './getCategories';
 export * from './getCompanies';
-export * from './getModalities';
-export * from './getSeniorities';
-export * from './getPerks';
 export * from './getLocalities';
-export * from './getTechnologies';
+export * from './getModalities';
+export * from './getPerks';
 export * from './getSearch';
+export * from './getSeniorities';
+export * from './getTechnologies';
 export * from './getUser';
-export * from './createUser';
-

@@ -1,54 +1,35 @@
-import { useEffect, useState } from 'react';
 import { Box, Flex, Heading, Radio, RadioGroup, Select, Stack } from '@chakra-ui/react';
-import { CategoriesJobs, Companies, CompaniesJobs } from '../models';
 
 import { SearchInput } from './SearchInput';
 import { Search } from './Search';
-import { getCategories, getCompanies } from '../services';
-import { Category } from '../models/category.model';
+import { useSearch } from '@/context/SearchContext';
+import { Tags } from './Tags';
 
 export const Filters = () => {
-	const [categories, setCategories] = useState([] as Category[]);
-	const [companies, setCompanies] = useState({} as Companies);
+	const {
+		filter,
+		setSearch,
+		companies,
+		categories,
+		filterCategories,
+		resetPagination,
+		filterCompanies,
+		resetAndClearCompanies,
+		resetAndClearCategories,
+		setInputSearch,
+	} = useSearch();
 
-	const [search, setSearch] = useState<string>('programming');
-	const [filter, setFilter] = useState<string>('categories');
-	const [inputSearch, setInputSearch] = useState<string>('');
-
-	const [resultsCategories, setResultsCategories] = useState({} as CategoriesJobs);
-	const [resultsCompanies, setResultsCompanies] = useState({} as CompaniesJobs);
-
-	const [page, setPage] = useState<number>(1);
-	const [perPage, setPerPage] = useState<number>(10);
-
-	const [error, setError] = useState<boolean>(true);
-	const [loading, setLoading] = useState<boolean>(true);
-
-	const filterCatergories = async () => {
-		try {
-			setFilter('categories');
-			setSearch('programming');
-			setPerPage(10);
-			setPage(1);
-			const result = await getCategories();
-			setCategories(result);
-		} catch (error) {}
+	const handleSelectCategories = () => {
+		filterCategories();
+		resetPagination();
+		resetAndClearCategories();
 	};
 
-	const filterCompanies = async () => {
-		try {
-			setSearch('ionix-spa');
-			setFilter('companies');
-			setPerPage(10);
-			setPage(1);
-			const result = await getCompanies();
-			setCompanies(result);
-		} catch (error) {}
+	const handleSelectCompanies = () => {
+		resetPagination();
+		resetAndClearCompanies();
+		filterCompanies();
 	};
-
-	useEffect(() => {
-		filterCatergories();
-	}, []);
 
 	return (
 		<Box my={10} mx={'auto'}>
@@ -58,32 +39,16 @@ export const Filters = () => {
 
 			<RadioGroup defaultValue={filter} my={5}>
 				<Stack spacing={5} direction="row">
-					<Radio value="categories" onChange={() => filterCatergories()}>
+					<Radio value="categories" onChange={handleSelectCategories}>
 						Categorías
 					</Radio>
-					<Radio value="companies" onChange={() => filterCompanies()}>
+					<Radio value="companies" onChange={handleSelectCompanies}>
 						Compañías
 					</Radio>
 				</Stack>
 			</RadioGroup>
 
-			<SearchInput
-				inputSearch={inputSearch}
-				setInputSearch={setInputSearch}
-				setSearch={setSearch}
-				search={search}
-				endpoint={filter}
-				setResultsCategories={setResultsCategories}
-				setResultsCompanies={setResultsCompanies}
-				page={page}
-				setPage={setPage}
-				perPage={perPage}
-				setPerPage={setPerPage}
-				loading={loading}
-				error={error}
-				setError={setError}
-				setLoading={setLoading}
-			/>
+			<SearchInput />
 
 			<Flex my={5} gap={5} direction={{ xs: 'column', md: 'row' }}>
 				<Select
@@ -95,10 +60,12 @@ export const Filters = () => {
 					fontWeight={'bold'}
 					_hover={{
 						borderColor: 'primary.700',
-						cursor: 'pointer',
 					}}
-					onChange={(e) => setSearch(e.target.value)}
-					disabled={filter === 'companies' ? false : true}
+					onChange={(e) => {
+						setSearch(e.target.value);
+						setInputSearch('');
+					}}
+					isDisabled={filter === 'companies' ? false : true}
 				>
 					{companies.data
 						? companies.data.map((company) => {
@@ -119,10 +86,12 @@ export const Filters = () => {
 					fontWeight={'bold'}
 					_hover={{
 						borderColor: 'primary.700',
-						cursor: 'pointer',
 					}}
-					onChange={(e) => setSearch(e.target.value)}
-					disabled={filter === 'categories' ? false : true}
+					onChange={(e) => {
+						setSearch(e.target.value);
+						setInputSearch('');
+					}}
+					isDisabled={filter === 'categories' ? false : true}
 				>
 					<>
 						{categories
@@ -138,17 +107,9 @@ export const Filters = () => {
 				</Select>
 			</Flex>
 
-			<Search
-				resultsCompanies={resultsCompanies}
-				resultsCategories={resultsCategories}
-				inputSearch={inputSearch}
-				setPage={setPage}
-				setPerPage={setPerPage}
-				page={page}
-				perPage={perPage}
-				loading={loading}
-				error={error}
-			/>
+			<Tags />
+
+			<Search />
 		</Box>
 	);
 };

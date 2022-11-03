@@ -1,9 +1,13 @@
-import { Filters } from '../../components';
-import Layout from '../../layout';
+import { SearchProvider } from '@/context/SearchContext';
+import { Filters } from '@/components';
+import Layout from '@/layout';
+
 const HomePage = () => {
 	return (
 		<Layout>
-			<Filters />
+			<SearchProvider>
+				<Filters />
+			</SearchProvider>
 		</Layout>
 	);
 };
