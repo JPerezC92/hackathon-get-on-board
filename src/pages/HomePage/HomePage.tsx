@@ -1,4 +1,5 @@
 // import { Filters } from '../../components/Filters';
+import React from 'react';
 import { Filters } from '../../components/FiltersV2';
 import Layout from '../../layout';
 

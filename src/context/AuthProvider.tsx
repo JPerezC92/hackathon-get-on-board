@@ -11,6 +11,7 @@ import {
 	updatePassword,
 	updateProfile,
 } from 'firebase/auth';
+import {createUserJob} from '../services/createUserJob';
 
 export interface AuthProviderProps {
 	children?: ReactNode;
@@ -26,7 +27,7 @@ export const UserStateContext = createContext<UserContextState>({} as UserContex
 
 export interface AuthContextModel {
 	auth: Auth;
-	user: User | null;
+	user: User | null | undefined;
 	signIn: (email: string, password: string) => Promise<UserCredential>;
 	signUp: (email: string, password: string) => Promise<UserCredential>;
 	sendPasswordResetEmail?: (email: string) => Promise<void>;
@@ -43,10 +44,14 @@ export function useAuth(): AuthContextModel {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
-	const [user, setUser] = useState<User | null>(null);
+	const [user, setUser] = useState<User | null>();
 
 	function signUp(email: string, password: string): Promise<UserCredential> {
-		return createUserWithEmailAndPassword(auth, email, password);
+		return createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+			const userId = userCredential.user?.uid;
+			createUserJob(userId);
+			return userCredential;
+		});
 	}
 
 	function signIn(email: string, password: string): Promise<UserCredential> {

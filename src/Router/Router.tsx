@@ -8,6 +8,8 @@ import MyAccount from '../pages/myAccount/MyAccount';
 import Recover from '../pages/recover/Recover';
 import { webRoutes } from '../utilities/web.routes';
 import { OnlyGuestRoute, ProtectedRoute } from './components';
+import JobApply from '../pages/jobApply/JobApply';
+import JobsApplied from '../pages/jobsApplied/JobsApplied';
 
 const SignIn = lazy(() => import('../pages/signIn/SignIn'));
 const SignUp = lazy(() => import('../pages/signUp/SignUp'));
@@ -101,6 +103,23 @@ export function Router() {
 					element={
 						<ProtectedRoute>
 							<MyAccount />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path={webRoutes.apply}
+					element={
+						<ProtectedRoute>
+							<JobApply />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path={webRoutes.jobsApplied}
+					element={
+						<ProtectedRoute>
+							<JobsApplied />
 						</ProtectedRoute>
 					}
 				/>
