@@ -25,7 +25,6 @@ const MyAccount = () => {
 	const [success, setSuccess] = useState('');
 
 	const { user, changeEmail, changePassword, changeName } = useAuth();
-	console.log(userData, errors);
 
 	// useEffect(()=>{
 	// 	if(userData.email === user?.email) setUserData({...userData, email: ''})
@@ -147,21 +146,26 @@ const MyAccount = () => {
 						</button>
 						<button type="submit">Guardar</button>
 					</div>{' '}
-				
 				</form>
-				<div className='errorContainer'>
-	{Object.values(errors).some((error) => error !== '') && (
+				<div className="errorContainer">
+					{Object.values(errors).some((error) => error !== '') && (
 						<AnimatePresence>
 							{errors.email.length ? (
-								<ErrorDiv pos={'absolute'} key="modal5">{errors.email}</ErrorDiv>
+								<ErrorDiv pos={'absolute'} key="modal5">
+									{errors.email}
+								</ErrorDiv>
 							) : errors.password ? (
-								<ErrorDiv pos={'absolute'} key="modal6">{errors.password}</ErrorDiv>
+								<ErrorDiv pos={'absolute'} key="modal6">
+									{errors.password}
+								</ErrorDiv>
 							) : errors.name ? (
-								<ErrorDiv pos={'absolute'} key="modal7">{errors.name}</ErrorDiv>
+								<ErrorDiv pos={'absolute'} key="modal7">
+									{errors.name}
+								</ErrorDiv>
 							) : null}
 						</AnimatePresence>
 					)}
-					</div>
+				</div>
 				<img
 					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
 					alt="logo"

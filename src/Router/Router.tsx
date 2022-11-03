@@ -1,13 +1,11 @@
-import React, { lazy, Suspense } from 'react';
 import { Flex, Spinner } from '@chakra-ui/react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom';
 import { Nabvar } from '../components/Navbar';
 import { JobDetailPage } from '../pages/JobDetailPage';
-
-import { LoginPage } from '../pages/LoginPage';
+import { JobDetailPageV2 } from '../pages/JobDetailPageV2/JobDetailPage';
 import MyAccount from '../pages/myAccount/MyAccount';
 import Recover from '../pages/recover/Recover';
-import { RegisterPage } from '../pages/RegisterPage';
 import { webRoutes } from '../utilities/web.routes';
 import { OnlyGuestRoute, ProtectedRoute } from './components';
 import JobApply from '../pages/jobApply/JobApply';
@@ -42,6 +40,7 @@ export function Router() {
 						</Suspense>
 					}
 				/>
+
 				<Route
 					path={webRoutes.register}
 					element={
@@ -95,6 +94,7 @@ export function Router() {
 				/>
 
 				<Route path={webRoutes.jobs + '/:id'} element={<JobDetailPage />} />
+				<Route path={webRoutes.jobsV2 + '/:id'} element={<JobDetailPageV2 />} />
 				{
 					// Protected routes
 				}

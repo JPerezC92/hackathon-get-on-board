@@ -1,3 +1,4 @@
+import { Job } from '@/models/job.model';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider';
@@ -6,7 +7,7 @@ import { getJobs } from '../../services/getJobs';
 import { LSKeys } from '../../utilities/localStorageKeys';
 
 const JobsApplied = () => {
-	const [jobs, setJobs] = useState<Array<Datum>>([]);
+	const [jobs, setJobs] = useState<Array<Job>>([]);
 	const { user } = useAuth();
 	const userId = user?.uid;
 
@@ -20,7 +21,6 @@ const JobsApplied = () => {
 	const navigate = useNavigate();
 
 	const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		console.log(e.target);
 		const { className } = e.target as HTMLButtonElement;
 		const index = Number(className);
 		window.localStorage.setItem(LSKeys.jobDetail, JSON.stringify(jobs[index]));
@@ -32,7 +32,7 @@ const JobsApplied = () => {
 			{jobs?.map((job, index) => (
 				<div key={job.id}>
 					<button className={`${index}`} onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOnClick(e)}>
-						{job.attributes.title}
+						{job.title}
 					</button>
 				</div>
 			))}

@@ -34,7 +34,7 @@ export const SearchInput = () => {
 		try {
 			setLoading(false);
 			setError(false);
-
+			// Here we check
 			const res = await getJobsCategories(name, perPage, page);
 			return res;
 		} catch (error) {
@@ -78,7 +78,9 @@ export const SearchInput = () => {
 	return (
 		<>
 			<InputGroup>
-				<InputLeftElement pointerEvents="none" color={'secondary.500'} children={<BiSearchAlt2 />} />
+				<InputLeftElement pointerEvents="none" color={'secondary.500'}>
+					<BiSearchAlt2 />
+				</InputLeftElement>
 				<Input
 					type="search"
 					placeholder={'Filtrar resultados...'}
