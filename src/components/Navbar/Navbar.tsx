@@ -67,8 +67,9 @@ export const Nabvar = () => {
 
 			<Box as="nav" ml="auto" display="flex" gap="2">
 				<NavBarLink to={webRoutes.root}>Inicio</NavBarLink>
-				{user && <SignOut>Desconectar</SignOut>}
+				{user && <SignOut>Desconectar</SignOut>}	
 				{user && <NavBarLink to={webRoutes.profile}>Perfil</NavBarLink>}
+				{user && <NavBarLink to={webRoutes.jobsApplied}>Postulaciones</NavBarLink>}
 
 				<Flex
 					as="ul"
