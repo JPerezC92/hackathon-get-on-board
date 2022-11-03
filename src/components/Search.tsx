@@ -1,6 +1,6 @@
 import { useSearch } from '@/context/SearchContext';
 import { Flex, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
-import { useEffect } from 'react';
+
 import { JobCard } from './JobCard';
 import { Pagination } from './Pagination';
 
@@ -15,16 +15,9 @@ export const Search = () => {
 		resultsCategories,
 		resultsCompanies,
 		seniorityState,
-		search,
-		filter,
-		categories,
 	} = useSearch();
 
 	const query = inputSearch.toLowerCase();
-
-	// useEffect(() => {
-	// 	console.log({ search, filter, inputSearch, resultsCategories, categories });
-	// }, [search, filter, inputSearch, resultsCategories, categories]);
 
 	if (loading) {
 		return (
@@ -70,9 +63,9 @@ export const Search = () => {
 							.filter((d) => {
 								const perks = d.attributes.perks;
 								const seniorityId = d.attributes.seniority.data.id;
+
 								const perksList = perks.find((el) => el.includes(query));
 								const sr = seniorityState?.find((el) => el.id === seniorityId.toString())?.seniority;
-
 								return (
 									d.attributes?.title.toLowerCase().includes(query) ||
 									d.attributes?.company?.data?.attributes?.name.toLowerCase().includes(query) ||

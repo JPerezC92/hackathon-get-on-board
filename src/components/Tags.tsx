@@ -3,7 +3,15 @@ import { Flex, HStack, Spinner, Tag, TagLabel, TagRightIcon, Text } from '@chakr
 import { IoMdWifi } from 'react-icons/io';
 
 export const Tags = () => {
-	const { resultsCategories, setInputSearch, seniorityState, loading, error } = useSearch();
+	const {
+		resultsCategories,
+		setInputSearch,
+		seniorityState,
+		loading,
+		error,
+		filterCategories,
+		resetAndClearCategories,
+	} = useSearch();
 
 	if (loading) {
 		return (
@@ -50,20 +58,28 @@ export const Tags = () => {
 
 			<HStack rowGap={4} wrap={'wrap'} justifyContent={'center'} alignItems={'center'} my={5}>
 				{Array.isArray(seniorityState)
-					? seniorityState.map((el) => {
-							return (
-								<Tag
-									_hover={{ cursor: 'pointer' }}
-									onClick={() => setInputSearch(el.seniority.toLowerCase())}
-									size={'md'}
-									key={el.id}
-									variant="solid"
-									bgColor="primary.300"
-								>
-									<TagLabel>{el.seniority}</TagLabel>
-								</Tag>
-							);
-					  })
+					? seniorityState
+							.filter((el) => {
+								return resultsCategories.data
+									? resultsCategories.data.find((al) => al.attributes.seniority.data.id === +el.id)
+									: false;
+							})
+							.map((el) => {
+								return (
+									<Tag
+										_hover={{ cursor: 'pointer' }}
+										onClick={() => {
+											setInputSearch(el.seniority.toLowerCase());
+										}}
+										size={'md'}
+										key={el.id}
+										variant="solid"
+										bgColor="primary.300"
+									>
+										<TagLabel>{el.seniority}</TagLabel>
+									</Tag>
+								);
+							})
 					: null}
 			</HStack>
 
