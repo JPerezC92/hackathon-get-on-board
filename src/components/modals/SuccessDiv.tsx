@@ -4,7 +4,7 @@ import React from 'react';
 import { LSKeys } from '@/utilities/localStorageKeys';
 import { Job } from '@/models/job.model';
 
-const SuccessDiv = ({ children, applying }: { children: React.ReactNode, applying:boolean }) => {
+const SuccessDiv = ({ children, applying }: { children: React.ReactNode, applying?:boolean }) => {
 
 	const clickHandler = () => {
 	if(applying){
