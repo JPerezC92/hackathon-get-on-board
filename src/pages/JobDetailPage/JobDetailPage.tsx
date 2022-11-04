@@ -1,13 +1,25 @@
+import { useAuth } from '@/context/AuthProvider';
 import Layout from '@/layout';
+import { getJob } from '@/services';
 import { webRoutes } from '@/utilities/web.routes';
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { BiMoney } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
+import { useParams } from 'react-router-dom';
 
 export const JobDetailPage: React.FC = () => {
+	const [isApplied, setIsApplied] = useState<boolean|null>(null);
+	const { user } = useAuth();
+	const { id: jobId } = useParams<{ id: string }>();
+	console.log(jobId);
+	useEffect(() => {
+		if (user && jobId) {getJob(user.uid, jobId).then(() => setIsApplied(true)).catch(() => setIsApplied(false))};
+		if (user===null) {setIsApplied(false)};
+	}, [!!user]);
+
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
 	const navigate = useNavigate();
 	return (
@@ -36,18 +48,25 @@ export const JobDetailPage: React.FC = () => {
 						</Text>
 					</Box>
 
-					<Button
-						bgColor={'secondary.300'}
-						_hover={{
-							backgroundColor: 'secondary.400',
-						}}
-						_active={{
-							backgroundColor: 'secondary.400',
-						}}
-						onClick={() => navigate(webRoutes.apply)}
-					>
-						Aplicar Ahora
-					</Button>
+					{isApplied === false ? (
+						<Button
+							bgColor={'secondary.300'}
+							_hover={{
+								backgroundColor: 'secondary.400',
+							}}
+							_active={{
+								backgroundColor: 'secondary.400',
+							}}
+							onClick={() => navigate(webRoutes.apply)}
+						>
+							Aplicar Ahora
+						</Button>
+					) : isApplied === true ?(
+						<Text fontSize="lg" color="primary-ligth.600" fontWeight="medium"	
+						>
+							Ya aplicaste!
+						</Text>
+					): null}
 				</Grid>
 
 				<Box as="section">
