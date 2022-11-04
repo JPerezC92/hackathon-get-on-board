@@ -1,3 +1,4 @@
+import SuccessDiv from '@/components/modals/SuccessDiv';
 import { GetonboardIcon } from '@/components/Navbar/GetonboardIcon';
 import { useAuth } from '@/context/AuthProvider';
 import Layout from '@/layout';
@@ -5,9 +6,11 @@ import { Job } from '@/models/job.model';
 import { createJob } from '@/services';
 import { LSKeys } from '@/utilities/localStorageKeys';
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Icon, Input, Stack, Text, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import './JobApply.css';
 
 const JobApply = () => {
+	const [applied, setApplied] = useState<boolean>(false);
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
 	const tittle = jobStoraged?.title;
 	const company = jobStoraged?.company.name;
@@ -17,11 +20,10 @@ const JobApply = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		userId && createJob(jobStoraged, userId);
+		userId && createJob(jobStoraged, userId).then(() => setApplied(true));
 	};
 
-	return (
+	if(!applied) return (
 		<Layout>
 			<Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
 				<Flex
@@ -105,6 +107,13 @@ const JobApply = () => {
 			</Box>
 		</Layout>
 	);
+	return (	<Layout>
+
+			
+						<SuccessDiv applying={true}>Aplicacion exitosa</SuccessDiv>
+						
+						</Layout>
+						);
 };
 
 export default JobApply;

@@ -1,8 +1,9 @@
 import { BiReset } from 'react-icons/bi';
 import { RiErrorWarningLine, RiEditCircleLine } from 'react-icons/ri';
 import { UpdateAccountForm } from './MyAccount';
-import {useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { User } from 'firebase/auth';
+import { Tooltip } from '@chakra-ui/react';
 
 interface MyAccountLabelsProps {
 	userData: UpdateAccountForm;
@@ -34,12 +35,11 @@ const MyAccountLabels = ({
 		phone: 'Telefono',
 	};
 
-		
-
 	useEffect(() => {
 		setTimeout(() => {
 			setReady(true);
-		}, 100);},[])
+		}, 100);
+	}, []);
 
 	return (
 		<label>
@@ -58,16 +58,36 @@ const MyAccountLabels = ({
 				{''}
 				{labelType === 'password' ? (
 					userData[labelType] ? (
-						<BiReset style={{ cursor: 'pointer' }} />
+						<Tooltip label="Rehacer" aria-label="A tooltip">
+							<span>
+								<BiReset style={{ cursor: 'pointer' }} />
+							</span>
+						</Tooltip>
 					) : (
-						<RiEditCircleLine style={{ fontSize: '1.65rem' }} />
+						<Tooltip label="Modificar" aria-label="A tooltip">
+							<span>
+								<RiEditCircleLine style={{ fontSize: '1.65rem' }} />
+							</span>
+						</Tooltip>
 					)
 				) : userData[labelType] ? (
-					<BiReset style={{ cursor: 'pointer' }} />
+					<Tooltip label="Rehacer" aria-label="A tooltip">
+						<span>
+							<BiReset style={{ cursor: 'pointer' }} />
+						</span>
+					</Tooltip>
 				) : ((user && placeHolders && user[placeHolders]) as string) ? (
-					<RiEditCircleLine style={{ fontSize: '1.65rem' }} />
+					<Tooltip label="Modificar" aria-label="A tooltip">
+						<span>
+							<RiEditCircleLine style={{ fontSize: '1.65rem' }} />
+						</span>
+					</Tooltip>
 				) : (
-					<RiErrorWarningLine />
+					<Tooltip label="Crear" aria-label="A tooltip">
+						<span>
+							<RiErrorWarningLine />
+						</span>
+					</Tooltip>
 				)}
 			</button>
 		</label>
