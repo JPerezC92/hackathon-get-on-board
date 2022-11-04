@@ -1,55 +1,55 @@
-.myAccountContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: clamp(300px, 80%, 850px);
-    aspect-ratio: 1/1;
-    min-height: 420px;
-    max-height: calc(width);
-    background-color: #dffbff;
-    border: 1px solid black;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
-    position: relative;
+.myAccountContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: clamp(300px, 80%, 640px);
+	aspect-ratio: 1/1;
+	max-height: 450px;
+	/* max-height: calc(width); */
+	background-color: #dffbff;
+	/* border: 1px solid black;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.2); */
+	position: relative;
 }
-.myAccountHead{
-    display: flex;
-    width: 60%;
-    margin:10% 0;
+.myAccountHead {
+	display: flex;
+	width: 60%;
+	margin: 10% 0;
 }
-.myAccountHead>span{
-    display: flex;
-    text-align: start;
-    font-size: 1.2em;
-    color: #ff7777;
-    font-weight: 600;
+.myAccountHead > span {
+	display: flex;
+	text-align: start;
+	font-size: 1.2em;
+	color: #ff7777;
+	font-weight: 600;
 }
-.myAccountForm{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 60%;
-    border-radius: 10px;
-    row-gap: 5%;
+.myAccountForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 65%;
+	border-radius: 10px;
+	row-gap: 5%;
 }
-.myAccountForm>label{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    aspect-ratio: 12/2;
-    min-height: 2.5rem;
+.myAccountForm > label {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	position: relative;
+	flex-direction: column;
+	width: 100%;
+	aspect-ratio: 12/2;
+	min-height: 2.5rem;
 }
-.myAccountForm>label>span{
-    position: absolute;
-    font-size: clamp(0.7em, 1.5vw, 1rem);
-    color: white;
-    padding: 0 10px;
-    background-color: #ff7777;
-    top: -18%;
-    border-radius: 25px;
+.myAccountForm > label > span {
+	position: absolute;
+	font-size: clamp(0.7em, 1.5vw, 1rem);
+	color: white;
+	padding: 0 10px;
+	background-color: #ff7777;
+	top: -18%;
+	border-radius: 25px;
 }
 /* .myAccountForm>label>span::before{
     content: "";
@@ -62,73 +62,74 @@
     box-sizing: border-box;
 } */
 
-.myAccountForm input{
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #333;
-    font-size: clamp(0.8rem, 1.8vw, 1.2rem);
-    height: 100%;
-    text-align: center;
-    background-color: #f2f6f7;
-    /* box-shadow: inset 0 0 10px; */
-    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
+.myAccountForm input {
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid #49c9ff;
+	font-size: clamp(0.8rem, 1.8vw, 1.2rem);
+	height: 100%;
+	text-align: center;
+	background-color: #f2f6f7;
+	/* box-shadow: inset 0 0 10px; */
+	/* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
 }
-.myAccountForm input:focus{
-    outline: none;
+.myAccountForm input:focus {
+	box-shadow: 0px 0px 1px #005982;
+	outline: none;
 }
-.myAccountForm input::placeholder{
-    color: black;
-    opacity: 1;
+.myAccountForm input::placeholder {
+	color: black;
+	opacity: 1;
 }
-.myAccountForm>div:first-of-type{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin-top: -5%;
-    column-gap: 5%;
-    margin-top: 1%;
+.myAccountForm > div:first-of-type {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	margin-top: -5%;
+	column-gap: 5%;
+	margin-top: 1%;
 }
 
-.myAccountForm a{
-    text-decoration: none;
-    color: #ff7777;
-    font-weight: 600;
-    font-size: clamp(0.7rem, 1.2vw, 1rem);
+.myAccountForm a {
+	text-decoration: none;
+	color: #ff7777;
+	font-weight: 600;
+	font-size: clamp(0.7rem, 1.2vw, 1rem);
 }
-.myAccountForm>div>button{
-    width: 40%;
-    border-radius: 5px;
-    border: none;
-    padding: 10px 0;
-    background-color: #0093d3;
-    color: white;
-    font-size: clamp(0.8rem, 1.8vw, 1.2rem);
-    letter-spacing: 1px;
+.myAccountForm > div > button {
+	width: 40%;
+	border-radius: 5px;
+	border: none;
+	padding: 10px 0;
+	background-color: #0093d3;
+	color: white;
+	font-size: clamp(0.8rem, 1.8vw, 1.2rem);
+	letter-spacing: 1px;
 }
-.myAccountForm>button:hover{
-    background-color: #00c4f5;
+.myAccountForm > button:hover {
+	background-color: #00c4f5;
 }
-.myAccountContainer>img{
-    position: absolute;
-    bottom: 0;
-    width: 25%;
-    min-width: 100px;
- }
-.error{
-    border: 1px solid red !important;
+.myAccountContainer > img {
+	position: absolute;
+	bottom: 0;
+	width: 25%;
+	min-width: 100px;
 }
-.resetBtn{
-    position: absolute;
-    right: 2%;
-    top: 0;
-    bottom: 0;
-    font-size: 1.8rem;
-    cursor:default;
+.error {
+	border: 1px solid red !important;
 }
-.errorContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin:auto;
+.resetBtn {
+	position: absolute;
+	right: 2%;
+	top: 0;
+	bottom: 0;
+	font-size: 1.8rem;
+	cursor: default;
+}
+.errorContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: auto;
 }

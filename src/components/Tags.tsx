@@ -3,15 +3,7 @@ import { Flex, HStack, Spinner, Tag, TagLabel, TagRightIcon, Text } from '@chakr
 import { IoMdWifi } from 'react-icons/io';
 
 export const Tags = () => {
-	const {
-		resultsCategories,
-		setInputSearch,
-		seniorityState,
-		loading,
-		error,
-		filterCategories,
-		resetAndClearCategories,
-	} = useSearch();
+	const { resultsCategories, setInputSearch, seniorityState, loading, error } = useSearch();
 
 	if (loading) {
 		return (
@@ -48,6 +40,7 @@ export const Tags = () => {
 										key={el.id}
 										variant="solid"
 										bgColor="secondary.300"
+										title={el.attributes.title}
 									>
 										<TagLabel>{el.attributes.title}</TagLabel>
 									</Tag>
@@ -74,7 +67,8 @@ export const Tags = () => {
 										size={'md'}
 										key={el.id}
 										variant="solid"
-										bgColor="primary.300"
+										bgColor="primary-ligth.400"
+										title={el.seniority}
 									>
 										<TagLabel>{el.seniority}</TagLabel>
 									</Tag>
@@ -93,7 +87,8 @@ export const Tags = () => {
 								size={'md'}
 								key={el.name}
 								variant="solid"
-								bgColor="primary.600"
+								bgColor="primary-ligth.500"
+								title={el.name}
 							>
 								<TagLabel>{el.name}</TagLabel>
 								<TagRightIcon as={el.icon} />

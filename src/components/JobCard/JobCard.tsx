@@ -1,4 +1,4 @@
-import { Box, Heading, Icon, Text } from '@chakra-ui/react';
+import { Box, Heading, Icon, Image, Skeleton, Text } from '@chakra-ui/react';
 import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { IoMdWifi } from 'react-icons/io';
@@ -87,18 +87,23 @@ export const JobCard = ({ job }: JobCardProps) => {
 					mt="1"
 					marginBlockEnd="-1rem"
 				>
-					<Box
-						transform="translateY(-2rem)"
-						as="img"
-						p="1"
-						src={job.attributes.company.data.attributes.logo}
-						alt={`${job.attributes.company.data.attributes.name} logo`}
-						maxWidth="16"
-						border="1px"
-						borderColor="primary-ligth.100"
-						bg="primary-ligth.50"
-						borderRadius="md"
-					/>
+					{job.attributes.company.data.attributes.logo ? (
+						<Image
+							transform="translateY(-2rem)"
+							as="img"
+							p="1"
+							fallbackSrc="https://via.placeholder.com/150"
+							src={job.attributes.company.data.attributes.logo}
+							alt={`${job.attributes.company.data.attributes.name} logo`}
+							maxWidth="16"
+							border="1px"
+							borderColor="primary-ligth.100"
+							bg="primary-ligth.50"
+							borderRadius="md"
+						/>
+					) : (
+						<Skeleton borderRadius="md" maxWidth="16" h={16} w={16} />
+					)}
 
 					<Text fontWeight="medium" fontSize="lg" color="primary-ligth.700">
 						{job.attributes.company.data.attributes.name}

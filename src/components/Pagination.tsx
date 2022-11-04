@@ -44,7 +44,7 @@ export const Pagination: React.FC<Props<Companies, CategoriesJobs>> = ({ state, 
 							<Select
 								variant="outline"
 								bg={'white'}
-								borderColor={'primary.500'}
+								borderColor={'primary-ligth.400'}
 								color={'primary.700'}
 								fontWeight={'bold'}
 								_hover={{

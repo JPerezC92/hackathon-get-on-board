@@ -39,10 +39,10 @@ export const Filters = () => {
 
 			<RadioGroup defaultValue={filter} my={5}>
 				<Stack spacing={5} direction="row">
-					<Radio value="categories" onChange={handleSelectCategories}>
+					<Radio value="categories" color="primary-ligth.400" onChange={handleSelectCategories}>
 						Categorías
 					</Radio>
-					<Radio value="companies" onChange={handleSelectCompanies}>
+					<Radio value="companies" color="primary-ligth.400" onChange={handleSelectCompanies}>
 						Compañías
 					</Radio>
 				</Stack>
@@ -55,7 +55,7 @@ export const Filters = () => {
 					variant="outline"
 					placeholder="Compañías"
 					bg={'white'}
-					borderColor={'primary.500'}
+					borderColor={'primary-ligth.400'}
 					color={'primary.700'}
 					fontWeight={'bold'}
 					_hover={{
@@ -81,7 +81,7 @@ export const Filters = () => {
 					variant="outline"
 					placeholder="Categorías"
 					bg={'white'}
-					borderColor={'primary.500'}
+					borderColor={'primary-ligth.400'}
 					color={'primary.700'}
 					fontWeight={'bold'}
 					_hover={{
