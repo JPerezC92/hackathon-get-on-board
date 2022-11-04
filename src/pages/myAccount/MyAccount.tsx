@@ -214,7 +214,18 @@ const MyAccount = () => {
 				</Flex>
 			</Layout>
 		);
-	return <SuccessDiv>{success}</SuccessDiv>;
+	return 	<Layout><Flex justifyContent={'center'} alignItems={'center'} pt={'2rem'}>
+	<Box
+		className="myAccountContainer"
+		pb={10}
+		rounded={'md'}
+		borderWidth={'1px'}
+		borderColor={'primary.500'}
+		shadow={'lg'}
+	>
+		<SuccessDiv>{success}</SuccessDiv>;
+	</Box>
+</Flex>;</Layout>
 };
 
 export default MyAccount;

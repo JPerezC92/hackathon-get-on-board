@@ -23,19 +23,24 @@
     cursor: default;
 }
 .successDiv{
-    width: clamp(180px, 40%, 220px);
-    aspect-ratio: 3/2;
+    width: 100%;
+    height: 100%;
     background-color: #dffbff;
     border: 1px solid black;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    font-size: 2rem;
 }
 .successDiv>p{
     text-align: center;
-    color: #ff7777;
+    color: white;
     font-weight: 600;
+    border-radius: 18px;
+    padding: 1%;
+    background-color: #ff7777;
 }
 
 .posAbsolute{
@@ -45,5 +50,20 @@
 @media (max-width: 400px){
     .errorDiv{
         font-size: 0.8rem;
+    }
+}
+@media (max-width: 512px){
+    .successDiv{
+        font-size: 1.6rem;
+    }
+}
+@media (max-width: 420px){
+    .successDiv{
+        font-size: 1.4rem;
+    }
+}
+@media (max-width: 320px){
+    .successDiv{
+        font-size: 1.2rem;
     }
 }

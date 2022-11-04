@@ -17,7 +17,6 @@ const JobApply = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		userId && createJob(jobStoraged, userId);
 	};
 
