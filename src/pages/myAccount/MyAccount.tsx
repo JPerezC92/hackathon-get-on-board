@@ -27,7 +27,6 @@ const MyAccount = () => {
 	const [success, setSuccess] = useState('');
 
 	const { user, changeEmail, changePassword, changeName } = useAuth();
-	console.log(userData, errors);
 
 	// useEffect(()=>{
 	// 	if(userData.email === user?.email) setUserData({...userData, email: ''})

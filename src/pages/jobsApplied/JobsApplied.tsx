@@ -1,6 +1,7 @@
 import { Footer } from '@/components';
 import { JobCard } from '@/components/JobCard';
 import Layout from '@/layout';
+import { Job } from '@/models/job.model';
 import { Box, Flex, Heading, SimpleGrid, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +11,7 @@ import { getJobs } from '../../services/getJobs';
 import { LSKeys } from '../../utilities/localStorageKeys';
 
 const JobsApplied = () => {
-	const [jobs, setJobs] = useState<Array<Datum>>([]);
+	const [jobs, setJobs] = useState<Array<Job>>([]);
 	const { user } = useAuth();
 	const userId = user?.uid;
 
@@ -24,7 +25,6 @@ const JobsApplied = () => {
 	const navigate = useNavigate();
 
 	const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		console.log(e.target);
 		const { className } = e.target as HTMLButtonElement;
 		const index = Number(className);
 		window.localStorage.setItem(LSKeys.jobDetail, JSON.stringify(jobs[index]));

@@ -5,6 +5,7 @@ export const webRoutes = {
 	register: '/register',
 	login: '/login',
 	jobs: '/jobs',
+	jobsV2: '/jobsv2',
 	disconect: '/disconect',
 	profile: '/profile',
 	companies: '/companies',

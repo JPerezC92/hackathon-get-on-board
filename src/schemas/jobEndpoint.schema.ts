@@ -1,3 +1,5 @@
+import { SeniorityEndpointSchema } from '@/schemas/seniorityEndpoint.schema';
+import { TagEndpointSchema } from '@/schemas/tagEndpoint.schema';
 import z from 'zod';
 import { CompanyEndpointSchema } from './companyEndpoint.schema';
 import { ResponseTimeinDaysSchema } from './responseTimeInDays.schema';
@@ -55,8 +57,8 @@ const JobEndpointAttributesSchema = z.object({
 	applications_count: z.number(),
 	tenant_city: IdentifierSchema.nullable(),
 	modality: z.object({ data: ModalityEndpointSchema }),
-	seniority: IdentifierSchema,
-	tags: TagsSchema,
+	seniority: z.object({ data: SeniorityEndpointSchema }),
+	tags: z.object({ data: z.array(TagEndpointSchema) }),
 	company: z.object({ data: CompanyEndpointSchema }),
 });
 

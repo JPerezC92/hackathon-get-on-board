@@ -7,11 +7,13 @@ import { Box, Button, Flex, FormControl, FormLabel, Heading, Icon, Input, Stack,
 import './JobApply.css';
 
 import { GetonboardIcon } from '@/components/Navbar/GetonboardIcon';
+import { Job } from '@/models/job.model';
 
 const JobApply = () => {
-	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Datum;
-	const tittle = jobStoraged?.attributes.title;
-	const company = jobStoraged?.attributes.company.data.attributes.name;
+	// const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Datum;
+	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
+	const tittle = jobStoraged?.title;
+	const company = jobStoraged?.company.name;
 
 	const { user } = useAuth();
 	const userId = user?.uid;
