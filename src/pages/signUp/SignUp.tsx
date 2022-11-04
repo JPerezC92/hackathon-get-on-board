@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthProvider';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
 import { Flex } from '@chakra-ui/react';
+import Layout from '@/layout';
 
 interface SignUpFormValues {
 	email: string;
@@ -59,59 +60,60 @@ const SignUp = () => {
 	};
 
 	return (
-		<Flex justifyContent={'center'} alignItems={'center'}>
-			<div className="signUpContainer">
-				<div className="signUpHead">
-					<span>Registrarse</span>
-				</div>
-				<form className="signUpForm" onSubmit={handleSubmit}>
-					<label>
-						<span>Correo electronico</span>
-						<input
-							className={formErrors.email ? 'error' : ''}
-							type="email"
-							name="email"
-							id="email"
-							autoFocus
-							onChange={handleInputChange}
-						/>
-					</label>
-					<label>
-						<span>Contrasena</span>
-						<input
-							className={formErrors.password ? 'error' : ''}
-							type="password"
-							name="password"
-							id="password"
-							onChange={handleInputChange}
-						/>
-					</label>
-					<label>
-						<span>Confirmar contrasena</span>
-						<input
-							className={formErrors.repeatPassword ? 'error' : ''}
-							type="password"
-							name="repeatPassword"
-							id="repeatPassword"
-							onChange={handleInputChange}
-						/>
-					</label>
-					<div>
-						<Link to={'/inicio'}>Tengo una cuenta</Link>
+		<Layout>
+			<Flex justifyContent={'center'} alignItems={'center'}>
+				<div className="signUpContainer">
+					<div className="signUpHead">
+						<span>Registrarse</span>
 					</div>
-					<button type="submit">Registrarse</button>
-				</form>
-				<AnimatePresence>
-					{formErrors.email.length && <ErrorDiv key="modal3">{formErrors.email}</ErrorDiv>}
-				</AnimatePresence>
-				<img
-					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-					alt="logo"
-				/>
-			</div>
-		</Flex>
+					<form className="signUpForm" onSubmit={handleSubmit}>
+						<label>
+							<span>Correo electronico</span>
+							<input
+								className={formErrors.email ? 'error' : ''}
+								type="email"
+								name="email"
+								id="email"
+								autoFocus
+								onChange={handleInputChange}
+							/>
+						</label>
+						<label>
+							<span>Contrasena</span>
+							<input
+								className={formErrors.password ? 'error' : ''}
+								type="password"
+								name="password"
+								id="password"
+								onChange={handleInputChange}
+							/>
+						</label>
+						<label>
+							<span>Confirmar contrasena</span>
+							<input
+								className={formErrors.repeatPassword ? 'error' : ''}
+								type="password"
+								name="repeatPassword"
+								id="repeatPassword"
+								onChange={handleInputChange}
+							/>
+						</label>
+						<div>
+							<Link to={'/inicio'}>Tengo una cuenta</Link>
+						</div>
+						<button type="submit">Registrarse</button>
+					</form>
+					<AnimatePresence>
+						{formErrors.email.length && <ErrorDiv key="modal3">{formErrors.email}</ErrorDiv>}
+					</AnimatePresence>
+					<img
+						src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
+						alt="logo"
+					/>
+				</div>
+			</Flex>
+		</Layout>
 	);
 };
 
 export default SignUp;
-

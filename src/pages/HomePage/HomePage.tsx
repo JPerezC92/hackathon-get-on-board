@@ -1,7 +1,5 @@
-import { SearchProvider } from '@/context/SearchContext';
 import { Filters } from '@/components/FiltersV2';
-// import { Filters } from '@/components';
-
+import { SearchProvider } from '@/context/SearchContext';
 import Layout from '@/layout';
 
 const HomePage = () => {

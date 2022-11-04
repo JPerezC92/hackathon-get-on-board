@@ -18,8 +18,6 @@ const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 export function Router() {
 	return (
 		<BrowserRouter>
-			<Nabvar />
-
 			<ReactRoutes>
 				{
 					// Public routes

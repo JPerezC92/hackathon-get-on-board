@@ -5,6 +5,7 @@ import SuccessDiv from '../../components/modals/SuccessDiv';
 import MyAccountLabels from './MyAccountLabels';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
+import Layout from '@/layout';
 
 export interface UpdateAccountForm {
 	email: string;
@@ -132,45 +133,47 @@ const MyAccount = () => {
 	};
 	if (!success)
 		return (
-			<div className="myAccountContainer">
-				<div className="myAccountHead">
-					<span>Editar perfil</span>
+			<Layout>
+				<div className="myAccountContainer">
+					<div className="myAccountHead">
+						<span>Editar perfil</span>
+					</div>
+					<form className="myAccountForm" onSubmit={handleSubmit} autoComplete="off">
+						<MyAccountLabels {...labelsProps} labelType={'email'} />
+						<MyAccountLabels {...labelsProps} labelType={'name'} />
+						<MyAccountLabels {...labelsProps} labelType={'password'} />
+						<div>
+							<button type="button" onClick={() => setUserData(initialValues)}>
+								Descartar
+							</button>
+							<button type="submit">Guardar</button>
+						</div>{' '}
+					</form>
+					<div className="errorContainer">
+						{Object.values(errors).some((error) => error !== '') && (
+							<AnimatePresence>
+								{errors.email.length ? (
+									<ErrorDiv pos={'absolute'} key="modal5">
+										{errors.email}
+									</ErrorDiv>
+								) : errors.password ? (
+									<ErrorDiv pos={'absolute'} key="modal6">
+										{errors.password}
+									</ErrorDiv>
+								) : errors.name ? (
+									<ErrorDiv pos={'absolute'} key="modal7">
+										{errors.name}
+									</ErrorDiv>
+								) : null}
+							</AnimatePresence>
+						)}
+					</div>
+					<img
+						src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
+						alt="logo"
+					/>
 				</div>
-				<form className="myAccountForm" onSubmit={handleSubmit} autoComplete="off">
-					<MyAccountLabels {...labelsProps} labelType={'email'} />
-					<MyAccountLabels {...labelsProps} labelType={'name'} />
-					<MyAccountLabels {...labelsProps} labelType={'password'} />
-					<div>
-						<button type="button" onClick={() => setUserData(initialValues)}>
-							Descartar
-						</button>
-						<button type="submit">Guardar</button>
-					</div>{' '}
-				</form>
-				<div className="errorContainer">
-					{Object.values(errors).some((error) => error !== '') && (
-						<AnimatePresence>
-							{errors.email.length ? (
-								<ErrorDiv pos={'absolute'} key="modal5">
-									{errors.email}
-								</ErrorDiv>
-							) : errors.password ? (
-								<ErrorDiv pos={'absolute'} key="modal6">
-									{errors.password}
-								</ErrorDiv>
-							) : errors.name ? (
-								<ErrorDiv pos={'absolute'} key="modal7">
-									{errors.name}
-								</ErrorDiv>
-							) : null}
-						</AnimatePresence>
-					)}
-				</div>
-				<img
-					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-					alt="logo"
-				/>
-			</div>
+			</Layout>
 		);
 	return <SuccessDiv>{success}</SuccessDiv>;
 };

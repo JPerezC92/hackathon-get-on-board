@@ -1,4 +1,5 @@
 import { Footer } from '@/components';
+import Layout from '@/layout';
 import { webRoutes } from '@/utilities/web.routes';
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
@@ -11,7 +12,7 @@ export const JobDetailPageV2: React.FC = () => {
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
 	const navigate = useNavigate();
 	return (
-		<>
+		<Layout>
 			<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
 				<Grid as="header" gridTemplateColumns="auto 1fr auto" gap="4">
 					{jobStoraged ? <Box as="img" src={`${jobStoraged.company?.logo}`} w="24" /> : null}
@@ -156,8 +157,6 @@ export const JobDetailPageV2: React.FC = () => {
 					/>
 				</Box>
 			</Flex>
-
-			<Footer />
-		</>
+		</Layout>
 	);
 };

@@ -1,7 +1,9 @@
 import { queryKeys } from '@/models/queryKeys';
+import { getCategories, getJobsCategoriesV2, getJobsCompaniesV2, getSearch } from '@/services';
 import {
 	Box,
 	Button,
+	Center,
 	Grid,
 	Heading,
 	HStack,
@@ -15,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { getCategories, getJobsCategoriesV2, getJobsCompaniesV2, getSearch } from '../services';
+
 import { JobCardV2 } from './JobCard/JobCardv2';
 import { Pagination } from './Pagination/index';
 
@@ -37,7 +39,7 @@ export const Filters = () => {
 	const [tagFilter, setTagFilter] = React.useState('');
 	const [seniorityFilter, setSeniorityFilter] = React.useState('');
 
-	const { data: searchJobList, isLoading: searchJobIsLoading } = useQuery(
+	const { data: searchJobList, isLoading: searchJobListIsLoading } = useQuery(
 		queryKeys.searchJobQuery(querySearch, page, perPage),
 		async ({ signal }) => {
 			const result = await getSearch({ query: querySearch ? querySearch : 'all', page, perPage, signal });
@@ -46,7 +48,7 @@ export const Filters = () => {
 		{ enabled: !filterType, keepPreviousData: true },
 	);
 
-	const { data: categoryJobsList } = useQuery(
+	const { data: categoryJobsList, isLoading: categoryJobListIsLoading } = useQuery(
 		queryKeys.categoryJobQuery(categorySelect, page, perPage),
 		async ({ signal }) => {
 			const result = await getJobsCategoriesV2({ query: categorySelect, page, perPage, signal });
@@ -56,7 +58,7 @@ export const Filters = () => {
 		{ enabled: filterTypeList.categories.value === filterType && !!categorySelect, keepPreviousData: true },
 	);
 
-	const { data: companyJobsList } = useQuery(
+	const { data: companyJobsList, isLoading: companyJobListIsLoading } = useQuery(
 		queryKeys.companyJobQuery(querySearch, page, perPage),
 		async ({ signal }) => {
 			const result = await getJobsCompaniesV2({
@@ -71,7 +73,7 @@ export const Filters = () => {
 		{ enabled: filterTypeList.companies.value === filterType, keepPreviousData: true },
 	);
 
-	const { data: categoryList } = useQuery(
+	const { data: categoryList, isLoading: categoryListIsLoading } = useQuery(
 		queryKeys.categories,
 		async ({ signal }) => {
 			const result = await getCategories(signal);
@@ -81,6 +83,13 @@ export const Filters = () => {
 		},
 		{ enabled: filterTypeList.categories.value === filterType, keepPreviousData: true },
 	);
+
+	const isLoading =
+		filterTypeList.categories.value === filterType
+			? categoryJobListIsLoading || categoryListIsLoading
+			: filterTypeList.companies.value === filterType
+			? companyJobListIsLoading
+			: searchJobListIsLoading;
 
 	const jobList =
 		filterTypeList.categories.value === filterType
@@ -117,11 +126,11 @@ export const Filters = () => {
 		setSeniorityFilter('');
 	};
 
-	if (searchJobIsLoading)
+	if (isLoading)
 		return (
-			<Box display="flex" my="50">
+			<Center placeSelf="center" my="40">
 				<Spinner m="auto" thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
-			</Box>
+			</Center>
 		);
 
 	return (

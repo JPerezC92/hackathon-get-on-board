@@ -6,6 +6,7 @@ import { BiRightArrowAlt as Arrow } from 'react-icons/bi';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
 import SuccessDiv from '../../components/modals/SuccessDiv';
+import Layout from '@/layout';
 
 const Recover = () => {
 	const [email, setEmail] = useState('');
@@ -31,31 +32,33 @@ const Recover = () => {
 
 	if (!success)
 		return (
-			<div className="recoverContainer">
-				<div className="formHead">
-					<span>Recuperar contrasena</span>
+			<Layout>
+				<div className="recoverContainer">
+					<div className="formHead">
+						<span>Recuperar contrasena</span>
+					</div>
+					<form className="recoverForm" onSubmit={handleSubmit}>
+						<div>
+							<label>
+								<span>Correo electronico</span>
+								<input type="email" name="email" id="email" onChange={handleInputChange} />
+							</label>
+							<button type="submit">
+								{''}
+								<Arrow style={{ fontSize: '1.5rem' }} />
+							</button>
+						</div>
+						<div>
+							<Link to={'/login'}>Volver a Iniciar sesion</Link>
+						</div>
+					</form>
+					<AnimatePresence>{error && <ErrorDiv key="modal4">{error}</ErrorDiv>}</AnimatePresence>
+					<img
+						src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
+						alt="logo"
+					/>
 				</div>
-				<form className="recoverForm" onSubmit={handleSubmit}>
-					<div>
-						<label>
-							<span>Correo electronico</span>
-							<input type="email" name="email" id="email" onChange={handleInputChange} />
-						</label>
-						<button type="submit">
-							{''}
-							<Arrow style={{ fontSize: '1.5rem' }} />
-						</button>
-					</div>
-					<div>
-						<Link to={'/login'}>Volver a Iniciar sesion</Link>
-					</div>
-				</form>
-				<AnimatePresence>{error && <ErrorDiv key="modal4">{error}</ErrorDiv>}</AnimatePresence>
-				<img
-					src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-					alt="logo"
-				/>
-			</div>
+			</Layout>
 		);
 	return <SuccessDiv>Correo electronico enviado, podria estar en la bandeja de spam</SuccessDiv>;
 };

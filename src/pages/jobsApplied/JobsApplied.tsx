@@ -1,8 +1,8 @@
+import Layout from '@/layout';
 import { Job } from '@/models/job.model';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider';
-import { Datum } from '../../models';
 import { getJobs } from '../../services/getJobs';
 import { LSKeys } from '../../utilities/localStorageKeys';
 
@@ -28,7 +28,7 @@ const JobsApplied = () => {
 	};
 
 	return (
-		<div>
+		<Layout>
 			{jobs?.map((job, index) => (
 				<div key={job.id}>
 					<button className={`${index}`} onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOnClick(e)}>
@@ -36,7 +36,7 @@ const JobsApplied = () => {
 					</button>
 				</div>
 			))}
-		</div>
+		</Layout>
 	);
 };
 

@@ -1,12 +1,11 @@
+import Layout from '@/layout';
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { BiMoney } from 'react-icons/bi';
-import { Datum } from '../../models';
-import { Job } from '../../models/job.model';
-import { LSKeys } from '../../utilities/localStorageKeys';
 import { useNavigate } from 'react-router-dom';
+import { Datum } from '../../models';
+import { LSKeys } from '../../utilities/localStorageKeys';
 import { webRoutes } from '../../utilities/web.routes';
-import { Footer } from '@/components';
 
 export const JobDetailPage: React.FC = () => {
 	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Datum;
@@ -15,7 +14,7 @@ export const JobDetailPage: React.FC = () => {
 	const applyPage = webRoutes.apply;
 
 	return (
-		<>
+		<Layout>
 			<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
 				<Grid as="header" gridTemplateColumns="auto 1fr auto" gap="4">
 					{jobStoraged ? <Box as="img" src={`${dataJob.company?.data?.attributes?.logo}`} w="24" /> : null}
@@ -161,8 +160,6 @@ export const JobDetailPage: React.FC = () => {
 					/>
 				</Box>
 			</Flex>
-
-			<Footer />
-		</>
+		</Layout>
 	);
 };
