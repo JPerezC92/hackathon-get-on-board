@@ -1,5 +1,6 @@
 import { Footer } from '@/components';
 import { JobCard } from '@/components/JobCard';
+import { JobCardV2 } from '@/components/JobCard/JobCardv2';
 import Layout from '@/layout';
 import { Job } from '@/models/job.model';
 import { Box, Flex, Heading, SimpleGrid, Spinner, Text, VStack } from '@chakra-ui/react';
@@ -57,7 +58,7 @@ const JobsApplied = () => {
 					<SimpleGrid minChildWidth="400px" spacing="40px">
 						<Flex justifyContent={'center'} alignItems={'center'}>
 							{jobs?.map((job, index) => (
-								<JobCard key={index} job={job} />
+								<JobCardV2 key={index} job={job} />
 							))}
 						</Flex>
 					</SimpleGrid>
