@@ -199,7 +199,16 @@ export const Filters = () => {
 							}}
 						/>
 
-						<Button type="submit" bg="primary-ligth.600">
+						<Button
+							type="submit"
+							bg="primary-ligth.600"
+							_hover={{
+								bgColor: 'primary.700',
+							}}
+							_active={{
+								bgColor: 'primary.700',
+							}}
+						>
 							Buscar
 						</Button>
 					</>

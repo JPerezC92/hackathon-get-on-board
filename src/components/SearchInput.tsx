@@ -85,7 +85,7 @@ export const SearchInput = () => {
 					type="search"
 					placeholder={'Filtrar resultados...'}
 					bg={'white'}
-					borderColor={'primary.700'}
+					borderColor={'primary-ligth.400'}
 					_hover={{
 						borderColor: 'primary.700',
 					}}

@@ -1,15 +1,14 @@
-import { Box, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Heading, Icon, Image, Skeleton, Text } from '@chakra-ui/react';
 import ReactCountryFlag from 'react-country-flag';
 import { IoMdWifi } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { CategoriesJobs, CompaniesJobs, Datum } from '../../models';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
 import { perksIcons } from './perksIcons';
 interface JobCardProps {
-	// job: Job;
-	job: Datum;
+	job: Job;
+	// job: Datum;
 }
 
 export const JobCard = ({ job }: JobCardProps) => {
@@ -43,22 +42,17 @@ export const JobCard = ({ job }: JobCardProps) => {
 				alignItems="center"
 				my="2"
 			>
-				{job.attributes.remote ? (
+				{job.remote ? (
 					<>
 						<Box as="i" display="contents">
 							<Icon as={IoMdWifi} />
 						</Box>
-						({job.attributes.company.data.attributes.country})
+						({job.country})
 					</>
 				) : (
 					<>
-						<Box
-							as={ReactCountryFlag}
-							countryCode={job.attributes.company.data.attributes.country}
-							svg
-							fontSize="2xl"
-						/>
-						<Box as="span">{job.attributes.country}</Box>
+						<Box as={ReactCountryFlag} countryCode={job.company.country} svg fontSize="2xl" />
+						{/* <Box as="span">{job.company.country}</Box> */}
 					</>
 				)}
 			</Text>
@@ -87,39 +81,44 @@ export const JobCard = ({ job }: JobCardProps) => {
 					mt="1"
 					marginBlockEnd="-1rem"
 				>
-					<Box
-						transform="translateY(-2rem)"
-						as="img"
-						p="1"
-						src={job.attributes.company.data.attributes.logo}
-						alt={`${job.attributes.company.data.attributes.name} logo`}
-						maxWidth="16"
-						border="1px"
-						borderColor="primary-ligth.100"
-						bg="primary-ligth.50"
-						borderRadius="md"
-					/>
+					{/* {job.company.logo ? (
+						<Image
+							transform="translateY(-2rem)"
+							as="img"
+							p="1"
+							fallbackSrc="https://via.placeholder.com/150"
+							src={job.company.logo}
+							alt={`${job.company.name} logo`}
+							maxWidth="16"
+							border="1px"
+							borderColor="primary-ligth.100"
+							bg="primary-ligth.50"
+							borderRadius="md"
+						/>
+					) : (
+						<Skeleton borderRadius="md" maxWidth="16" h={16} w={16} />
+					)}
 
 					<Text fontWeight="medium" fontSize="lg" color="primary-ligth.700">
-						{job.attributes.company.data.attributes.name}
-					</Text>
+						{job.company.name}
+					</Text> */}
 				</Box>
 
 				<Heading size="md" textAlign="left" color="primary.600">
-					{job.attributes.title}{' '}
+					{job.title}
 					<Text as="small" fontWeight="medium" color="gray" whiteSpace="nowrap">
-						{job.attributes.modality.data.type}
+						{job.modality}
 					</Text>
 				</Heading>
 
 				<Box mt="auto" display={['none', null, null, 'flex']} gap="2" flexWrap="wrap">
-					{job.attributes.perks.slice(0, 6).map((perk) => (
+					{/* {job.perks.slice(0, 6).map((perk) => (
 						// <Tooltip key={p} label={p.name}>
 						<Box as="i" key={perk}>
 							<Icon as={perksIcons[perk]} width="6" height="6" color="gray.400" />
 						</Box>
 						// </Tooltip>
-					))}
+					))} */}
 				</Box>
 			</Box>
 		</Box>

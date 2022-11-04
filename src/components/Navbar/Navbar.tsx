@@ -26,7 +26,7 @@ const getLinkList = (user: User | null) => {
 	return linkList.filter((v) => !!v) as Link[];
 };
 
-const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) => {
+export const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) => {
 	return (
 		<Link
 			{...props}
@@ -34,7 +34,7 @@ const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) 
 			fontWeight="medium"
 			py="1"
 			px="2"
-			color="primary-ligth.400"
+			color={'primary.700'}
 			textAlign="center"
 			display="inline-flex"
 			alignItems="center"
@@ -67,9 +67,9 @@ export const Nabvar = () => {
 
 			<Box as="nav" ml="auto" display="flex" gap="2">
 				<NavBarLink to={webRoutes.root}>Inicio</NavBarLink>
-				{user && <SignOut>Desconectar</SignOut>}	
 				{user && <NavBarLink to={webRoutes.profile}>Perfil</NavBarLink>}
 				{user && <NavBarLink to={webRoutes.jobsApplied}>Postulaciones</NavBarLink>}
+				{user && <SignOut>Desconectar</SignOut>}
 
 				<Flex
 					as="ul"
@@ -100,7 +100,7 @@ export const Nabvar = () => {
 							size="md"
 							icon={<Icon as={GiSettingsKnobs} />}
 							variant="ghost"
-							color="blue.400"
+							color={'primary.700'}
 							aria-label="nav-menu"
 						/>
 					) : (
@@ -110,7 +110,7 @@ export const Nabvar = () => {
 							display={['inline-flex', null, null, 'none']}
 							onClick={onToggle}
 							variant="ghost"
-							color="primary-ligth.400"
+							color={'primary.700'}
 							aria-label="nav-menu"
 						/>
 					)}
