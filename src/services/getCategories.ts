@@ -24,8 +24,6 @@ export const getJobsCategories = async (query: string, perPage: number, page: nu
 
 	const result = await response.data;
 	return result;
-	// const validatedResult = JobListEndpointSchema.parse(result);
-	// return validatedResult.data.map(JobEndpointToModel);
 };
 
 export const getJobsCategoriesV2 = async ({
@@ -49,16 +47,3 @@ export const getJobsCategoriesV2 = async ({
 	const validatedResult = JobListEndpointSchema.parse(result.data);
 	return { jobs: validatedResult.data.map(JobEndpointToModel), meta: validatedResult.meta };
 };
-
-// export const searchCategory = async (category: string, abortSignal?: AbortSignal): Promise<JobEndpoint[]> => {
-// 	const response = await axios(
-// 		`https://www.getonbrd.com/api/v0/categories/${category
-// 			.trim()
-// 			.toLowerCase()}/jobs?per_page=10&page=1&expand=["company","modality"]`,
-// 		{
-// 			signal: abortSignal,
-// 		},
-// 	);
-
-// 	return (await response.data.data) as JobEndpoint[];
-// };

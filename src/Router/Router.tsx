@@ -1,15 +1,14 @@
 import { Flex, Spinner } from '@chakra-ui/react';
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes as ReactRoutes } from 'react-router-dom';
-import { Nabvar } from '../components/Navbar';
-import { JobDetailPage } from '../pages/JobDetailPage';
-import { JobDetailPageV2 } from '../pages/JobDetailPageV2/JobDetailPage';
+import JobApply from '../pages/jobApply/JobApply';
+
+import { JobDetailPage } from '../pages/JobDetailPage/JobDetailPage';
+import JobsApplied from '../pages/jobsApplied/JobsApplied';
 import MyAccount from '../pages/myAccount/MyAccount';
 import Recover from '../pages/recover/Recover';
 import { webRoutes } from '../utilities/web.routes';
 import { OnlyGuestRoute, ProtectedRoute } from './components';
-import JobApply from '../pages/jobApply/JobApply';
-import JobsApplied from '../pages/jobsApplied/JobsApplied';
 
 const SignIn = lazy(() => import('../pages/signIn/SignIn'));
 const SignUp = lazy(() => import('../pages/signUp/SignUp'));
@@ -91,8 +90,7 @@ export function Router() {
 					}
 				/>
 
-				<Route path={webRoutes.jobs + '/:id'} element={<JobDetailPage />} />
-				<Route path={webRoutes.jobsV2 + '/:id'} element={<JobDetailPageV2 />} />
+				<Route path={webRoutes.jobsV2 + '/:id'} element={<JobDetailPage />} />
 				{
 					// Protected routes
 				}

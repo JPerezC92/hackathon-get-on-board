@@ -25,7 +25,7 @@ const getLinkList = (user: User | null | undefined) => {
 	return linkList.filter((v) => !!v) as Link[];
 };
 
-const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) => {
+export const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) => {
 	return (
 		<Link
 			{...props}
@@ -33,7 +33,7 @@ const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...props }) 
 			fontWeight="medium"
 			py="1"
 			px="2"
-			color="primary-ligth.400"
+			color={'primary.700'}
 			textAlign="center"
 			display="inline-flex"
 			alignItems="center"
@@ -89,9 +89,17 @@ export const Nabvar = () => {
 							</NavBarLink>
 						</Box>
 					))}
-					{!!user && <NavBarLink to={webRoutes.profile}>Perfil</NavBarLink>}
-					{!!user && <NavBarLink to={webRoutes.jobsApplied}>Postulaciones</NavBarLink>}
-					{!!user && <SignOut>Desconectar</SignOut>}
+					{!!user && (
+						<NavBarLink to={webRoutes.profile} onClick={onClose}>
+							Perfil
+						</NavBarLink>
+					)}
+					{!!user && (
+						<NavBarLink to={webRoutes.jobsApplied} onClick={onClose}>
+							Postulaciones
+						</NavBarLink>
+					)}
+					{!!user && <SignOut onClick={onClose}>Desconectar</SignOut>}
 				</Flex>
 
 				<Box>

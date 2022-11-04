@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthProvider';
 import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
-import { Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { GetonboardIcon } from '@/components/Navbar/GetonboardIcon';
 import Layout from '@/layout';
 
 interface SignUpFormValues {
@@ -61,14 +62,27 @@ const SignUp = () => {
 
 	return (
 		<Layout>
-			<Flex justifyContent={'center'} alignItems={'center'}>
-				<div className="signUpContainer">
-					<div className="signUpHead">
-						<span>Registrarse</span>
-					</div>
+			<Flex justifyContent={'center'} alignItems={'center'} pt={'2rem'}>
+				<Box
+					className="signUpContainer"
+					pb={10}
+					rounded={'md'}
+					borderWidth={'1px'}
+					borderColor={'primary.500'}
+					shadow={'lg'}
+				>
+					<Flex mt={5}>
+						<Icon as={GetonboardIcon} />
+					</Flex>
+					{/* <div className="signUpHead">
+					<span>Registrarse</span>
+				</div> */}
+					<Text fontSize={'xl'} color={'secondary.400'} my={2}>
+						Registrarse
+					</Text>
 					<form className="signUpForm" onSubmit={handleSubmit}>
 						<label>
-							<span>Correo electronico</span>
+							<span>Correo electrónico</span>
 							<input
 								className={formErrors.email ? 'error' : ''}
 								type="email"
@@ -79,7 +93,7 @@ const SignUp = () => {
 							/>
 						</label>
 						<label>
-							<span>Contrasena</span>
+							<span>Contraseña</span>
 							<input
 								className={formErrors.password ? 'error' : ''}
 								type="password"
@@ -89,7 +103,7 @@ const SignUp = () => {
 							/>
 						</label>
 						<label>
-							<span>Confirmar contrasena</span>
+							<span>Confirmar contraseña</span>
 							<input
 								className={formErrors.repeatPassword ? 'error' : ''}
 								type="password"
@@ -101,16 +115,25 @@ const SignUp = () => {
 						<div>
 							<Link to={'/inicio'}>Tengo una cuenta</Link>
 						</div>
-						<button type="submit">Registrarse</button>
+						<Button
+							bgColor={'primary.400'}
+							_hover={{
+								backgroundColor: 'primary.500',
+							}}
+							_active={{
+								backgroundColor: 'primary.500',
+							}}
+							my={5}
+							type="submit"
+							width={'65%'}
+						>
+							Registrarse
+						</Button>
 					</form>
 					<AnimatePresence>
 						{formErrors.email.length && <ErrorDiv key="modal3">{formErrors.email}</ErrorDiv>}
 					</AnimatePresence>
-					<img
-						src="https://uploads-ssl.webflow.com/60832c1545a7b95d55205644/60832c1545a7b98163205661_logo-getonbrd.svg"
-						alt="logo"
-					/>
-				</div>
+				</Box>
 			</Flex>
 		</Layout>
 	);

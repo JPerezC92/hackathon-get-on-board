@@ -1,12 +1,12 @@
-import './Recover.css';
-import { useAuth } from '../../context/AuthProvider';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { BiRightArrowAlt as Arrow } from 'react-icons/bi';
+import Layout from '@/layout';
 import { AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { BiRightArrowAlt as Arrow } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 import ErrorDiv from '../../components/modals/ErrorDiv';
 import SuccessDiv from '../../components/modals/SuccessDiv';
-import Layout from '@/layout';
+import { useAuth } from '../../context/AuthProvider';
+import './Recover.css';
 
 const Recover = () => {
 	const [email, setEmail] = useState('');
