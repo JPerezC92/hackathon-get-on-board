@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignOut.css';
 import { Link } from '@chakra-ui/react';
 
-const SignOut = ({ children }: { children: React.ReactNode }) => {
+const SignOut = ({ children, onClick }: { children: React.ReactNode; onClick: () => void }) => {
 	const redirect = useNavigate();
 	const { auth } = useAuth();
 
@@ -18,11 +18,12 @@ const SignOut = ({ children }: { children: React.ReactNode }) => {
 			display="inline-flex"
 			alignItems="center"
 			justifyContent="center"
-			onClick={() =>
+			onClick={() => {
+				onClick();
 				auth.signOut().then(() => {
 					redirect('/');
-				})
-			}
+				});
+			}}
 		>
 			{children}
 		</Link>

@@ -1,4 +1,5 @@
 import { Footer } from '@/components';
+import { Nabvar } from '@/components/Navbar';
 import { Box, Container, Grid } from '@chakra-ui/react';
 import React from 'react';
 
@@ -8,20 +9,17 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
 	return (
-		<Container
-			maxWidth="container.xl"
-			alignSelf="center"
-			paddingX={5}
-			bgPosition="center"
-			bgRepeat="repeat"
-			justifyContent={'center'}
-			alignItems={'center'}
-		>
-			<Grid templateRows="auto 1fr auto">
-				<Box as={'main'}>{children}</Box>
-				<Footer />
-			</Grid>
-		</Container>
+		<Grid templateRows="auto 1fr auto" h="100vh">
+			<Nabvar />
+
+			<Container maxWidth="container.xl" paddingX={5} h="full">
+				<Box as={'main'} display="contents">
+					{children}
+				</Box>
+			</Container>
+
+			<Footer />
+		</Grid>
 	);
 };
 

@@ -1,42 +1,37 @@
+import Layout from '@/layout';
+import { webRoutes } from '@/utilities/web.routes';
 import { Box, Button, Flex, Grid, Heading, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { BiMoney } from 'react-icons/bi';
-import { Datum } from '../../models';
+import { useNavigate } from 'react-router-dom';
 import { Job } from '../../models/job.model';
 import { LSKeys } from '../../utilities/localStorageKeys';
-import { useNavigate } from 'react-router-dom';
-import { webRoutes } from '../../utilities/web.routes';
-import { Footer } from '@/components';
 
 export const JobDetailPage: React.FC = () => {
-	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Datum;
+	const jobStoraged = JSON.parse(window.localStorage.getItem(LSKeys.jobDetail) as string) as Job;
 	const navigate = useNavigate();
-	const dataJob = jobStoraged.attributes;
-	const applyPage = webRoutes.apply;
-
 	return (
-		<>
+		<Layout>
 			<Flex as="main" p="4" flexDirection="column" gap="4" maxWidth="container.lg" marginInline="auto">
 				<Grid as="header" gridTemplateColumns="auto 1fr auto" gap="4">
-					{jobStoraged ? <Box as="img" src={`${dataJob.company?.data?.attributes?.logo}`} w="24" /> : null}
+					{jobStoraged ? <Box as="img" src={`${jobStoraged.company?.logo}`} w="24" /> : null}
 
 					<Box>
 						<Heading as="h1" color="primary.700">
-							{dataJob.title}
+							{jobStoraged.title}
 						</Heading>
 
 						<Text fontSize="sm" color="primary-ligth.600" fontWeight="medium">
-							{dataJob.company.data.attributes.name} - {dataJob.company?.data?.attributes?.country} (
-							{jobStoraged?.attributes.country}) ·{' '}
+							{jobStoraged.company.name} - {jobStoraged.company?.country} ({jobStoraged?.country}) ·{' '}
 							<Box as="span" whiteSpace="nowrap">
 								<Box as="i" verticalAlign="middle">
 									<Icon as={BiMoney} fontSize="2xl" />
 								</Box>
-								{dataJob.min_salary} - {dataJob.max_salary}
+								{jobStoraged.min_salary} - {jobStoraged.max_salary}
 							</Box>{' '}
 							·{' '}
 							<Box as="span" whiteSpace="nowrap">
-								{dataJob.applications_count} solicitudes
+								{jobStoraged.applications_count} solicitudes
 							</Box>
 						</Text>
 					</Box>
@@ -49,7 +44,7 @@ export const JobDetailPage: React.FC = () => {
 						_active={{
 							backgroundColor: 'secondary.400',
 						}}
-						onClick={() => navigate(applyPage)}
+						onClick={() => navigate(webRoutes.apply)}
 					>
 						Aplicar Ahora
 					</Button>
@@ -57,11 +52,11 @@ export const JobDetailPage: React.FC = () => {
 
 				<Box as="section">
 					<Text mb="4" color="special2.800" fontWeight="medium">
-						{dataJob.company.data.attributes.description}
+						{jobStoraged.company.description}
 					</Text>
 				</Box>
 
-				<Box as="section" display={!dataJob.projects ? 'none' : 'block'}>
+				<Box as="section" display={!jobStoraged.projects ? 'none' : 'block'}>
 					<Heading as="h2" size="lg" color="primary.600">
 						Proyectos
 					</Heading>
@@ -77,13 +72,13 @@ export const JobDetailPage: React.FC = () => {
 							'& > ul, & > ol': { marginBlockEnd: '1rem' },
 						}}
 						fontWeight="medium"
-						dangerouslySetInnerHTML={{ __html: dataJob.projects }}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.projects }}
 					/>
 				</Box>
 
-				<Box as="section" display={!dataJob.functions ? 'none' : 'block'}>
+				<Box as="section" display={!jobStoraged.functions ? 'none' : 'block'}>
 					<Heading as="h2" size="lg" color="primary.600" display="flex" alignItems="center">
-						{dataJob.functions_headline}{' '}
+						{jobStoraged.functions_headline}{' '}
 					</Heading>
 
 					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
@@ -97,13 +92,13 @@ export const JobDetailPage: React.FC = () => {
 							'& > ul, & > ol': { marginBlockEnd: '1rem' },
 						}}
 						fontWeight="medium"
-						dangerouslySetInnerHTML={{ __html: dataJob.functions }}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.functions }}
 					/>
 				</Box>
 
-				<Box as="section" display={!dataJob.desirable ? 'none' : 'block'}>
+				<Box as="section" display={!jobStoraged.desirable ? 'none' : 'block'}>
 					<Heading as="h2" size="lg" color="primary.600">
-						{dataJob.desirable_headline}
+						{jobStoraged.desirable_headline}
 					</Heading>
 
 					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
@@ -117,13 +112,13 @@ export const JobDetailPage: React.FC = () => {
 							'& > ul, & > ol': { marginBlockEnd: '1rem' },
 						}}
 						fontWeight="medium"
-						dangerouslySetInnerHTML={{ __html: dataJob.desirable }}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.desirable }}
 					/>
 				</Box>
 
-				<Box as="section" display={!dataJob.description ? 'none' : 'block'}>
+				<Box as="section" display={!jobStoraged.description ? 'none' : 'block'}>
 					<Heading as="h2" size="lg" color="primary.600">
-						{dataJob.description_headline}
+						{jobStoraged.description_headline}
 					</Heading>
 
 					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
@@ -137,13 +132,13 @@ export const JobDetailPage: React.FC = () => {
 							'& > p': { marginBlockEnd: '1rem' },
 							'& > ul, & > ol': { marginBlockEnd: '1rem' },
 						}}
-						dangerouslySetInnerHTML={{ __html: dataJob.description }}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.description }}
 					/>
 				</Box>
 
-				<Box as="section" display={!dataJob.benefits ? 'none' : 'block'}>
+				<Box as="section" display={!jobStoraged.benefits ? 'none' : 'block'}>
 					<Heading as="h2" size="lg" color="primary.600">
-						{dataJob.benefits_headline}
+						{jobStoraged.benefits_headline}
 					</Heading>
 
 					<Box as="hr" borderColor="neutral-light.600" marginBlockEnd="4" marginBlockStart="2" />
@@ -157,12 +152,10 @@ export const JobDetailPage: React.FC = () => {
 							'& > p': { marginBlockEnd: '1rem' },
 							'& > ul, & > ol': { marginBlockEnd: '1rem' },
 						}}
-						dangerouslySetInnerHTML={{ __html: dataJob.benefits }}
+						dangerouslySetInnerHTML={{ __html: jobStoraged.benefits }}
 					/>
 				</Box>
 			</Flex>
-
-			<Footer />
-		</>
+		</Layout>
 	);
 };

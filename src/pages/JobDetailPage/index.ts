@@ -1,1 +1,1 @@
-export {JobDetailPage} from './JobDetailPage'
+export { JobDetailPage as JobDetailPageV2 } from './JobDetailPage';

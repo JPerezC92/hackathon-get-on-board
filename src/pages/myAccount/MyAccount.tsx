@@ -7,6 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import ErrorDiv from '../../components/modals/ErrorDiv';
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { GetonboardIcon } from '@/components/Navbar/GetonboardIcon';
+import Layout from '@/layout';
 
 export interface UpdateAccountForm {
 	email: string;
@@ -134,82 +135,84 @@ const MyAccount = () => {
 	};
 	if (!success)
 		return (
-			<Flex justifyContent={'center'} alignItems={'center'} pt={'2rem'}>
-				<Box
-					className="myAccountContainer"
-					pb={10}
-					rounded={'md'}
-					borderWidth={'1px'}
-					borderColor={'primary.500'}
-					shadow={'lg'}
-				>
-					<Flex mt={5}>
-						<Icon as={GetonboardIcon} />
-					</Flex>
+			<Layout>
+				<Flex justifyContent={'center'} alignItems={'center'} pt={'2rem'}>
+					<Box
+						className="myAccountContainer"
+						pb={10}
+						rounded={'md'}
+						borderWidth={'1px'}
+						borderColor={'primary.500'}
+						shadow={'lg'}
+					>
+						<Flex mt={5}>
+							<Icon as={GetonboardIcon} />
+						</Flex>
 
-					<Text fontSize={'xl'} color={'secondary.400'} my={5}>
-						Editar perfil
-					</Text>
-					<form className="myAccountForm" onSubmit={handleSubmit} autoComplete="off">
-						<MyAccountLabels {...labelsProps} labelType={'email'} />
-						<MyAccountLabels {...labelsProps} labelType={'name'} />
-						<MyAccountLabels {...labelsProps} labelType={'password'} />
-						<div>
-							{/* <button type="button" onClick={() => setUserData(initialValues)}>
+						<Text fontSize={'xl'} color={'secondary.400'} my={5}>
+							Editar perfil
+						</Text>
+						<form className="myAccountForm" onSubmit={handleSubmit} autoComplete="off">
+							<MyAccountLabels {...labelsProps} labelType={'email'} />
+							<MyAccountLabels {...labelsProps} labelType={'name'} />
+							<MyAccountLabels {...labelsProps} labelType={'password'} />
+							<div>
+								{/* <button type="button" onClick={() => setUserData(initialValues)}>
 								Descartar
 							</button> */}
-							<Button
-								bgColor={'primary.400'}
-								_hover={{
-									backgroundColor: 'primary.500',
-								}}
-								_active={{
-									backgroundColor: 'primary.500',
-								}}
-								my={5}
-								type="submit"
-								width={'65%'}
-								onClick={() => setUserData(initialValues)}
-							>
-								Descartar
-							</Button>
-							<Button
-								bgColor={'primary.400'}
-								_hover={{
-									backgroundColor: 'primary.500',
-								}}
-								_active={{
-									backgroundColor: 'primary.500',
-								}}
-								my={5}
-								type="submit"
-								width={'65%'}
-							>
-								Guardar
-							</Button>
-						</div>{' '}
-					</form>
-					<div className="errorContainer">
-						{Object.values(errors).some((error) => error !== '') && (
-							<AnimatePresence>
-								{errors.email.length ? (
-									<ErrorDiv pos={'absolute'} key="modal5">
-										{errors.email}
-									</ErrorDiv>
-								) : errors.password ? (
-									<ErrorDiv pos={'absolute'} key="modal6">
-										{errors.password}
-									</ErrorDiv>
-								) : errors.name ? (
-									<ErrorDiv pos={'absolute'} key="modal7">
-										{errors.name}
-									</ErrorDiv>
-								) : null}
-							</AnimatePresence>
-						)}
-					</div>
-				</Box>
-			</Flex>
+								<Button
+									bgColor={'primary.400'}
+									_hover={{
+										backgroundColor: 'primary.500',
+									}}
+									_active={{
+										backgroundColor: 'primary.500',
+									}}
+									my={5}
+									type="submit"
+									width={'65%'}
+									onClick={() => setUserData(initialValues)}
+								>
+									Descartar
+								</Button>
+								<Button
+									bgColor={'primary.400'}
+									_hover={{
+										backgroundColor: 'primary.500',
+									}}
+									_active={{
+										backgroundColor: 'primary.500',
+									}}
+									my={5}
+									type="submit"
+									width={'65%'}
+								>
+									Guardar
+								</Button>
+							</div>{' '}
+						</form>
+						<div className="errorContainer">
+							{Object.values(errors).some((error) => error !== '') && (
+								<AnimatePresence>
+									{errors.email.length ? (
+										<ErrorDiv pos={'absolute'} key="modal5">
+											{errors.email}
+										</ErrorDiv>
+									) : errors.password ? (
+										<ErrorDiv pos={'absolute'} key="modal6">
+											{errors.password}
+										</ErrorDiv>
+									) : errors.name ? (
+										<ErrorDiv pos={'absolute'} key="modal7">
+											{errors.name}
+										</ErrorDiv>
+									) : null}
+								</AnimatePresence>
+							)}
+						</div>
+					</Box>
+				</Flex>
+			</Layout>
 		);
 	return <SuccessDiv>{success}</SuccessDiv>;
 };

@@ -1,15 +1,10 @@
-import { SearchProvider } from '@/context/SearchContext';
-import { Filters } from '@/components/FiltersV2';
-// import { Filters } from '@/components';
-
+import { Filters } from '@/components/Filters';
 import Layout from '@/layout';
 
 const HomePage = () => {
 	return (
 		<Layout>
-			<SearchProvider>
-				<Filters />
-			</SearchProvider>
+			<Filters />
 		</Layout>
 	);
 };

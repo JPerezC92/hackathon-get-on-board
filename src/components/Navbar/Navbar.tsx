@@ -2,7 +2,6 @@ import { Box, Flex, Icon, IconButton, Link, LinkProps, useDisclosure } from '@ch
 import { User } from 'firebase/auth';
 import React from 'react';
 import { FaHamburger } from 'react-icons/fa';
-import { GiSettingsKnobs } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 import { Link as RouterLink, NavLinkProps } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider';
@@ -10,7 +9,7 @@ import SignOut from '../../pages/signOut/SignOut';
 import { webRoutes } from '../../utilities/web.routes';
 import { GetonboardIcon } from './GetonboardIcon';
 
-const getLinkList = (user: User | null) => {
+const getLinkList = (user: User | null | undefined) => {
 	interface Link {
 		link: string;
 		name: string;
@@ -48,6 +47,7 @@ export const NavBarLink: React.FC<LinkProps & NavLinkProps> = ({ children, ...pr
 export const Nabvar = () => {
 	const { user } = useAuth();
 	const { isOpen, onToggle, onClose } = useDisclosure();
+
 	return (
 		<Flex
 			zIndex="1"
@@ -67,9 +67,6 @@ export const Nabvar = () => {
 
 			<Box as="nav" ml="auto" display="flex" gap="2">
 				<NavBarLink to={webRoutes.root}>Inicio</NavBarLink>
-				{user && <NavBarLink to={webRoutes.profile}>Perfil</NavBarLink>}
-				{user && <NavBarLink to={webRoutes.jobsApplied}>Postulaciones</NavBarLink>}
-				{user && <SignOut>Desconectar</SignOut>}
 
 				<Flex
 					as="ul"
@@ -92,28 +89,29 @@ export const Nabvar = () => {
 							</NavBarLink>
 						</Box>
 					))}
+					{!!user && (
+						<NavBarLink to={webRoutes.profile} onClick={onClose}>
+							Perfil
+						</NavBarLink>
+					)}
+					{!!user && (
+						<NavBarLink to={webRoutes.jobsApplied} onClick={onClose}>
+							Postulaciones
+						</NavBarLink>
+					)}
+					{!!user && <SignOut onClick={onClose}>Desconectar</SignOut>}
 				</Flex>
 
 				<Box>
-					{user ? (
-						<IconButton
-							size="md"
-							icon={<Icon as={GiSettingsKnobs} />}
-							variant="ghost"
-							color={'primary.700'}
-							aria-label="nav-menu"
-						/>
-					) : (
-						<IconButton
-							size="md"
-							icon={isOpen ? <Icon as={GrClose} /> : <Icon as={FaHamburger} />}
-							display={['inline-flex', null, null, 'none']}
-							onClick={onToggle}
-							variant="ghost"
-							color={'primary.700'}
-							aria-label="nav-menu"
-						/>
-					)}
+					<IconButton
+						size="md"
+						icon={isOpen ? <Icon as={GrClose} /> : <Icon as={FaHamburger} />}
+						display={['inline-flex', null, null, 'none']}
+						onClick={onToggle}
+						variant="ghost"
+						color="primary-ligth.400"
+						aria-label="nav-menu"
+					/>
 				</Box>
 			</Box>
 		</Flex>
