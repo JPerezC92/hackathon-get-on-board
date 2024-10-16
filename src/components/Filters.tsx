@@ -1,4 +1,4 @@
-import { queryKeys } from '@/models/queryKeys';
+import React from 'react';
 import { getCategories, getJobsCategoriesV2, getJobsCompaniesV2, getSearch } from '@/services';
 import {
 	Box,
@@ -16,10 +16,9 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-
 import { JobCard } from './JobCard/JobCard';
 import { Pagination } from './Pagination/index';
+import { queryKeys } from '@/models/queryKeys';
 
 const filterTypeList = {
 	none: { name: 'Busqueda', value: '' },
@@ -132,6 +131,7 @@ export const Filters = () => {
 				<Spinner m="auto" thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
 			</Center>
 		);
+	console.log({ searchJobList });
 
 	return (
 		<Box my={10} mx={'auto'}>
